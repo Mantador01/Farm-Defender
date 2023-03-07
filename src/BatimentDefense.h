@@ -13,7 +13,7 @@
     #include "Vect2.h"
     #include <iostream>
 
-    enum TypeBatiment {
+    enum class TypeBatiment {
         Tourelle,
         Canon
     };
@@ -24,13 +24,25 @@
     class BatimentDefense
     {
         public:
-        BatimentDefense();
-        ~BatimentDefense();
 
+        BatimentDefense();
+        BatimentDefense(TypeBatiment type);
+        ~BatimentDefense();
+        TypeBatiment getType() const;
+        int getNiveau() const;
+        int getPointsDeVie () const;
+        int getDegats () const;
+        float getVitesseAttauqe () const;
+        float getRayonAttaque () const;
+        Vect2 getPosition () const;
+        void setPosition (int x, int y);
+        void setDetruit (bool estDetruit);
+        void upgrade();
+        void augmenterNiveau(int pointsDeVie, int degats, float vitesseAttaque, float rayonAttaque);
 
         private:
 
-        TypeBatiment type;
+        TypeBatiment m_type;
         Vect2 m_position;
         bool m_estDetruit;
         float m_vitesse;
