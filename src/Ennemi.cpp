@@ -9,5 +9,13 @@ void Ennemi::Deplacer()
     //faire tests
 }
 
-
-
+void Ennemi::enleverSante(int points_enleves){
+    if(staut=true)
+    {
+        sante=sante-points_enleves;
+        if(sante<=0)
+        {
+            statut=false;
+        }
+    }
+}
