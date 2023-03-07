@@ -10,6 +10,13 @@
     #ifndef BATIMENTDEFENSE_H
     #define BATIMENTDEFENSE_H
 
+    #include "Vect2.h"
+
+    enum TypeBatiment {
+        Tourelle,
+        Canon
+    };
+
     /**
     @brief Classe représentant les propriétés d'un batiment de défense
     */
@@ -17,8 +24,19 @@
     {
         public:
         BatimentDefense();
+        ~BatimentDefense();
+
 
         private:
+
+        TypeBatiment type;
+        Vect2 m_position;
+        bool m_estDetruit;
+        float m_vitesse;
+        int m_degats;
+        int m_pointsDeVie;
+        int m_niveau;
+        float m_rayonAttaque;
 
     };
     #endif
