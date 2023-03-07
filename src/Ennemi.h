@@ -10,6 +10,7 @@ Description détaillée du fichier Ennemi.h
 #ifndef ENNEMI_H
 #define ENNEMI_H
 
+#include "Vect2.h"
 /**
 @brief type ennumere pour identifier un ennemi
 */
@@ -25,25 +26,36 @@ enum Type_ennemi
 
 Class Ennemi
 {
-public:
+private:
     bool statut; // 0 eliminé 1 vivant
     enum Type_ennemi type_en;
     int sante;
     int degat;
-    t’es ou? à la bu, t ou ? en Arianne 4
     float vitesse;
 
 //Direction
     Vect2 direction;
     Vect2 position;
-//Vect2 Deplacement (const direction &dir);
-
 
     Ennemi();
     ~Ennemi();
-private:
-    void agir(); // gestion du déplacement, dégâts, sante …
+public:
 
+    /**
+    @brief Deplace l ennemi selon la position et sa dirrection
+    Remplit les pixels du rectangle avec la couleur spécifiée
+    */
+    void Deplacer();
+    // un tableu qiu repertorie toutes les positions des obstacles pour les ennemis
+
+    /**
+    @brief enleverVide eleve points_enleves des points de sante et si ce champ et met a jour le statut
+    @param points_enleves int points a enlever de l ennemi
+    */
+    void enleverSante(int points_enleves);
+
+    int get_degat();
+    void agir(); // gestion du déplacement, dégâts, sante …
 
 }
 
