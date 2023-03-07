@@ -17,8 +17,20 @@ Description détaillée du fichier Ennemi.h
 enum Type_ennemi
 {
     zombi,
-    voleur
+    z_infectieu,
+    z_berserker,
+    pillard
 };
+
+const int XPntGenZSpw1 = 20 ;
+const int YPntGenZSpw1 = 20 ;
+
+const int XPntGenZSpw2 = 10 ;
+const int YPntGenZSpw2 = 10 ;
+
+const int XPntGenZSpw3 = 15 ;
+const int YPntGenZSpw3 = 15 ;
+
 
 /**
 @brief Classe représentant un ennemi
@@ -28,7 +40,7 @@ class Ennemi
 {
 private:
     bool statut; // 0 eliminé 1 vivant
-    enum Type_ennemi type_en;
+    Type_ennemi type_en;
     int sante;
     int degat;
     float vitesse;
@@ -62,7 +74,14 @@ public:
 
 };
 
+/**
+@brief Constructeur Ennemi avec paramètres
+Initialise les champs avec les valeurs passées en paramètres
+@param dimensionY Hauteur de l'image
+*/
+Ennemi::Ennemi(Type_ennemi typeEnnemi){
 
+}
 
 
 
