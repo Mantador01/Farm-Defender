@@ -32,7 +32,7 @@ Ennemi::Ennemi()
             case 2: {X=XPntGenZSpw3; Y=YPntGenZSpw3;
                     break;}
         }
-        cout<<X+((float)(rand()%21-10))<<" x  "<<endl;
+        //cout<<X+((float)(rand()%21-10))<<" x  "<<endl;
     Vect2 pos(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10)));
     position=pos;
     Vect2 dir(10.f,-10.f);
@@ -50,7 +50,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
         vitesse=1;
         int r=rand()%3;
         float X,Y;
-        switch(r){
+         switch(r){
             case 0: {X=XPntGenZSpw1; Y=YPntGenZSpw1;
                     break;}
             case 1: {X=XPntGenZSpw2; Y=YPntGenZSpw2;
@@ -58,10 +58,12 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
             case 2: {X=XPntGenZSpw3; Y=YPntGenZSpw3;
                     break;}
         }
-
+        //cout<<X+((float)(rand()%21-10))<<" x  "<<endl;
+    Vect2 pos(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10)));
+    position=pos;
+    Vect2 dir(10.f,-10.f);
+    direction=dir;
     }
-  //  position=Vect2(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10));
-   // diretion=Vect2(10.f,-10.f);
 }
 
 /*
