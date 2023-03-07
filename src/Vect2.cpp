@@ -16,6 +16,13 @@ Vect2::~Vect2()
 {
 }
 
+
+Vect2::Vect2(float a, float b)
+{ 	x=a;
+	y=b;
+}
+
+
 Vect2 Vect2::operator+(Vect2 a)
 {
     return make_Vect2(a.x+x , a.y+y);

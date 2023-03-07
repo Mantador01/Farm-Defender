@@ -11,6 +11,7 @@ Description détaillée du fichier Ennemi.h
 #define ENNEMI_H
 
 #include "Vect2.h"
+#include <stdlib.h>
 /**
 @brief type ennumere pour identifier un ennemi
 */
@@ -22,14 +23,14 @@ enum Type_ennemi
     pillard
 };
 
-const int XPntGenZSpw1 = 20 ;
-const int YPntGenZSpw1 = 20 ;
+const float XPntGenZSpw1 = 20 ;
+const float YPntGenZSpw1 = 20 ;
 
-const int XPntGenZSpw2 = 10 ;
-const int YPntGenZSpw2 = 10 ;
+const float XPntGenZSpw2 = 10 ;
+const float YPntGenZSpw2 = 10 ;
 
-const int XPntGenZSpw3 = 15 ;
-const int YPntGenZSpw3 = 15 ;
+const float XPntGenZSpw3 = 15 ;
+const float YPntGenZSpw3 = 15 ;
 
 
 /**
@@ -40,7 +41,7 @@ class Ennemi
 {
 private:
     bool statut; // 0 eliminé 1 vivant
-    Type_ennemi type_en;
+    enum Type_ennemi type_en;
     int sante;
     int degat;
     float vitesse;
@@ -82,18 +83,5 @@ public:
 
 };
 
-
-/**
-@brief Constructeur avec paramètres: Initialise les valeurs de r, g et b avec les valeurs passées en paramètres
-@param nr Valeur pour le canal rouge (0-255)
-@param ng Valeur pour le canal vert (0-255)
-@param nb Valeur pour le canal bleu (0-255)
-*/
-
-
-/**
-@brief Accesseur pour le canal bleu
-@return Valeur du canal bleu (0-255)
-*/
 
 #endif // ENNEMI_H

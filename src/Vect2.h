@@ -31,9 +31,21 @@ class Vect2
         @brief Destructeur de la classe Vect2
         Libère la mémoire allouée pour le tableau de Vecteur.
         */
+<<<<<<< HEAD
         ~Vect2();   
 
         //void Vect2::operator = (Vect2 a);
+=======
+        ~Vect2();
+        
+        
+                /**
+        @brief constructeur de vecteur de la classe Vect2
+        Permet la construction de vecteurs a partir de 2 réels.
+        @param float a premier réel pour la création du vecteur.
+        @param float b deuxième réel pour la création du vecteur.*/
+        Vect2(float a, float b);
+>>>>>>> e7ce9f5fcafaee73dfa4434000534f38551f1829
 
         /**
         @brief Operateur + de la classe Vect2

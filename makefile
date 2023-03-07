@@ -1,5 +1,4 @@
-OBJS_JEU = $(OBJ_DIR)/BatimentDefense.o $(OBJ_DIR)/Vect2.o $(OBJ_DIR)/Jeu.o
-#$(OBJ_DIR)/Ennemi.o
+OBJS_JEU = $(OBJ_DIR)/BatimentDefense.o $(OBJ_DIR)/Vect2.o $(OBJ_DIR)/Jeu.o $(OBJ_DIR)/Ennemi.o
 
 FLAGS = -ggdb -Wall
 CC = g++
@@ -19,8 +18,8 @@ $(OBJ_DIR)/Vect2.o: $(SRC_DIR)/Vect2.cpp
 $(OBJ_DIR)/BatimentDefense.o: $(SRC_DIR)/BatimentDefense.cpp $(SRC_DIR)/Vect2.h
 	$(CC) $(FLAGS) -c $(SRC_DIR)/BatimentDefense.cpp -o $(OBJ_DIR)/BatimentDefense.o
 
-#$(OBJ_DIR)/Ennemi.o: $(SRC_DIR)/Ennemi.cpp
-#$(CC) $(FLAGS) -c $(SRC_DIR)/Ennemi.cpp -o $(OBJ_DIR)/Ennemi.o
+$(OBJ_DIR)/Ennemi.o: $(SRC_DIR)/Ennemi.cpp $(SRC_DIR)/Vect2.h
+	$(CC) $(FLAGS) -c $(SRC_DIR)/Ennemi.cpp -o $(OBJ_DIR)/Ennemi.o
 
 $(OBJ_DIR)/Jeu.o: $(SRC_DIR)/Jeu.cpp $(SRC_DIR)/BatimentDefense.h
 	$(CC) $(FLAGS) -c $(SRC_DIR)/Jeu.cpp -o $(OBJ_DIR)/Jeu.o
