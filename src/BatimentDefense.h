@@ -11,6 +11,7 @@
     #define BATIMENTDEFENSE_H
 
     #include "Vect2.h"
+    #include <iostream>
 
     enum TypeBatiment {
         Tourelle,
