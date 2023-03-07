@@ -44,9 +44,9 @@ class Vect2
 
         /**
         @brief Operateur * de la classe Vect2
-        Permet la multiplication entre vecteurs.
-        @param Vecteur a soustraire.*/
-        Vect2 operator* (Vect2 a);
+        Permet la multiplication entre un vecteur et un float.
+        @param float a multiplier.*/
+        Vect2 operator* (float a);
 
         /**
         @brief constructeur de vecteur de la classe Vect2

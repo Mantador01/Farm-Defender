@@ -10,7 +10,7 @@ void Ennemi::Deplacer()
 }
 
 void Ennemi::enleverSante(int points_enleves){
-    if(staut=true)
+    if(statut=true)
     {
         sante=sante-points_enleves;
         if(sante<=0)

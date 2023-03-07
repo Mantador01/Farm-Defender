@@ -24,7 +24,7 @@ enum Type_ennemi
 @brief Classe représentant un ennemi
 */
 
-Class Ennemi
+class Ennemi
 {
 private:
     bool statut; // 0 eliminé 1 vivant
@@ -53,11 +53,14 @@ public:
     @param points_enleves int points a enlever de l ennemi
     */
     void enleverSante(int points_enleves);
-
+    /**
+    @brief Accesseur pour degat
+    @return valeur du degat cause par ennemi
+    */
     int get_degat();
     void agir(); // gestion du déplacement, dégâts, sante …
 
-}
+};
 
 
 

@@ -25,9 +25,9 @@ Vect2 Vect2::operator-(Vect2 a)
     return make_Vect2(a.x-x , a.y-y);
 }
 
-Vect2 Vect2::operator*(Vect2 a)
+Vect2 Vect2::operator*(float a)
 {
-    return make_Vect2(a.x*x , a.y*y);
+    return make_Vect2(a*x , a*y);
 }
 
 Vect2 Vect2::make_Vect2(float x, float y)
