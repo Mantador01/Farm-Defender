@@ -1,6 +1,7 @@
 #include "Vect2.h"
 
 #include <iostream>
+#include <ostream>
 #include <math.h>
 
 using namespace std;

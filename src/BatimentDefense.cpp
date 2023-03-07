@@ -1,6 +1,8 @@
 #include "BatimentDefense.h"
 #include "Vect2.h"
 #include <iostream>
+#include <ostream>
+using namespace std;
 
 BatimentDefense::BatimentDefense(){
     BatimentDefense Tourelle;

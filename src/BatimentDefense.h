@@ -50,6 +50,7 @@
         int m_pointsDeVie;
         int m_niveau;
         float m_rayonAttaque;
+        
 
     };
     #endif

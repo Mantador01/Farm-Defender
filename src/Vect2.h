@@ -10,6 +10,9 @@ Description détaillée du fichier Vect2.h
 #ifndef VECT2_H
 #define VECT2_H
 
+#include <iostream>
+#include <ostream>
+
 /**
 @brief Classe permettant le positionnement des éléments.
 */
@@ -28,7 +31,9 @@ class Vect2
         @brief Destructeur de la classe Vect2
         Libère la mémoire allouée pour le tableau de Vecteur.
         */
-        ~Vect2();
+        ~Vect2();   
+
+        //void Vect2::operator = (Vect2 a);
 
         /**
         @brief Operateur + de la classe Vect2
@@ -54,6 +59,7 @@ class Vect2
         @param float a premier réel pour la création du vecteur.
         @param float b deuxième réel pour la création du vecteur.*/
         Vect2 make_Vect2 (float a, float b);
+
 
         /**
         @brief calcul de la distance de la classe Vect2
