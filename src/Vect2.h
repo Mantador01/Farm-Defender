@@ -34,13 +34,19 @@ class Vect2
         @brief Operateur + de la classe Vect2
         Permet l'addition entre vecteurs.
         @param Vecteur a additionner.*/
-        Vect2 operator+ (Vect2);
+        Vect2 operator+ (Vect2 a);
 
         /**
         @brief Operateur - de la classe Vect2
         Permet la soustraction entre vecteurs.
         @param Vecteur a soustraire.*/
-        Vect2 operator- (Vect2);
+        Vect2 operator- (Vect2 a);
+
+        /**
+        @brief Operateur * de la classe Vect2
+        Permet la multiplication entre vecteurs.
+        @param Vecteur a soustraire.*/
+        Vect2 operator* (Vect2 a);
 
         /**
         @brief constructeur de vecteur de la classe Vect2
@@ -56,12 +62,12 @@ class Vect2
         @param Vecteur b deuxième coordonner pour le calcul de la distance.*/
         float distance (Vect2 a, Vect2 b);
 
-    private:
-
         /**
         @brief Initialiseur des réels x et y
         */
         float x,y;
+        
+    private:
 
 };
 
