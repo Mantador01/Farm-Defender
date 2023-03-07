@@ -5,17 +5,6 @@ using namespace std;
 
 
 
-
-    bool statut; // 0 eliminé 1 vivant
-    enum Type_ennemi type_en;
-    int sante;
-    int degat;
-    float vitesse;
-    Vect2 direction;
-    Vect2 position;
-
-
-
 Ennemi::Ennemi()
 {   statut=true;
     type_en=zombi;

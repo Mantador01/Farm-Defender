@@ -49,9 +49,17 @@ private:
     Vect2 direction;
     Vect2 position;
 
+
+public:
     Ennemi();
     ~Ennemi();
-public:
+
+    /**
+    @brief Constructeur Ennemi avec paramètres
+    Initialise les champs avec les valeurs passées en paramètres
+    @param dimensionY Hauteur de l'image
+    */
+    Ennemi(Type_ennemi typeEnnemi);
 
     /**
     @brief Deplace l ennemi selon la position et sa dirrection
@@ -73,18 +81,6 @@ public:
     void agir(); // gestion du déplacement, dégâts, sante …
 
 };
-
-/**
-@brief Constructeur Ennemi avec paramètres
-Initialise les champs avec les valeurs passées en paramètres
-@param dimensionY Hauteur de l'image
-*/
-Ennemi::Ennemi(Type_ennemi typeEnnemi){
-
-}
-
-
-
 
 
 /**
