@@ -66,13 +66,23 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
     }
 }
 
+int Ennemi::get_degat()
+{
+	return degat;
+}
+
+Type_ennemi Ennemi::getType()const{
+return type_en;
+}
+
+
 /*
-void Ennemi::Deplacer()
+void Ennemi::deplacer()
 {
     position=position+direction*vitesse;
     //faire tests avec le tableau de batiments
 }
-
+*/
 void Ennemi::enleverSante(int points_enleves){
     if(statut==true)
     {
@@ -84,4 +94,3 @@ void Ennemi::enleverSante(int points_enleves){
     }
 }
 
-*/

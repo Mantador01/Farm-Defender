@@ -40,19 +40,60 @@ const float YPntGenZSpw3 = 15 ;
 class Ennemi
 {
 private:
-    bool statut; // 0 eliminé 1 vivant
-    enum Type_ennemi type_en;
-    int sante;
-    int degat;
-    float vitesse;
 
-//Direction
+/**
+    * @brief Statut de l ennemi 0 eliminé 1 vivant
+    * 
+    */
+
+    bool statut;
+    /**
+    * @brief Identification du type d’ennemi avec un type ennum
+    * 
+    */
+
+    Type_ennemi type_en;
+    /**
+    * @brief Points de sante restaurant a l’ennemi
+    * 
+    */
+
+    int sante;
+    /**
+    * @brief Degat fait par l’ennemi
+    * 
+    */
+
+    int degat;
+    /**
+    * @brief Facteur de vitesse
+    * 
+    */
+
+    float vitesse;
+    /**
+    * @brief Vecteur de direction du mouvement
+    * 
+    */
+
     Vect2 direction;
+    /**
+    * @brief Vecteur de position de l’ennemi
+    * 
+    */
+
     Vect2 position;
 
 
 public:
+	
+    /**
+    @brief Constructeur par défaut: Initialise l’ennemi comme un zombi
+   */
     Ennemi();
+    /**
+    @brief Destructeur de la classe Ennemi
+    */
     ~Ennemi();
 
     /**
@@ -66,7 +107,7 @@ public:
     @brief Deplace l ennemi selon la position et sa dirrection
     Remplit les pixels du rectangle avec la couleur spécifiée
     */
-    void Deplacer();
+    void deplacer();
     // un tableu qiu repertorie toutes les positions des obstacles pour les ennemis
 
     /**
@@ -79,6 +120,13 @@ public:
     @return valeur du degat cause par ennemi
     */
     int get_degat();
+    /**
+    @brief Accesseur pour type d'ennemi
+    @return valeur de type type_ennemi
+    */
+    Type_ennemi getType()const;
+
+    
     void agir(); // gestion du déplacement, dégâts, sante …
 
 };
