@@ -1,8 +1,7 @@
-    #include "Carte.h"
-    #include <iostream>
-    #include <vector>
+#include "JeuModeTexte.h"
+#include <iostream>
 
-Carte::Carte(int largeur, int hauteur) : m_largeur(largeur), m_hauteur(hauteur) {
+JeuModeTexte::JeuModeTexte(int largeur, int hauteur) : m_largeur(largeur), m_hauteur(hauteur) {
     m_carte = new char*[m_hauteur];
     for (int i = 0; i < m_hauteur; i++) {
         m_carte[i] = new char[m_largeur];
@@ -19,22 +18,22 @@ Carte::Carte(int largeur, int hauteur) : m_largeur(largeur), m_hauteur(hauteur) 
     }
 }
 
-Carte::~Carte() {
+JeuModeTexte::~JeuModeTexte() {
     for (int i = 0; i < m_hauteur; i++) {
         delete[] m_carte[i];
     }
     delete[] m_carte;
 }
 
-int Carte::getLargeur() const {
+int JeuModeTexte::getLargeur() const {
     return m_largeur;
 }
 
-int Carte::getHauteur() const {
+int JeuModeTexte::getHauteur() const {
     return m_hauteur;
 }
 
-void Carte::afficher() const {
+void JeuModeTexte::afficher() const {
     for (int i = 0; i < m_hauteur; i++) {
         for (int j = 0; j < m_largeur; j++) {
             std::cout << m_carte[i][j];
