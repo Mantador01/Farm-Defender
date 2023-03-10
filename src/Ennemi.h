@@ -126,6 +126,10 @@ public:
     */
     Type_ennemi getType()const;
 
+    /**
+    @brief Affiche les champs d'ennemi
+    */
+   void afficher();
     
     void agir(); // gestion du déplacement, dégâts, sante …
 
