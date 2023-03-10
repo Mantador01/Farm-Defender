@@ -15,6 +15,16 @@ Description détaillée du fichier Ennemi.cpp
 
 using namespace std;
 
+const float XPntGenZSpw1 = 20 ;
+const float YPntGenZSpw1 = 20 ;
+
+const float XPntGenZSpw2 = 10 ;
+const float YPntGenZSpw2 = 10 ;
+
+const float XPntGenZSpw3 = 15 ;
+const float YPntGenZSpw3 = 15 ;
+
+
 Ennemi::Ennemi()
 {   statut=true;
     type_en=zombi;
@@ -92,5 +102,30 @@ void Ennemi::enleverSante(int points_enleves){
             statut=false;
         }
     }
+}
+
+void Ennemi::afficher()
+{
+    cout<<"types d'ennemis :"<<endl;
+    Type_ennemi a=zombi;
+    Type_ennemi c=z_infectieu;
+    Type_ennemi b=z_berserker;
+    Type_ennemi d=pillard;
+    cout<<"zombi = "<<a; 
+    cout<<"zombi infectieu = ";
+    cout<<c;
+
+    cout<<" zombi berserker = "<<b;
+    cout<<"pillard = "<<d<<endl;
+
+    cout<<" Ennemi de type "<< type_en <<" avec un statut "<< statut<<" (0 elimine 1 vivant) "<<sante<<" points de sante ";
+    cout<<"degat de :"<<degat<<endl;
+    cout<<vitesse<<" vitesse    position: x"<< position.x<<" y "<<position.y<<endl;
+    cout<<"direction x"<<direction.x<<"  y"<<direction.y<<endl;
+}
+
+Ennemi::~Ennemi()
+{
+    //dtor
 }
 

@@ -23,14 +23,14 @@ enum Type_ennemi
     pillard
 };
 
-const float XPntGenZSpw1 = 20 ;
+/*const float XPntGenZSpw1 = 20 ;
 const float YPntGenZSpw1 = 20 ;
 
 const float XPntGenZSpw2 = 10 ;
 const float YPntGenZSpw2 = 10 ;
 
 const float XPntGenZSpw3 = 15 ;
-const float YPntGenZSpw3 = 15 ;
+const float YPntGenZSpw3 = 15 ;*/
 
 
 /**
