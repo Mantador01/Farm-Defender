@@ -74,8 +74,8 @@ class Vect2
         @brief calcul de la distance de la classe Vect2
         Permet le calcule de la distance entre 2 vecteurs.
         @param Vecteur a première coordonner pour le calcul de la distance.
-        @param Vecteur b deuxième coordonner pour le calcul de la distance.*/
-        float distance (Vect2 a, Vect2 b);
+	*/
+        float distance (Vect2 a);
 
         /**
         @brief Initialiseur des réels x et y

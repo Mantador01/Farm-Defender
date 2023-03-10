@@ -30,7 +30,7 @@ Vect2 Vect2::operator+(Vect2 a)
 
 Vect2 Vect2::operator-(Vect2 a)
 {
-    return make_Vect2(a.x-x , a.y-y);
+    return make_Vect2(x-a.x ,y-a.y);
 }
 
 Vect2 Vect2::operator*(float a)
@@ -46,12 +46,12 @@ Vect2 Vect2::make_Vect2(float x, float y)
     return a;
 }
 
-float Vect2::distance(Vect2 a, Vect2 b)
+float Vect2::distance(Vect2 a)
 {
     float d;
     int dx, dy;
-    dx = a.x-b.x;
-    dy = a.y-b.y;
+    dx = a.x-x;
+    dy = a.y-y;
     d = sqrt(dx*dx + dy*dy);
     return d;
 }
