@@ -1,38 +1,37 @@
 #include "Ferme.h"
-#include "Vect2.h"
-
-#include <iostream>
-#include <math.h>
-#include <unistd.h>
+#include <chrono>
 
 using namespace std;
 
-Ferme::Ferme()
-{
-    statut = true;
-    sante = 100;
-    production = 20;
-    position.x = 0;
-    position.y = 0;    
-}
-
-Ferme::~Ferme()
+Ferme::Ferme(StockageRessources& stockage, int pointsDeVie)
+    : m_stockage(stockage), m_pointsDeVie(pointsDeVie), m_productionActive(false)
 {
 }
 
-int Ferme::actualise_production()
+void Ferme::demarrerProduction()
 {
-    while (statut)
-    {
-        Stockage_local += production;
-        sleep(20);
+    m_productionActive = true;
+    m_threadProduction = thread(&Ferme::production, this);
+}
+
+void Ferme::arreterProduction()
+{
+    m_productionActive = false;
+    if (m_threadProduction.joinable()) {
+        m_threadProduction.join();
     }
 }
 
-int Ferme::gestion_degats(int degat)
+void Ferme::production()
 {
-    sante = sante - degat;
-    if (sante <= 0){
-        statut = false;
+    while (m_productionActive) {
+        this_thread::sleep_for(chrono::seconds(10));
+        if (m_pointsDeVie > 0) {
+            m_stockage.ajouterRessource("gold", 20);
+            m_stockage.ajouterRessource("pierre", 20);
+            m_stockage.ajouterRessource("bois", 20);
+            m_stockage.ajouterRessource("nourriture", 20);
+            m_pointsDeVie--;
+        }
     }
 }

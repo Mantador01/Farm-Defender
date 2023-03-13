@@ -1,17 +1,17 @@
 /**
-@brief Description brève du fichier Ferme.h
-Description détaillée du fichier Ferme.h
+@brief Description brève du fichier BaseCentrale.h
+Description détaillée du fichier BaseCentrale.h
 @author Alexandre
-@file Ferme.h
+@file BaseCentrale.h
 @version 1.0
 @date 07/03/2023
 */
 /**
-@brief Classe permettant la gestion des fermes.
+@brief Classe permettant la gestion des BaseCentrales.
 */
 
-#ifndef FERME_H
-#define FERME_H
+#ifndef BaseCentrale_H
+#define BaseCentrale_H
 
 #include "StockageRessources.h"
 #include <thread>
@@ -19,9 +19,9 @@ Description détaillée du fichier Ferme.h
 
 using namespace std;
 
-class Ferme {
+class BaseCentrale {
 public:
-    Ferme(StockageRessources& stockage, int pointsDeVie);
+    BaseCentrale(StockageRessources& stockage, int pointsDeVie);
     void demarrerProduction();
     void arreterProduction();
 private:
@@ -32,4 +32,4 @@ private:
     atomic<bool> m_productionActive;
 };
 
-#endif // FERME_H
+#endif // BaseCentrale_H
