@@ -10,12 +10,18 @@
     #ifndef JEUMODETEXTE_H
     #define JEUMODETEXTE_H
 
+    #include "Vect2.h"
+
+    /**
+    @brief Classe résponsable de l'affichage textuelle
+    */
     class JeuModeTexte {
     private:
         int m_largeur, m_hauteur;
         char** m_carte;
     public:
-        JeuModeTexte(int largeur, int hauteur);
+        JeuModeTexte(int largeur, int hauteur, Vect2 post, int size, char car);
+        //JeuModeTexte(Vect2 post, int size, char car);
         ~JeuModeTexte();
         void afficher() const;
         int getHauteur() const;

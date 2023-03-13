@@ -25,6 +25,8 @@
     {
         public:
 
+        int m_size = 4;
+        char m_carac = 'B';
         BatimentDefense();
         BatimentDefense(TypeBatiment type);
         ~BatimentDefense();

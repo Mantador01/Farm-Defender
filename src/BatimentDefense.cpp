@@ -1,11 +1,10 @@
 #include "BatimentDefense.h"
 #include "Vect2.h"
 #include <iostream>
-#include <ostream>
 using namespace std;
 
 BatimentDefense::BatimentDefense(){
-    BatimentDefense Tourelle;
+    BatimentDefense (TypeBatiment::Tourelle);
 }
 
 BatimentDefense::~BatimentDefense(){
@@ -53,8 +52,8 @@ Vect2 BatimentDefense::getPosition () const{
 }
 
 void BatimentDefense::setPosition (int x, int y){
-    this->m_position.x = x;
-    this->m_position.y = y; 
+    m_position.x = x;
+    m_position.y = y; 
 }
 
 void BatimentDefense::setDetruit (bool estDetruit){
