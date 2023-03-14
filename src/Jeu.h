@@ -25,9 +25,9 @@
         vector<Ennemi> tabEnnemi;
         vector<BatimentDefense> tabBatDef;
         vector<Ferme> TabFerme;
-        BaseCentrale baseCentrale;
+        //BaseCentrale baseCentrale(stockage);
         
-        private:
+        //private:
     
     };
 
