@@ -1,39 +1,47 @@
 #include "StockageRessources.h"
 
+#include <string>
+
 #include <iostream>
 
 using namespace std;
 
-StockageRessources::StockageRessources()
-{
-    quantite = 0;
+StockageRessources::StockageRessources(int Rgold, int Rbois, int Rpierre, int Rnourriture) {
+    gold = Rgold;
+    bois = Rbois;
+    pierre = Rpierre;
+    nourriture = Rnourriture;
 }
 
-StockageRessources::~StockageRessources()
-{
+void StockageRessources::ajouterRessource(string type, int quantite) {
+    if (type == "gold") {
+        gold += quantite;
+    } else if (type == "bois") {
+        bois += quantite;
+    } else if (type == "pierre") {
+        pierre += quantite;
+    } else if (type == "nourriture") {
+        nourriture += quantite;
+    }
 }
 
-StockageRessources::StockageRessources(int quantite)
-{
-
+void StockageRessources::retirerRessource(string type, int quantite) {
+    if (type == "gold") {
+        gold -= quantite;
+    } else if (type == "bois") {
+        bois -= quantite;
+    } else if (type == "pierre") {
+        pierre -= quantite;
+    } else if (type == "nourriture") {
+        nourriture -= quantite;
+    }
 }
 
-StockageRessources::GetQuantite()const
-{
-    
+void StockageRessources::afficherRessources() {
+    cout << "gold : " << gold << endl;
+    cout << "Bois : " << bois << endl;
+    cout << "Pierre : " << pierre << endl;
+    cout << "Nourriture : " << nourriture << endl;
 }
 
-Void StockageRessources::SetQuantite(int quantite)
-{
 
-}
-
-Void StockageRessources::Collecter(int quantite)
-{
-
-}
-
-bool StockageRessources::depenser(int quantite)
-{
-
-}

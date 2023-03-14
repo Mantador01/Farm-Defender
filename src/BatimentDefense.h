@@ -25,8 +25,7 @@
     {
         public:
 
-        int m_size = 4;
-        char m_carac = 'B';
+
         BatimentDefense();
         BatimentDefense(TypeBatiment type);
         ~BatimentDefense();
@@ -37,13 +36,19 @@
         float getVitesseAttauqe () const;
         float getRayonAttaque () const;
         Vect2 getPosition () const;
+        int getSize () const;
+        char getCarac () const;
         void setPosition (int x, int y);
+        void setSize(int s);
+        void setCarac(char c);
         void setDetruit (bool estDetruit);
         void upgrade();
         void augmenterNiveau(int pointsDeVie, int degats, float vitesseAttaque, float rayonAttaque);
 
         private:
 
+        int m_size;
+        char m_carac;
         TypeBatiment m_type;
         Vect2 m_position;
         bool m_estDetruit;

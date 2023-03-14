@@ -1,38 +1,22 @@
 #include "Ferme.h"
-#include "Vect2.h"
-
 #include <iostream>
-#include <math.h>
-#include <unistd.h>
 
 using namespace std;
 
-Ferme::Ferme()
+Ferme::Ferme(StockageRessources& stockage, int pointsDeVie)
+    : m_stockage(stockage), m_pointsDeVie(pointsDeVie){}
+
+
+void Ferme::production()
 {
-    statut = true;
-    sante = 100;
-    production = 20;
-    position.x = 0;
-    position.y = 0;    
+    if(m_pointsDeVie>0){
+    m_stockage.ajouterRessource("gold", 2);
+    m_stockage.ajouterRessource("pierre", 2);
+    m_stockage.ajouterRessource("bois", 2);
+    m_stockage.ajouterRessource("nourriture", 2);}
 }
 
-Ferme::~Ferme()
+void Ferme::degat(int degat)
 {
-}
-
-int Ferme::actualise_production()
-{
-    while (statut)
-    {
-        Stockage_local += production;
-        sleep(20);
-    }
-}
-
-int Ferme::gestion_degats(int degat)
-{
-    sante = sante - degat;
-    if (sante <= 0){
-        statut = false;
-    }
+    m_pointsDeVie -= degat;
 }

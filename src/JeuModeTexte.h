@@ -17,11 +17,11 @@
     */
     class JeuModeTexte {
     private:
-        int m_largeur, m_hauteur;
+        float m_largeur, m_hauteur;
         char** m_carte;
     public:
-        JeuModeTexte(int largeur, int hauteur, Vect2 post, int size, char car);
-        //JeuModeTexte(Vect2 post, int size, char car);
+        JeuModeTexte(float largeur, float hauteur);
+        void affObj(Vect2 post, int size, char car);
         ~JeuModeTexte();
         void afficher() const;
         int getHauteur() const;

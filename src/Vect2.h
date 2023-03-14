@@ -80,7 +80,7 @@ class Vect2
         /**
         @brief Initialiseur des réels x et y
         */
-        int x,y;
+        float x,y;
         
     private:
 

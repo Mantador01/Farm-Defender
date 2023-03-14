@@ -51,9 +51,24 @@ Vect2 BatimentDefense::getPosition () const{
     return m_position;
 }
 
+int BatimentDefense::getSize () const{
+    return m_size;
+}
+char BatimentDefense::getCarac () const{
+    return m_carac;
+}
+
 void BatimentDefense::setPosition (int x, int y){
     m_position.x = x;
     m_position.y = y; 
+}
+
+void BatimentDefense::setSize(int s){
+    m_size = s;
+}
+
+void BatimentDefense::setCarac(char c){
+    m_carac = c;
 }
 
 void BatimentDefense::setDetruit (bool estDetruit){
