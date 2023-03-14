@@ -14,6 +14,7 @@ Description détaillée du fichier BaseCentrale.h
 #define BaseCentrale_H
 
 #include "StockageRessources.h"
+#include "Vect2.h"
 
 using namespace std;
 
@@ -21,11 +22,12 @@ class BaseCentrale {
 public:
     // BaseCentrale(StockageRessources& stockage, int pointsDeVie);
     BaseCentrale();
-    void production();
+    void production(bool est_vivant);
     void degat(int degat);
 private:
     StockageRessources m_stockage;
     int m_pointsDeVie;
+    Vect2 pos;
 };
 
 #endif // BaseCentrale_H

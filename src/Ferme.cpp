@@ -3,13 +3,23 @@
 
 using namespace std;
 
+Ferme::Ferme()
+{
+    StockageRessources stockage;
+    m_stockage = stockage;
+    m_pointsDeVie = 20;
+    pos.x = 0;
+    pos.y = 0;
+}
+
+/*
 Ferme::Ferme(StockageRessources& stockage, int pointsDeVie)
     : m_stockage(stockage), m_pointsDeVie(pointsDeVie){}
+*/
 
-
-void Ferme::production()
+void Ferme::production(bool est_vivant)
 {
-    if(m_pointsDeVie>0){
+    if(est_vivant){
     m_stockage.ajouterRessource("gold", 2);
     m_stockage.ajouterRessource("pierre", 2);
     m_stockage.ajouterRessource("bois", 2);
@@ -19,4 +29,11 @@ void Ferme::production()
 void Ferme::degat(int degat)
 {
     m_pointsDeVie -= degat;
+}
+
+bool Ferme::est_vivant()
+{
+    if(m_pointsDeVie<=0){
+        return false;
+    }else{return true;}
 }

@@ -11,11 +11,13 @@ BaseCentrale::BaseCentrale(){
     StockageRessources stockage;
     m_stockage=stockage;
     m_pointsDeVie=200;
+    pos.x = 0;
+    pos.y = 0;
 }
 
-void BaseCentrale::production()
+void BaseCentrale::production(bool est_vivant)
 {
-    if(m_pointsDeVie>0){
+    if(est_vivant){
     m_stockage.ajouterRessource("gold", 10);
     m_stockage.ajouterRessource("pierre", 10);
     m_stockage.ajouterRessource("bois", 10);
@@ -25,5 +27,12 @@ void BaseCentrale::production()
 void BaseCentrale::degat(int degat)
 {
     m_pointsDeVie -= degat;
+}
+
+bool BaseCentrale::est_vivant()
+{
+    if(m_pointsDeVie<=0){
+        return false;
+    }else{return true;}
 }
 

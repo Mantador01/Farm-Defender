@@ -14,17 +14,21 @@ Description détaillée du fichier Ferme.h
 #define FERME_H
 
 #include "StockageRessources.h"
+#include "Vect2.h"
 
 using namespace std;
 
 class Ferme {
 public:
-    Ferme(StockageRessources& stockage, int pointsDeVie);
-    void production();
+    Ferme();
+    //Ferme(StockageRessources& stockage, int pointsDeVie);
+    void production(bool est_vivant);
     void degat(int degat);
+    bool est_vivant();
 private:
     StockageRessources& m_stockage;
     int m_pointsDeVie;
+    Vect2 pos;
 };
 
 #endif // FERME_H
