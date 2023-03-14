@@ -38,6 +38,8 @@ public:
     */
     void degat(int degat);
 
+    bool est_vivant();
+
 private:
     /**
     @param StockageRessources : m_stockage le stockage des ressources que produiront la BaseCentrale.
