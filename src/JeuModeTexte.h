@@ -19,6 +19,8 @@
     private:
         float m_largeur, m_hauteur;
         char** m_carte;
+        char* win;      //!< \brief stocke le contenu de la fen�tre dans un tableau 1D mais on y accede en 2D
+
     public:
         JeuModeTexte(float largeur, float hauteur);
         void affObj(Vect2 post, int size, char car);
@@ -27,5 +29,7 @@
         int getHauteur() const;
         int getLargeur() const;
     };
+
+    
 
     #endif

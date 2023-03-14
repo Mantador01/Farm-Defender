@@ -24,7 +24,7 @@ public:
     /**
     @brief Constructeur par défaut: Initialise la position de base a 0, définie les points de vie a 200 et le connecte au stockage de la classe StockageRessources.
     */
-    BaseCentrale();
+    BaseCentrale(StockageRessources& stockage);
 
     /**
     @brief Fonction production qui incrémente les ressources de 10 a chaques appels de cette fonction seulement si la BaseCentrale est vivante.
@@ -38,30 +38,26 @@ public:
     */
     void degat(int degat);
 
-    bool est_vivant();
-
-    int m_carac;
-
-    int m_size;
-    
     /**
-    @param Vect2 : pos la position de la BaseCentrale.
+    @brief Fonction qui renvoie true si la BaseCentrale est vivante.
     */
-    Vect2 pos;
-
-    void setPos (int x, int y);
+    bool est_vivant();
 
 private:
     /**
     @param StockageRessources : m_stockage le stockage des ressources que produiront la BaseCentrale.
     */
-    StockageRessources m_stockage;
+    StockageRessources* m_stockage;
 
     /**
     @param Entier : m_pointsDeVie la vie de la BaseCentrale.
     */
     int m_pointsDeVie;
 
+    /**
+    @param Vect2 : pos la position de la BaseCentrale.
+    */
+    Vect2 pos;
 };
 
 #endif // BaseCentrale_H

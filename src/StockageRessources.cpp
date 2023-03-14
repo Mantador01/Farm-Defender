@@ -22,7 +22,9 @@ StockageRessources::StockageRessources(){
 
 void StockageRessources::ajouterRessource(string type, int quantite) {
     if (type == "gold") {
+        cout<<"quantite"<<quantite<<" gold : "<<gold<<endl;
         gold += quantite;
+        cout<<"quantite"<<quantite<<" gold : "<<gold<<endl;
     } else if (type == "bois") {
         bois += quantite;
     } else if (type == "pierre") {

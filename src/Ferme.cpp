@@ -3,27 +3,29 @@
 
 using namespace std;
 
-Ferme::Ferme()
+Ferme::Ferme(StockageRessources& stockage)
 {
-    StockageRessources stockage;
-    m_stockage = stockage;
+    m_stockage = &stockage;
     m_pointsDeVie = 20;
     pos.x = 0;
     pos.y = 0;
 }
 
-/*
-Ferme::Ferme(StockageRessources& stockage, int pointsDeVie)
-    : m_stockage(stockage), m_pointsDeVie(pointsDeVie){}
-*/
+
+// Ferme::Ferme(StockageRessources& stockage, int pointsDeVie, Vect2 posi)
+//     : m_stockage(stockage), m_pointsDeVie(pointsDeVie), pos(posi){}
+
+/*Ferme::Ferme(StockageRessources& stockage)
+    : m_stockage(stockage){}*/
 
 void Ferme::production(bool est_vivant)
 {
     if(est_vivant){
-    m_stockage.ajouterRessource("gold", 2);
-    m_stockage.ajouterRessource("pierre", 2);
-    m_stockage.ajouterRessource("bois", 2);
-    m_stockage.ajouterRessource("nourriture", 2);}
+    m_stockage->ajouterRessource("gold", 2);
+    cout<<"bien ajouter gold"<<endl;
+    m_stockage->ajouterRessource("pierre", 2);
+    m_stockage->ajouterRessource("bois", 2);
+    m_stockage->ajouterRessource("nourriture", 2);}
 }
 
 void Ferme::degat(int degat)
@@ -36,4 +38,10 @@ bool Ferme::est_vivant()
     if(m_pointsDeVie<=0){
         return false;
     }else{return true;}
+}
+
+void Ferme::creation(Vect2 posi)
+{
+    m_pointsDeVie = 20;
+    pos = posi;
 }

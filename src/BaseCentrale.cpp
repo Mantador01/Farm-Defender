@@ -12,12 +12,9 @@ Description détaillée du fichier BaseCentrale.cpp
 
 using namespace std;
 
-BaseCentrale::BaseCentrale(){
-    StockageRessources stockage;
-    m_stockage=stockage;
+BaseCentrale::BaseCentrale(StockageRessources& stockage){
+    m_stockage = &stockage;
     m_pointsDeVie=200;
-    m_size = 4;
-    m_carac = 'O';
     pos.x = 0;
     pos.y = 0;
 }
@@ -25,10 +22,10 @@ BaseCentrale::BaseCentrale(){
 void BaseCentrale::production(bool est_vivant)
 {
     if(est_vivant){
-    m_stockage.ajouterRessource("gold", 10);
-    m_stockage.ajouterRessource("pierre", 10);
-    m_stockage.ajouterRessource("bois", 10);
-    m_stockage.ajouterRessource("nourriture", 10);}
+    m_stockage->ajouterRessource("gold", 10);
+    m_stockage->ajouterRessource("pierre", 10);
+    m_stockage->ajouterRessource("bois", 10);
+    m_stockage->ajouterRessource("nourriture", 10);}
 }
 
 void BaseCentrale::degat(int degat)
@@ -41,10 +38,5 @@ bool BaseCentrale::est_vivant()
     if(m_pointsDeVie<=0){
         return false;
     }else{return true;}
-}
-
-void BaseCentrale::setPos (int x, int y){
-    pos.x = x;
-    pos.y = y;
 }
 
