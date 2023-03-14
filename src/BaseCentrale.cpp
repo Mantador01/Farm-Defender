@@ -16,6 +16,8 @@ BaseCentrale::BaseCentrale(){
     StockageRessources stockage;
     m_stockage=stockage;
     m_pointsDeVie=200;
+    m_size = 4;
+    m_carac = 'O';
     pos.x = 0;
     pos.y = 0;
 }
@@ -39,5 +41,10 @@ bool BaseCentrale::est_vivant()
     if(m_pointsDeVie<=0){
         return false;
     }else{return true;}
+}
+
+void BaseCentrale::setPos (int x, int y){
+    pos.x = x;
+    pos.y = y;
 }
 

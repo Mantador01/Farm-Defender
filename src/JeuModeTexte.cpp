@@ -1,5 +1,6 @@
 #include "JeuModeTexte.h"
 #include "BatimentDefense.h"
+#include "BaseCentrale.h"
 #include "Jeu.h"
 #include <iostream>
 
@@ -107,7 +108,10 @@ void JeuModeTexte::afficher() const {
 int main(){
 
     Jeu jeuUnique;
-    JeuModeTexte map(40,20);
+    //Taille : (50,25) / (40,20) / (60,30)
+    JeuModeTexte map(60,30);
+
+    BaseCentrale base;
 
     BatimentDefense bat1(TypeBatiment::Tourelle);
     BatimentDefense bat2(TypeBatiment::Canon);  
@@ -131,6 +135,10 @@ int main(){
         }
         map.affObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize(),jeuUnique.tabBatDef.at(i).getCarac());
     }
+
+    //x**2 / 50   -   x / 2   +  11
+    base.setPos(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
+    map.affObj(base.pos,base.m_size,base.m_carac);
 
     map.afficher();
 

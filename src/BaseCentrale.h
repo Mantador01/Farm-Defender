@@ -40,6 +40,17 @@ public:
 
     bool est_vivant();
 
+    int m_carac;
+
+    int m_size;
+    
+    /**
+    @param Vect2 : pos la position de la BaseCentrale.
+    */
+    Vect2 pos;
+
+    void setPos (int x, int y);
+
 private:
     /**
     @param StockageRessources : m_stockage le stockage des ressources que produiront la BaseCentrale.
@@ -51,10 +62,6 @@ private:
     */
     int m_pointsDeVie;
 
-    /**
-    @param Vect2 : pos la position de la BaseCentrale.
-    */
-    Vect2 pos;
 };
 
 #endif // BaseCentrale_H

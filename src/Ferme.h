@@ -40,6 +40,8 @@ public:
 
     bool est_vivant();
 
+    int m_size;
+
 private:
     /**
     @param StockageRessources : m_stockage le stockage des ressources que produiront la Ferme.
