@@ -1,12 +1,34 @@
 #include "BatimentDefense.h"
 #include "JeuModeTexte.h"
+#include "Ennemi.h"
+#include "StockageRessources.h"
+#include "Ferme.h"
+#include "BaseCentrale.h"
+
 #include <iostream>
+#include <vector>
 using namespace std;
+
+
+class Jeu{
+
+    public:
+    //StockageRessources stockage(0,0,0,0);
+    vector<Ennemi> tabEnnemi;
+    vector<BatimentDefense> tabBatDef;
+    vector<Ferme> TabFerme;
+    BaseCentrale baseCentrale;
+
+};
+
+
+
+
 
 int main(){
     
     BatimentDefense bat;
-    bat.setPosition(19,9);
+    bat.setPosition(5,5);
     JeuModeTexte map(40,20,bat.getPosition(),bat.m_size,bat.m_carac);
     map.afficher();
 
