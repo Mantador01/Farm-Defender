@@ -22,7 +22,6 @@ void Ferme::production(bool est_vivant)
 {
     if(est_vivant){
     m_stockage->ajouterRessource("gold", 2);
-    cout<<"bien ajouter gold"<<endl;
     m_stockage->ajouterRessource("pierre", 2);
     m_stockage->ajouterRessource("bois", 2);
     m_stockage->ajouterRessource("nourriture", 2);}
