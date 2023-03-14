@@ -14,22 +14,17 @@ Description détaillée du fichier BaseCentrale.h
 #define BaseCentrale_H
 
 #include "StockageRessources.h"
-#include <thread>
-#include <atomic>
 
 using namespace std;
 
 class BaseCentrale {
 public:
     BaseCentrale(StockageRessources& stockage, int pointsDeVie);
-    void demarrerProduction();
-    void arreterProduction();
-private:
     void production();
+    void degat(int degat);
+private:
     StockageRessources& m_stockage;
     int m_pointsDeVie;
-    thread m_threadProduction;
-    atomic<bool> m_productionActive;
 };
 
 #endif // BaseCentrale_H

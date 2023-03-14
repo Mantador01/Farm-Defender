@@ -14,22 +14,17 @@ Description détaillée du fichier Ferme.h
 #define FERME_H
 
 #include "StockageRessources.h"
-#include <thread>
-#include <atomic>
 
 using namespace std;
 
 class Ferme {
 public:
     Ferme(StockageRessources& stockage, int pointsDeVie);
-    void demarrerProduction();
-    void arreterProduction();
-private:
     void production();
+    void degat(int degat);
+private:
     StockageRessources& m_stockage;
     int m_pointsDeVie;
-    thread m_threadProduction;
-    atomic<bool> m_productionActive;
 };
 
 #endif // FERME_H
