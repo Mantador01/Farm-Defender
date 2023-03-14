@@ -19,8 +19,4 @@ void Ferme::production()
 void Ferme::degat(int degat)
 {
     m_pointsDeVie -= degat;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 33ea55cbc7a5d94733ac0e18b259da0db2aac446
