@@ -20,14 +20,38 @@ using namespace std;
 
 class Ferme {
 public:
+
+    /**
+    @brief Constructeur par défaut: Initialise la position de base a 0, définie les points de vie a 20 et le connecte au stockage de la classe StockageRessources.
+    */
     Ferme();
-    //Ferme(StockageRessources& stockage, int pointsDeVie);
+
+    /**
+    @brief Fonction production qui incrémente les ressources de 2 a chaques appels de cette fonction seulement si la Ferme est vivante.
+    @param Booléen : est_vivant renvoie true si la ferme est toujour vivante(vie>0) false sinon.
+    */
     void production(bool est_vivant);
+
+    /**
+    @brief Fonction degat qui permet de soustraire les dégats passer en paramètre et la vie de la Ferme.
+    @param Entier : degat les dégats a soustraire a la vie.
+    */
     void degat(int degat);
-    bool est_vivant();
+
 private:
-    StockageRessources& m_stockage;
+    /**
+    @param StockageRessources : m_stockage le stockage des ressources que produiront la Ferme.
+    */
+    StockageRessources m_stockage;
+
+    /**
+    @param Entier : m_pointsDeVie la vie de la Ferme.
+    */
     int m_pointsDeVie;
+
+    /**
+    @param Vect2 : pos la position de la Ferme.
+    */
     Vect2 pos;
 };
 

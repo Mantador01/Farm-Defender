@@ -1,11 +1,16 @@
+/**
+@brief Description brève du fichier BaseCentrale.cpp
+Description détaillée du fichier BaseCentrale.cpp
+@author Alexandre
+@file BaseCentrale.cpp
+@version 1.0
+@date 14/03/2023
+*/
+
 #include "BaseCentrale.h"
 #include <iostream>
 
 using namespace std;
-
-/*BaseCentrale::BaseCentrale(StockageRessources& stockage, int pointsDeVie)
-    : m_stockage(stockage), m_pointsDeVie(pointsDeVie){}
-*/
 
 BaseCentrale::BaseCentrale(){
     StockageRessources stockage;
