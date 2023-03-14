@@ -21,7 +21,7 @@
 
     class Jeu{
         public:
-        //StockageRessources stockage(0,0,0,0)
+        StockageRessources stockage;
         vector<Ennemi> tabEnnemi;
         vector<BatimentDefense> tabBatDef;
         vector<Ferme> TabFerme;

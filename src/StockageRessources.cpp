@@ -6,12 +6,19 @@
 
 using namespace std;
 
-StockageRessources::StockageRessources(int Rgold, int Rbois, int Rpierre, int Rnourriture) {
+StockageRessources::StockageRessources(){
+    gold = 0;
+    bois = 0;
+    pierre = 0;
+    nourriture = 0;
+}
+
+/*StockageRessources::StockageRessources(int Rgold, int Rbois, int Rpierre, int Rnourriture) {
     gold = Rgold;
     bois = Rbois;
     pierre = Rpierre;
     nourriture = Rnourriture;
-}
+}*/
 
 void StockageRessources::ajouterRessource(string type, int quantite) {
     if (type == "gold") {

@@ -3,9 +3,15 @@
 
 using namespace std;
 
-BaseCentrale::BaseCentrale(StockageRessources& stockage, int pointsDeVie)
+/*BaseCentrale::BaseCentrale(StockageRessources& stockage, int pointsDeVie)
     : m_stockage(stockage), m_pointsDeVie(pointsDeVie){}
+*/
 
+BaseCentrale::BaseCentrale(){
+    StockageRessources stockage;
+    m_stockage=stockage;
+    m_pointsDeVie=200;
+}
 
 void BaseCentrale::production()
 {

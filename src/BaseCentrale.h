@@ -19,11 +19,12 @@ using namespace std;
 
 class BaseCentrale {
 public:
-    BaseCentrale(StockageRessources& stockage, int pointsDeVie);
+    // BaseCentrale(StockageRessources& stockage, int pointsDeVie);
+    BaseCentrale();
     void production();
     void degat(int degat);
 private:
-    StockageRessources& m_stockage;
+    StockageRessources m_stockage;
     int m_pointsDeVie;
 };
 

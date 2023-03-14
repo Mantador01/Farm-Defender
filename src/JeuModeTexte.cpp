@@ -1,5 +1,6 @@
 #include "JeuModeTexte.h"
 #include "BatimentDefense.h"
+#include "Jeu.h"
 #include <iostream>
 
 JeuModeTexte::JeuModeTexte(float largeur, float hauteur) : m_largeur(largeur), m_hauteur(hauteur) {
@@ -105,6 +106,15 @@ int main(){
     JeuModeTexte map(40,20);
     map.affObj(bat.getPosition(),bat.getSize(),bat.getCarac());
     map.afficher();
+
+
+    Jeu jeuUnique;
+    BatimentDefense bat1,bataj;
+
+    jeuUnique.tabBatDef.push_back(bat1);
+    bataj=jeuUnique.tabBatDef.at(0);
+    std::cout << bataj.getSize () <<" size bat";std::cout << std::endl;
+
 
     return 0;
 }

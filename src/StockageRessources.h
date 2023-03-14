@@ -26,7 +26,8 @@ class StockageRessources {
         int nourriture;
 
     public:
-        StockageRessources(int gold, int bois, int pierre, int nourriture);
+        StockageRessources();
+        //StockageRessources(int gold, int bois, int pierre, int nourriture);
         void ajouterRessource(string type, int quantite);
         void retirerRessource(string type, int quantite);
         void afficherRessources();
