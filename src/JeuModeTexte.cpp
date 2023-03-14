@@ -47,10 +47,17 @@ JeuModeTexte::JeuModeTexte(float largeur, float hauteur) : m_largeur(largeur), m
 void JeuModeTexte::affObj(Vect2 post, int size, char car){
     bool condition_verifiee = true;
     if (size == 1) {
-        if (m_carte[int(post.y)][int(post.x)] != '.') {
+        if (m_carte[int(post.y)][int(post.x)] == '.') {
             m_carte[int(post.y)][int(post.x)] = car;
         }
-    } else {
+    }
+    else if(size == 2){
+        if (m_carte[int(post.y)][int(post.x)] == '.' && m_carte[int(post.y)][int(post.x+1)] == '.'){
+            m_carte[int(post.y)][int(post.x)] = car;
+            m_carte[int(post.y)][int(post.x+1)] = car;
+        }
+    } 
+    else {
         for (int i = int(post.y); i < int(post.y) + (size/2); i++) {
             for (int j = int(post.x); j < int(post.x) + (size/2); j++) {
                 if (m_carte[i][j] != '.') {
@@ -98,23 +105,34 @@ void JeuModeTexte::afficher() const {
 }
 
 int main(){
-    BatimentDefense bat;
-    bat.setPosition(19,9);
-    bat.setSize(4);
-    bat.setCarac('B');
-    
-    JeuModeTexte map(40,20);
-    map.affObj(bat.getPosition(),bat.getSize(),bat.getCarac());
-    map.afficher();
-
 
     Jeu jeuUnique;
-    BatimentDefense bat1,bataj;
+    JeuModeTexte map(40,20);
+
+    BatimentDefense bat1(TypeBatiment::Tourelle);
+    BatimentDefense bat2(TypeBatiment::Canon);  
 
     jeuUnique.tabBatDef.push_back(bat1);
-    bataj=jeuUnique.tabBatDef.at(0);
-    std::cout << bataj.getSize () <<" size bat";std::cout << std::endl;
+    jeuUnique.tabBatDef.push_back(bat2); 
 
+    jeuUnique.tabBatDef.at(0).setPosition(1,1);
+    jeuUnique.tabBatDef.at(1).setPosition(4,4);
+    
+    for (unsigned int i = 0; i<jeuUnique.tabBatDef.size();i++){
+        switch (jeuUnique.tabBatDef.at(i).getType()){
+            case TypeBatiment::Tourelle:
+                jeuUnique.tabBatDef.at(i).setSize(4);
+                jeuUnique.tabBatDef.at(i).setCarac('T');
+                break;
+            case TypeBatiment::Canon:
+                jeuUnique.tabBatDef.at(i).setSize(2);
+                jeuUnique.tabBatDef.at(i).setCarac('C'); 
+                break;            
+        }
+        map.affObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize(),jeuUnique.tabBatDef.at(i).getCarac());
+    }
+
+    map.afficher();
 
     return 0;
 }

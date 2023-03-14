@@ -4,6 +4,7 @@
 using namespace std;
 
 BatimentDefense::BatimentDefense(){
+    m_size = 1;
     BatimentDefense (TypeBatiment::Tourelle);
 }
 
@@ -13,7 +14,6 @@ BatimentDefense::~BatimentDefense(){
 
 BatimentDefense::BatimentDefense(TypeBatiment type){
     m_type = type;
-    m_size=1;
     switch (type){
         case TypeBatiment::Tourelle:
             this->augmenterNiveau(100,1,0.1,1);
