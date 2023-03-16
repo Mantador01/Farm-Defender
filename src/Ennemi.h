@@ -144,6 +144,8 @@ public:
     */
    Vect2 get_position();
 
+   void set_pos(Vect2 posi);
+
 };
 
 

@@ -143,7 +143,7 @@ int main(){
 
     //x**2 / 50   -   x / 2   +  11
     base.setPos(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
-    map.affObj(base.pos,base.m_size,base.m_carac);
+    //map.affObj(base.pos,base.m_size,base.m_carac);
 
     
 
@@ -156,12 +156,21 @@ int main(){
     Vect2 pos;
     pos.x = 0;
     pos.y = 0;
+    Ennemi zombiTest;
 
     // Création de 3 fermes
     Ferme ferme1(stockage);
     Ferme ferme2(stockage);
     Ferme ferme3(stockage);
 
+
+    //Vect2 posZombi(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
+    Vect2 posZombi(15,17);
+    zombiTest.set_pos(posZombi);
+    Vect2 dire(1,0);
+    zombiTest.set_direction(dire);
+    jeuUnique.tabEnnemi.push_back(zombiTest);
+    map.affObj(zombiTest.get_position(),1,'Z');
     
     /*ferme1.creation(pos);
     ferme2.creation(pos);
@@ -206,6 +215,13 @@ int main(){
                 break;            
         }
         map.affObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize(),jeuUnique.tabBatDef.at(i).getCarac());
+
+        map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'.');
+        
+        jeuUnique.deplacerEnnemis();
+        map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
+
+
     }
 
         map.afficher();

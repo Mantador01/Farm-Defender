@@ -13,7 +13,12 @@ Jeu::~Jeu(){
 
 }
 
-void Jeu::deplacerEnnemis(std::vector<Ennemi> & tabEnnemi,vector<BatimentDefense> tabBatDef, vector<Ferme> TabFerme,BaseCentrale baseCentrale){
+void Jeu::deplacerEnnemis(){
+
+
+  //  (std::vector<Ennemi> & tabEnnemi,vector<BatimentDefense> tabBatDef, vector<Ferme> TabFerme,BaseCentrale baseCentrale
+
+
     long unsigned int e,bat,ferme;
     long unsigned int indiceMinDistance;
     long unsigned int indiceBatdegat;
@@ -59,15 +64,24 @@ void Jeu::deplacerEnnemis(std::vector<Ennemi> & tabEnnemi,vector<BatimentDefense
                     }
                 }
 
-                
 
             }
         }
 
+        if(deplacerEnnemiBool==true)
+        {
+            Vect2 posActuelle=tabEnnemi.at(e).get_position();
+             
+            if( posActuelle.x> 0 || posActuelle.x<20 || posActuelle.y>0 || posActuelle.y<20)
+            {
+                tabEnnemi.at(e).deplacer();
+            }
+            
+        }
 
-        enboucle=tabEnnemi.at(e);
+
+        /// enboucle est une copie l'enemi actuel 
         deplacerEnnemiBool=true;
-
         
         for(ferme=0;ferme<TabFerme.size();ferme++)
         {
@@ -84,13 +98,13 @@ void Jeu::deplacerEnnemis(std::vector<Ennemi> & tabEnnemi,vector<BatimentDefense
 
     ///
         //bool test = true;
-        /*if(deplacerEnnemiBool==test){
+        /*if(deplacerEnnemiBool==true){
             //if(batProche==true) ///l'ennemi va etre devié vers le batiment le plus proche
             {
                 //Vect2 nouveauDepl;
                 //bati=tabBatDef.at(indiceMinDistance);
                 //posBati=bati.getPosition();
-                //ouveauDepl=posBati-posEnne;
+                //nouveauDepl=posBati-posEnne;
                 //nouveauDepl=nouveauDepl*(1/2);
             }
 

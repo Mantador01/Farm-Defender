@@ -48,7 +48,7 @@
         @param tableaux dynamiques d'Ennemis, de batimets de defence, de fermess et la base centrale
         */
  
-        void deplacerEnnemis(vector<Ennemi> & tabEnnemi,vector<BatimentDefense> tabBatDef, vector<Ferme> TabFerme,BaseCentrale baseCentrale);
+        void deplacerEnnemis();
 
         /**
          @brief dimention du terrain de jeu 

@@ -30,7 +30,7 @@ Ennemi::Ennemi()
     type_en=zombi;
     sante=10;
     degat=1;
-    vitesse=1;
+    vitesse=1;      //1
     if (type_en==zombi){
         int r=rand()%3;
         float X,Y;
@@ -132,4 +132,14 @@ Ennemi::~Ennemi()
 Vect2 Ennemi::get_position()
 {
 	return position;
+}
+
+void Ennemi::set_pos(Vect2 posi)
+{
+    position=posi;
+}
+
+void Ennemi::set_direction(Vect2 dir){
+    direction=dir;
+
 }
