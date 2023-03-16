@@ -133,6 +133,17 @@ public:
     
     void agir(); // gestion du déplacement, dégâts, sante …
 
+    /**
+    @brief mutateur pour la direction de Ennemi 
+    @param vect2 la nouvelle direction
+    */
+   void set_direction(Vect2 dir);
+    /**
+    @brief Accesseur pour position d'ennemi
+    @return valeur de type Vect2
+    */
+   Vect2 get_position();
+
 };
 
 

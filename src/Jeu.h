@@ -21,17 +21,55 @@
 
     class Jeu{
         public:
+        /**
+        * @brief stockage des ressources  gold bois pierre nourriture
+        */
         StockageRessources stockage;
+        /**
+        * @brief tablequ dinamique qui contient tous les ennemis du jeu tant que les ennemis ne soient pas elimines
+        */
         vector<Ennemi> tabEnnemi;
+        /**
+        * @brief tablequ dinamique qui contient tous les Batiment de Defense du jeu tant que les ennemis ne soient pas elimines
+        */
         vector<BatimentDefense> tabBatDef;
+         /**
+        * @brief tablequ dinamique qui contient tous les Fermes du jeu tant que les ennemis ne soient pas elimines
+        */
         vector<Ferme> TabFerme;
-        //BaseCentrale baseCentrale(stockage);
-        
+
+        /**
+        * @brief base qui fait la gestion des resources de fermes 
+        */
+        //BaseCentrale baseCentrale;
+
+         /**
+        @brief deplacerEnnemis deplace tous les ennemis du jeu en prenant en compte les positionnemet des batiments
+        @param tableaux dynamiques d'Ennemis, de batimets de defence, de fermess et la base centrale
+        */
+ 
+        void deplacerEnnemis(vector<Ennemi> & tabEnnemi,vector<BatimentDefense> tabBatDef, vector<Ferme> TabFerme,BaseCentrale baseCentrale);
+
+        /**
+         @brief dimention du terrain de jeu 
+        */
+        float jeu_largeur, jeu_hauteur;
+
+        Jeu();
+
+        ~Jeu();
+
+
+
         //private:
+        //rien pour le moment
     
     };
 
     #endif
+
+
+
 
 
 

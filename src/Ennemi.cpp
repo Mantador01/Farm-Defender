@@ -86,13 +86,13 @@ return type_en;
 }
 
 
-/*
+
 void Ennemi::deplacer()
 {
     position=position+direction*vitesse;
     //faire tests avec le tableau de batiments
 }
-*/
+
 void Ennemi::enleverSante(int points_enleves){
     if(statut==true)
     {
@@ -129,3 +129,7 @@ Ennemi::~Ennemi()
     //dtor
 }
 
+Vect2 Ennemi::get_position()
+{
+	return position;
+}
