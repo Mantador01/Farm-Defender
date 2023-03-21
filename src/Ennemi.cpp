@@ -103,7 +103,7 @@ void Ennemi::enleverSante(int points_enleves){
         }
     }
 }
-
+/*
 void Ennemi::afficher()
 {
     cout<<"types d'ennemis :"<<endl;
@@ -122,7 +122,7 @@ void Ennemi::afficher()
     cout<<"degat de :"<<degat<<endl;
     cout<<vitesse<<" vitesse    position: x"<< position.x<<" y "<<position.y<<endl;
     cout<<"direction x"<<direction.x<<"  y"<<direction.y<<endl;
-}
+}*/
 
 Ennemi::~Ennemi()
 {
@@ -143,3 +143,14 @@ void Ennemi::set_direction(Vect2 dir){
     direction=dir;
 
 }
+
+int Ennemi::get_sante(){
+    return sante;
+}
+
+void Ennemi::afficher()
+{
+    cout << "Type ennemi: " <<this->getType() <<endl;
+    cout << "Sante ennemi: " <<this->get_sante() <<endl;
+}
+

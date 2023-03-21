@@ -210,7 +210,40 @@ int main(){
     base.setPos(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
     //map.affObj(base.pos,base.m_size,base.m_carac);
 
+        ////////////////////////ENNEMI//////////////////////////////
+
+    Ennemi enm1(Type_ennemi::zombi);
+
+    Ennemi enm2(Type_ennemi::pillard);
+
+
+
+    jeuUnique.tabEnnemi.push_back(enm1);
+
+    jeuUnique.tabEnnemi.push_back(enm2);
+
+
+
+    Vect2 pos1(15,17);
+
+    Vect2 dire(1,0);
+
+    jeuUnique.tabEnnemi.at(0).set_pos(pos1);
+
+    jeuUnique.tabEnnemi.at(0).set_direction(dire);
+
     
+
+    Vect2 pos2(16,18);
+
+    jeuUnique.tabEnnemi.at(1).set_pos(pos2);
+
+    jeuUnique.tabEnnemi.at(1).set_direction(dire);
+
+
+
+    ////////////////////////ENNEMI//////////////////////////////
+
 
 
     time_t startTime = time(NULL); // temps de départ
@@ -230,13 +263,13 @@ int main(){
 
 
     //Vect2 posZombi(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
-    Vect2 posZombi(15,17);
+ /*   Vect2 posZombi(15,17);
     zombiTest.set_pos(posZombi);
     Vect2 dire(1,0);
     zombiTest.set_direction(dire);
     jeuUnique.tabEnnemi.push_back(zombiTest);
     map.affObj(zombiTest.get_position(),1,'Z');
-    
+    */
     /*ferme1.creation(pos);
     ferme2.creation(pos);
     ferme3.creation(pos);*/
@@ -281,17 +314,20 @@ int main(){
         }
         map.affObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize(),jeuUnique.tabBatDef.at(i).getCarac());
 
-        jeuUnique.enleveEntDestruites();
-
-
-
 
     }
+    	map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'.');
+    	map.affObj(jeuUnique.tabEnnemi.at(1).get_position(),1,'.');
 
-        map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'.');
-        
+        jeuUnique.enleveEntDestruites();
+    
+        //    map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'.');
+      
         jeuUnique.deplacerEnnemis();
-        map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
+     //   map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
+
+	map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
+    	map.affObj(jeuUnique.tabEnnemi.at(1).get_position(),1,'Z');
 
         map.afficher();
 
@@ -319,6 +355,19 @@ int main(){
         
         //cout << "                                       Ressources actuel :" << endl;
         stockage.afficherRessources();
+        
+        
+        cout << "****************************Gestion Ennemi's" <<endl;
+
+        jeuUnique.tabEnnemi.at(0).afficher();
+
+        cout << "****************************Gestion BatimentDefense's" <<endl;
+
+        cout << "Batiment N° " << 0 <<endl;
+
+        jeuUnique.tabBatDef.at(0).afficher();
+
+        
 
         usleep(100000);
     }

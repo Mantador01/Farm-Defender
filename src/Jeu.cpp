@@ -29,8 +29,9 @@ void Jeu::deplacerEnnemis(){
     BatimentDefense bati;
     //Ferme ferme1;
 
-    for(e=0;e<tabEnnemi.size();e++)
-    {
+    for(e=0;e<tabEnnemi.size();e++)  //<
+    { 
+    cout<<"ennemi indice "<<e<<"  "<<endl;
         batProche=false;
         enboucle=tabEnnemi.at(e);
         posEnne= enboucle.get_position();
@@ -107,7 +108,7 @@ void Jeu::deplacerEnnemis(){
         if(deplacerEnnemiBool==true)
         {
             Vect2 posActuelle=tabEnnemi.at(e).get_position();
-            if( (posActuelle.x> 0 && posActuelle.x<56)&&( posActuelle.y>0 && posActuelle.y<jeu_hauteur))
+            if( (posActuelle.x> 0 && posActuelle.x<56)&&( posActuelle.y>0 && posActuelle.y<30))
             {
                 tabEnnemi.at(e).deplacer();
             }

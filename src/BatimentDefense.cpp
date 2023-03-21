@@ -126,3 +126,9 @@ void BatimentDefense::enleverPointsVie(int points_enleves){
 bool BatimentDefense::getDetruit (){
     return m_estDetruit;
 }
+
+void BatimentDefense::afficher(){
+    //cout << "Type BatimentDefense: " <<this->getType() <<endl;
+    cout << "Sante BatimentDefense: " <<this->getPointsDeVie() <<endl;
+}
+

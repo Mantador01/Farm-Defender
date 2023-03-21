@@ -44,6 +44,7 @@
         void setDetruit (bool estDetruit);
         void upgrade();
         void augmenterNiveau(int pointsDeVie, int degats, float vitesseAttaque, float rayonAttaque);
+        void afficher();
 
         void enleverPointsVie(int points_enleves);
         bool getDetruit ();
