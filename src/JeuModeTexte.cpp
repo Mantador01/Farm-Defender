@@ -123,7 +123,7 @@ void JeuModeTexte::effacerObj(Vect2 post, int size){
                 }
             }
         }
-    } */   
+    }   */
 } 
 
 
@@ -318,7 +318,7 @@ int main(){
         cout << "                                       Ressources actuel :" << endl;
         stockage.afficherRessources();
 
-        sleep(1);
+        usleep(100000);
     }
 
     // Affichage des ressources finales
