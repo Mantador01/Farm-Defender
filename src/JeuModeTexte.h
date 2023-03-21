@@ -24,6 +24,7 @@
     public:
         JeuModeTexte(float largeur, float hauteur);
         void affObj(Vect2 post, int size, char car);
+        void effacerObj(Vect2 post, int size);
         ~JeuModeTexte();
         void afficher() const;
         int getHauteur() const;

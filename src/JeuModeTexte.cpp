@@ -54,7 +54,7 @@ JeuModeTexte::JeuModeTexte(float largeur, float hauteur) : m_largeur(largeur), m
 void JeuModeTexte::affObj(Vect2 post, int size, char car){
     bool condition_verifiee = true;
     if (size == 1) {
-        if (m_carte[int(post.y)][int(post.x)] == '.') {
+        if ((m_carte[int(post.y)][int(post.x)] == '.')||(m_carte[int(post.y)][int(post.x)] == 'Z') ||(m_carte[int(post.y)][int(post.x)] == '>') ||(m_carte[int(post.y)][int(post.x)] == '<') ){
             m_carte[int(post.y)][int(post.x)] = car;
         }
     }
@@ -86,6 +86,47 @@ void JeuModeTexte::affObj(Vect2 post, int size, char car){
         }
     }    
 } 
+
+
+
+
+void JeuModeTexte::effacerObj(Vect2 post, int size){
+   // bool condition_verifiee = true;
+    /*if (size == 1) {
+        if ((m_carte[int(post.y)][int(post.x)] == '.')||(m_carte[int(post.y)][int(post.x)] == 'Z') ||(m_carte[int(post.y)][int(post.x)] == '>') ||(m_carte[int(post.y)][int(post.x)] == '<') ){
+            m_carte[int(post.y)][int(post.x)] = car;
+        }
+    }
+    else if(size == 2){
+        if (m_carte[int(post.y)][int(post.x)] == '.' && m_carte[int(post.y)][int(post.x+1)] == '.'){
+            m_carte[int(post.y)][int(post.x)] = car;
+            m_carte[int(post.y)][int(post.x+1)] = car;
+        }
+    } 
+    else {
+        for (int i = int(post.y); i < int(post.y) + (size/2); i++) {
+            for (int j = int(post.x); j < int(post.x) + (size/2); j++) {
+                if (m_carte[i][j] != '.') {
+                    condition_verifiee = false;
+                    break;
+                }
+            }
+            if (!condition_verifiee) {
+                break;
+            }
+
+            if (i == int(post.y) + (size/2)-1 && int(post.x) + (size/2)-1 && condition_verifiee) {
+                for (int i = int(post.y); i < int(post.y) + (size/2); i++) {
+                    for (int j = int(post.x); j < int(post.x) + (size/2); j++) {
+                        m_carte[i][j] = car;
+                    }
+                }
+            }
+        }
+    } */   
+} 
+
+
 
 
 JeuModeTexte::~JeuModeTexte() {
@@ -240,13 +281,15 @@ int main(){
         }
         map.affObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize(),jeuUnique.tabBatDef.at(i).getCarac());
 
+
+
+
+    }
+
         map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'.');
         
         jeuUnique.deplacerEnnemis();
         map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
-
-
-    }
 
         map.afficher();
 
