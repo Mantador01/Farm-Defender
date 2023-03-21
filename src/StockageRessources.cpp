@@ -45,10 +45,11 @@ void StockageRessources::retirerRessource(string type, int quantite) {
 }
 
 void StockageRessources::afficherRessources() {
-    cout << "       ----- MENU -----                gold : " << gold << endl;
-    cout << " 'A' Pour acheter un batiment          Bois : " << bois << endl;
-    cout << " 'Q' Pour quitter le jeu               Pierre : " << pierre << endl;
-    cout << "                                       Nourriture : " << nourriture << endl;
+    cout << "       ----- MENU -----      "<< endl;
+    cout << "        gold : " << gold << endl;
+    cout << "        Bois : " << bois << endl;
+    cout << "        Pierre : " << pierre << endl;
+    cout << "        Nourriture : " << nourriture << endl;
 }
 
 

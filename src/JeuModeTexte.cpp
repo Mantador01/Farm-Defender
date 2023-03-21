@@ -303,19 +303,19 @@ int main(){
         cout << endl;
 
         
-        ferme1.degat(1);
+        /*ferme1.degat(1);
         ferme2.degat(2);
-        ferme3.degat(3);
+        ferme3.degat(3);*/
 
         //BC.degat(50);
-
+        
         ferme1.production(ferme1.est_vivant());
         ferme2.production(ferme2.est_vivant());
         ferme3.production(ferme3.est_vivant());
 
         //BC.production(BC.est_vivant());
         
-        cout << "                                       Ressources actuel :" << endl;
+        //cout << "                                       Ressources actuel :" << endl;
         stockage.afficherRessources();
 
         usleep(100000);
