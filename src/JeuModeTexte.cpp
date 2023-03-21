@@ -121,6 +121,30 @@ void termClear()  // efface le terminal
 #endif
 }
 
+void H(int h)
+{
+    if(h < 10){
+        cout<<"0"<<h;
+    }else{
+    cout<<h;}
+}
+
+void M(int m)
+{
+    if(m < 10){
+        cout<<"0"<<m;
+    }else{
+    cout<<m;}
+}
+
+void S(int s)
+{
+    if(s < 10){
+        cout<<"0"<<s;
+    }else{
+    cout<<s;}
+}
+
 int main(){
 
     Jeu jeuUnique;
@@ -228,9 +252,12 @@ int main(){
 
         // afficher le timer
         cout << "Temps écoulé : ";
-        cout << hours << " heures, ";
-        cout << minutes << " minutes et ";
-        cout << seconds << " secondes." << endl;
+        H(hours);
+        cout << ":";
+        M(minutes);
+        cout << ":";
+        S(seconds);
+        cout << endl;
 
         
         ferme1.degat(1);
@@ -245,15 +272,15 @@ int main(){
 
         //BC.production(BC.est_vivant());
         
-        cout << "Ressources actuel :" << endl;
+        cout << "                                       Ressources actuel :" << endl;
         stockage.afficherRessources();
 
         sleep(1);
     }
 
     // Affichage des ressources finales
-    cout << "Ressources finales :" << endl;
-    stockage.afficherRessources();
+    /*cout << "                                       Ressources actuel :" << endl;
+    stockage.afficherRessources();*/
 
 
     return 0;
