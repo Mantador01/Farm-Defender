@@ -45,20 +45,20 @@ void Jeu::deplacerEnnemis(){
             bati=tabBatDef.at(bat);
             posBati=bati.getPosition();
             distanceActuelle=posEnne.distance(posBati);//tabEnnemi.po
-            if(distanceActuelle<2.f)
+            if(distanceActuelle<200.f)  //if(distanceActuelle<2.f)
             {
                 batProche=true;
-                cout<<batProche<<"bat proche";
+                //cout<<batProche<<"bat proche";
                 if(distanceActuelle<distanceMinimale)
                 {
                     distanceMinimale=distanceActuelle;
                     indiceMinDistance=bat;
-                    cout<<indiceMinDistance;
-                    if(distanceMinimale<0.2) //ennemi est assez proche pour attaquer le batiment
+                    //cout<<indiceMinDistance;
+                    if(distanceMinimale<2.2) //ennemi est assez proche pour attaquer le batiment
                     {
                     deplacerEnnemiBool=false;
                     indiceBatdegat=bat;
-                    cout<<indiceBatdegat<<" : indiceBatdegat  ";
+                    //cout<<indiceBatdegat<<" : indiceBatdegat  ";
 
                     //ennemi fait des degats au batiment    
                     }
@@ -68,11 +68,46 @@ void Jeu::deplacerEnnemis(){
             }
         }
 
+        
+        //bool test = true;
+        if(deplacerEnnemiBool==true){
+            if(batProche==true) ///l'ennemi va etre devié vers le batiment le plus proche
+            {
+                float distance_pour_normaliser;
+                Vect2 nouveauDepl;
+                bati=tabBatDef.at(indiceMinDistance);
+                posBati=bati.getPosition();
+                distance_pour_normaliser=posBati.distance(posEnne);
+                nouveauDepl=posBati-posEnne;
+                nouveauDepl=nouveauDepl*(1/distance_pour_normaliser);
+
+                tabEnnemi.at(e).set_direction(nouveauDepl);
+                //cout<<"devié ver bat proche";
+                //normaliser
+
+                //nouveauDepl=nouveauDepl*(1/2);
+            }
+
+            //tabEnnemi.at(e).deplacer();
+
+       }else{
+           // std::cout<<indiceBatdegat;
+            ///if faut faire des degats dans le bat a l'indice indiceBatdegat
+            
+            tabBatDef.at(indiceBatdegat).enleverPointsVie(enboucle.get_degat());
+            cout<<"degat "<<enboucle.get_degat()<<endl;
+
+       }
+
+        ////*/
+
+
+
+
         if(deplacerEnnemiBool==true)
         {
             Vect2 posActuelle=tabEnnemi.at(e).get_position();
-             
-            if( posActuelle.x> 0 || posActuelle.x<20 || posActuelle.y>0 || posActuelle.y<20)
+            if( (posActuelle.x> 0 && posActuelle.x<56)&&( posActuelle.y>0 && posActuelle.y<jeu_hauteur))
             {
                 tabEnnemi.at(e).deplacer();
             }
@@ -81,7 +116,7 @@ void Jeu::deplacerEnnemis(){
 
 
         /// enboucle est une copie l'enemi actuel 
-        deplacerEnnemiBool=true;
+        //deplacerEnnemiBool=true;
         
         for(ferme=0;ferme<TabFerme.size();ferme++)
         {
@@ -96,30 +131,27 @@ void Jeu::deplacerEnnemis(){
             }*/
         }
 
-    ///
-        //bool test = true;
-        /*if(deplacerEnnemiBool==true){
-            //if(batProche==true) ///l'ennemi va etre devié vers le batiment le plus proche
-            {
-                //Vect2 nouveauDepl;
-                //bati=tabBatDef.at(indiceMinDistance);
-                //posBati=bati.getPosition();
-                //nouveauDepl=posBati-posEnne;
-                //nouveauDepl=nouveauDepl*(1/2);
-            }
 
-            //tabEnnemi.at(e).deplacer();
-
-       // }else{
-           // std::cout<<indiceBatdegat;
-            ///if faut faire des degats dans le bat a l'indice indiceBatdegat
-
-      //  }
-
-        ////*/
 
  
 
     }
+
+}
+
+void Jeu::enleveEntDestruites(){
+
+    long unsigned int bat;//e,ferme;
+    for(bat=tabBatDef.size()-1;bat<=0;bat--)
+        {
+            if (tabBatDef.at(bat).getDetruit()==true)
+            {
+                //tabBatDef.erase(bat);
+                tabBatDef.erase( tabBatDef.begin() + bat);
+                
+            }
+
+
+        }
 
 }

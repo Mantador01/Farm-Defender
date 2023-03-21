@@ -55,6 +55,11 @@
         */
         float jeu_largeur, jeu_hauteur;
 
+        /**
+         @brief enleve les entités qui ont ete éliminés  
+        */
+        void enleveEntDestruites();
+
         Jeu();
 
         ~Jeu();

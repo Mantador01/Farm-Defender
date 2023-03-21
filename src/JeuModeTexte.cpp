@@ -281,6 +281,8 @@ int main(){
         }
         map.affObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize(),jeuUnique.tabBatDef.at(i).getCarac());
 
+        jeuUnique.enleveEntDestruites();
+
 
 
 

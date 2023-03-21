@@ -114,3 +114,15 @@ void BatimentDefense::augmenterNiveau(int pointsDeVie, int degats, float vitesse
     this->m_vitesse = vitesseAttaque;
     this->m_rayonAttaque = rayonAttaque; 
 }
+
+
+void BatimentDefense::enleverPointsVie(int points_enleves){
+    m_pointsDeVie=m_pointsDeVie-points_enleves;
+    if (m_pointsDeVie<0)
+    { m_estDetruit=true;
+    }
+}
+
+bool BatimentDefense::getDetruit (){
+    return m_estDetruit;
+}

@@ -29,8 +29,8 @@ Ennemi::Ennemi()
 {   statut=true;
     type_en=zombi;
     sante=10;
-    degat=1;
-    vitesse=1;      //1
+    degat=100; ///1
+    vitesse=0.4;      //1
     if (type_en==zombi){
         int r=rand()%3;
         float X,Y;
