@@ -398,7 +398,7 @@ int main(){
     }
 
 
-
+//afficher toutes les entites
 
         map.afficher();
         map.initTab();
