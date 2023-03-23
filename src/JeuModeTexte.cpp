@@ -49,6 +49,10 @@ JeuModeTexte::JeuModeTexte(float largeur, float hauteur) : m_largeur(largeur), m
         }
     }
 
+
+
+
+
 }
 
 void JeuModeTexte::affObj(Vect2 post, int size, char car){
@@ -135,6 +139,8 @@ JeuModeTexte::~JeuModeTexte() {
         delete[] m_carte[i];
     }
     delete[] m_carte;
+
+
 }
 
 int JeuModeTexte::getLargeur() const {
@@ -186,6 +192,43 @@ void S(int s)
     }else{
     cout<<s;}
 }
+
+void JeuModeTexte::initTab(){
+    for (int i = 0; i < int(m_hauteur); i++) {
+        for (int j = 0; j < int(m_largeur); j++) {
+            if (i == 0 || j == 0 || i == int(m_hauteur)-1 || j == int(m_largeur)-1) {
+                m_carte[i][j] = '+';
+            } else {
+                m_carte[i][j] = '.';
+            }
+        }
+    }
+
+    for (int i = (int(m_hauteur)/2)-2; i<=(int(m_hauteur)/2)+1; i++){
+        for (int j = 0; j<int(m_largeur); j=j+(int(m_largeur)-1)){
+            m_carte[i][j] = '#';
+        }
+    }
+
+    for (int i = (int(m_hauteur)/2)-1;i <= int(m_hauteur)/2 ; i++){
+        for (int j = 0;j<=int((m_largeur)/2)-2;j++){
+            m_carte[i][j] = '>';
+        }
+        for (int j = (int(m_largeur)/2)+1;j<=int(m_largeur)-1;j++){
+            m_carte[i][j] = '<';
+        }
+    }
+
+    m_carte[int(m_hauteur)-1][(int(m_largeur)/2)-2] = '#';
+    m_carte[int(m_hauteur)-1][(int(m_largeur)/2)+1] = '#';
+    for (int i = int(m_hauteur)-1; i >= (int(m_hauteur)/2)+1; i--){
+        for (int j = (int(m_largeur)/2)-1;j<=int(m_largeur)/2;j++){
+            m_carte[i][j] = '^';
+        }
+    }
+
+}
+
 
 int main(){
 
@@ -318,13 +361,13 @@ int main(){
                 break;            
         }
 
-        map.effacerObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize());
+        //map.effacerObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize());
 
 
     }
-    	map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'.');
-    	map.affObj(jeuUnique.tabEnnemi.at(1).get_position(),1,'.');
-    	map.affObj(jeuUnique.tabEnnemi.at(2).get_position(),1,'.');
+    	//map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'.');
+    	//map.affObj(jeuUnique.tabEnnemi.at(1).get_position(),1,'.');
+    	//map.affObj(jeuUnique.tabEnnemi.at(2).get_position(),1,'.');
 
 
         jeuUnique.enleveEntDestruites();
@@ -352,13 +395,14 @@ int main(){
         }
         map.affObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize(),jeuUnique.tabBatDef.at(i).getCarac());
 
-
     }
 
 
 
 
         map.afficher();
+        map.initTab();
+
 
         // afficher le timer
         cout << "Temps écoulé : ";

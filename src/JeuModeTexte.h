@@ -25,10 +25,13 @@
         JeuModeTexte(float largeur, float hauteur);
         void affObj(Vect2 post, int size, char car);
         void effacerObj(Vect2 post, int size);
+        void initTab();
         ~JeuModeTexte();
         void afficher() const;
         int getHauteur() const;
         int getLargeur() const;
+
+
     };
 
     
