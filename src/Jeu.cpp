@@ -31,11 +31,15 @@ void Jeu::deplacerEnnemis(){
 
     for(e=0;e<tabEnnemi.size();e++)  //<
     { 
-    cout<<"ennemi indice "<<e<<"  "<<endl;
+    
         batProche=false;
         enboucle=tabEnnemi.at(e);
         posEnne= enboucle.get_position();
         deplacerEnnemiBool=true;
+        
+        distanceMinimale=posEnne.distance(posBati); 
+        indiceMinDistance=0;
+        
 
         for(bat=0;bat<tabBatDef.size();bat++)
         {
@@ -72,6 +76,7 @@ void Jeu::deplacerEnnemis(){
         
         //bool test = true;
         if(deplacerEnnemiBool==true){
+
             if(batProche==true) ///l'ennemi va etre devié vers le batiment le plus proche
             {
                 float distance_pour_normaliser;
@@ -94,9 +99,9 @@ void Jeu::deplacerEnnemis(){
        }else{
            // std::cout<<indiceBatdegat;
             ///if faut faire des degats dans le bat a l'indice indiceBatdegat
-            
+            //cout<<"ennemi indice "<<e<<"   se deplace"<<endl;
             tabBatDef.at(indiceBatdegat).enleverPointsVie(enboucle.get_degat());
-            cout<<"degat "<<enboucle.get_degat()<<endl;
+            //cout<<"degat "<<enboucle.get_degat()<<endl;
 
        }
 
@@ -108,9 +113,11 @@ void Jeu::deplacerEnnemis(){
         if(deplacerEnnemiBool==true)
         {
             Vect2 posActuelle=tabEnnemi.at(e).get_position();
-            if( (posActuelle.x> 0 && posActuelle.x<56)&&( posActuelle.y>0 && posActuelle.y<30))
+            if( (posActuelle.x> 1 && posActuelle.x<56)&&( posActuelle.y>1 && posActuelle.y<30))
             {
+             //cout<<"ennemi indice "<<e<<"   se deplace"<<endl;
                 tabEnnemi.at(e).deplacer();
+                       
             }
             
         }

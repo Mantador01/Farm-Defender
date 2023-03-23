@@ -29,7 +29,7 @@ Ennemi::Ennemi()
 {   statut=true;
     type_en=zombi;
     sante=10;
-    degat=100; ///1
+    degat=5; ///1
     vitesse=0.4;      //1
     if (type_en==zombi){
         int r=rand()%3;
@@ -90,6 +90,7 @@ return type_en;
 void Ennemi::deplacer()
 {
     position=position+direction*vitesse;
+    //cout<<"deplace correct"<<endl;
     //faire tests avec le tableau de batiments
 }
 

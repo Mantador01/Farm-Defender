@@ -129,6 +129,8 @@ bool BatimentDefense::getDetruit (){
 
 void BatimentDefense::afficher(){
     //cout << "Type BatimentDefense: " <<this->getType() <<endl;
-    cout << "Sante BatimentDefense: " <<this->getPointsDeVie() <<endl;
+    if(m_pointsDeVie>=0){
+    cout << "Sante BatimentDefense: " <<this->getPointsDeVie() <<endl;}else{
+    cout << "Batiment détruit"<<endl;}
 }
 
