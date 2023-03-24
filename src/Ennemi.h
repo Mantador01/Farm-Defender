@@ -149,6 +149,11 @@ public:
     @brief 
     */
    int get_sante ();
+    /**
+    @brief Accesseur pour statut 0 eliminé 1 vivant
+    @return valeur du statut
+    */
+   bool get_statut();
 
 };
 

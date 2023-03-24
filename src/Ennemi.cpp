@@ -155,3 +155,7 @@ void Ennemi::afficher()
     cout << "Sante ennemi: " <<this->get_sante() <<endl;
 }
 
+
+bool Ennemi::get_statut(){
+    return statut;
+}

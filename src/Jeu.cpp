@@ -27,7 +27,11 @@ void Jeu::deplacerEnnemis(){
     Ennemi enboucle;
     Vect2 posEnne,posBati;
     BatimentDefense bati;
-    //Ferme ferme1;
+
+    StockageRessources stockage;
+    Ferme ferme1(stockage);
+    Vect2 pos(0,0);
+    ferme1.creation(pos);
 
     for(e=0;e<tabEnnemi.size();e++)  //<
     { 
@@ -125,23 +129,53 @@ void Jeu::deplacerEnnemis(){
 
         /// enboucle est une copie l'enemi actuel 
         //deplacerEnnemiBool=true;
+        bool attaqueFerme=false;
         
+        if(TabFerme.size()>0){
+             
+            indiceMinDistance=0;
+            ferme1=TabFerme.at(ferme);
+            posBati=ferme1.get_position();
+            distanceMinimale=posEnne.distance(posBati);
+            distanceActuelle=posEnne.distance(posBati);
+
+
+
+
+
         for(ferme=0;ferme<TabFerme.size();ferme++)
         {
-           /* //ferme1=TabFerme.at(bat);
-            posBati=bati.getPosition();
+            ferme1=TabFerme.at(ferme);
+            posBati=ferme1.get_position();
             distanceActuelle=posEnne.distance(posBati);//tabEnnemi.po
 
-            if(distanceActuelle<1.f)
+            if(distanceActuelle<10.f)  //if(distanceActuelle<2.f)
             {
-                        faire des degats dans les fermes
 
-            }*/
+                if(distanceActuelle<distanceMinimale)
+                {
+                    distanceMinimale=distanceActuelle;
+                    indiceMinDistance=ferme;
+                    //cout<<indiceMinDistance;
+                    if(distanceMinimale<1.2) //ennemi est assez proche pour attaquer le batiment
+                    {
+                        attaqueFerme=true;
+                        indiceBatdegat=ferme;
+                    }
+
+                }
+            }   
         }
 
+            if(attaqueFerme)
+                    {
+                        TabFerme.at(indiceBatdegat).degat(enboucle.get_degat());
+                             //   faire des degats dans la ferme la plus proche
 
+                    }
 
- 
+        }
+
 
     }
 
@@ -149,17 +183,38 @@ void Jeu::deplacerEnnemis(){
 
 void Jeu::enleveEntDestruites(){
 
-    long unsigned int bat;//e,ferme;
+    long unsigned int bat,e,ferme;
     for(bat=tabBatDef.size()-1;bat<=0;bat--)
         {
             if (tabBatDef.at(bat).getDetruit()==true)
             {
-                //tabBatDef.erase(bat);
-                tabBatDef.erase( tabBatDef.begin() + bat);
-                
+                tabBatDef.erase( tabBatDef.begin() + bat);           
             }
-
-
         }
+    if(tabBatDef.size()>0)
+    {
+        for(ferme=TabFerme.size()-1;ferme<=0;ferme--)
+        {
+            if (TabFerme.at(ferme).est_vivant()==false)  //si la ferme n'est plus vivante
+            {
+                TabFerme.erase(TabFerme.begin() + ferme);
+            }
+        }
+    }
+
+    if(tabEnnemi.size()>0)
+    {
+        for(e=tabEnnemi.size()-1;e<=0;e--)
+        {
+            if (tabEnnemi.at(e).get_statut()==false)  //si l'ennemi est eliminé
+            {
+                tabEnnemi.erase(tabEnnemi.begin()+e);
+            }
+        }
+    }
+
+    
+
+    
 
 }

@@ -57,6 +57,12 @@ public:
     //StockageRessources m_stockage;
     StockageRessources* m_stockage;
 
+    /**
+    @brief Accesseur pour position de la ferme
+    @return valeur de type Vect2
+    */
+   Vect2 get_position();
+
 
 private:
 
