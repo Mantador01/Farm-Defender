@@ -262,8 +262,12 @@ int main(){
     BatimentDefense bat1(TypeBatiment::Tourelle);
     BatimentDefense bat2(TypeBatiment::Canon);  
 
+    BatimentDefense bat3(TypeBatiment::Canon);  
+    bat3.setPosition (10,2);
+
     jeuUnique.tabBatDef.push_back(bat1);
-    jeuUnique.tabBatDef.push_back(bat2); 
+    jeuUnique.tabBatDef.push_back(bat2);
+    jeuUnique.tabBatDef.push_back(bat3);  //////
 
     jeuUnique.tabBatDef.at(0).setPosition(1,1);
     jeuUnique.tabBatDef.at(1).setPosition(4,4);
@@ -351,8 +355,8 @@ int main(){
     map.afficher();*/
 
 
-    
-    // Démarrage de la production des fermes
+    //jeuUnique.tabBatDef.erase( jeuUnique.tabBatDef.begin()+0);
+    //Démarrage de la production des fermes
 
 
     WinTXT win (map.getHauteur(),map.getLargeur());
@@ -463,10 +467,12 @@ int main(){
 
         cout << "Batiment N° " << 0 <<endl;
        
+
 	    cout<<" --- STATUS BATIMENTS --- "<<endl;
-        jeuUnique.tabBatDef.at(0).afficher();
+        //jeuUnique.tabBatDef.at(0).afficher();
+
         
-        jeuUnique.tabBatDef.at(1).afficher();
+        //jeuUnique.tabBatDef.at(1).afficher();
 
         if (c == 'm'){
             char ch;

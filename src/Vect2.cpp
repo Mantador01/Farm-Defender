@@ -55,3 +55,11 @@ float Vect2::distance(Vect2 a)
     d = sqrt(dx*dx + dy*dy);
     return d;
 }
+
+void Vect2::normailiser(){
+    float dist=sqrt(x*x + y*y);
+    x=x/dist;
+    y=y/dist;
+
+    //cout<<sqrt(x*x + y*y)<<"    est la dist du vect normalisé"<<endl;
+}

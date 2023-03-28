@@ -5,6 +5,7 @@ using namespace std;
 
 BatimentDefense::BatimentDefense(){
     m_size = 1;
+    m_estDetruit=false;
     BatimentDefense (TypeBatiment::Tourelle);
 }
 
@@ -14,6 +15,7 @@ BatimentDefense::~BatimentDefense(){
 
 BatimentDefense::BatimentDefense(TypeBatiment type){
     m_type = type;
+    m_estDetruit=false;
     switch (type){
         case TypeBatiment::Tourelle:
             this->augmenterNiveau(100,1,0.1,1);
@@ -118,7 +120,7 @@ void BatimentDefense::augmenterNiveau(int pointsDeVie, int degats, float vitesse
 
 void BatimentDefense::enleverPointsVie(int points_enleves){
     m_pointsDeVie=m_pointsDeVie-points_enleves;
-    if (m_pointsDeVie<0)
+    if (m_pointsDeVie<=0)
     { m_estDetruit=true;
     }
 }
