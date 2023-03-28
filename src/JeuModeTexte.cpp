@@ -188,17 +188,6 @@ void JeuModeTexte::afficher() const {
     }
 }
 
-/*
-void termClear()  // efface le terminal
-{
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
-}
-*/
-
 void H(int h)
 {
     if(h < 10){
@@ -257,56 +246,6 @@ void JeuModeTexte::initTab(){
         }
     }
 }
-
-/*
-int kbhit(void)
-{
-    struct termios oldt, newt;
-    int ch;
-    int oldf;
-
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-    oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
-    fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-
-    ch = getchar();
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    fcntl(STDIN_FILENO, F_SETFL, oldf);
-
-    if(ch != EOF)
-    {
-        ungetc(ch, stdin);
-        return 1;
-    }
-
-    return 0;
-}
-*/
-
-/*
-char getCh() { // lire un caractere si une touche a ete pressee
-    char touche=0;
-    #ifdef _WIN32
-        if (kbhit())
-        {
-            DWORD mode;
-            DWORD n;
-            HANDLE consoleI = GetStdHandle(STD_INPUT_HANDLE);
-            GetConsoleMode(consoleI, &mode);
-            SetConsoleMode(consoleI, mode & ~ENABLE_LINE_INPUT & ~ENABLE_ECHO_INPUT);
-            ReadConsole(consoleI, &touche, 1, &n, NULL);
-        }
-    #else
-        if (kbhit())
-            touche = fgetc(stdin);
-    #endif
-    return touche;
-}
-*/
 
 int main(){
 
