@@ -44,3 +44,8 @@ void Ferme::creation(Vect2 posi)
     m_pointsDeVie = 20;
     pos = posi;
 }
+
+
+Vect2 Ferme::get_position(){
+    return pos;
+}
