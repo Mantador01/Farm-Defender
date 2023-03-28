@@ -31,7 +31,6 @@
         int getHauteur() const;
         int getLargeur() const;
 
-
     };
 
     

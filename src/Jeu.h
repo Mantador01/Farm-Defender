@@ -60,6 +60,8 @@
         */
         void enleveEntDestruites();
 
+        void menu() const;
+
         Jeu();
 
         ~Jeu();

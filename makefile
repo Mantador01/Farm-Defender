@@ -1,4 +1,4 @@
-OBJS_JEU = $(OBJ_DIR)/BatimentDefense.o $(OBJ_DIR)/Vect2.o $(OBJ_DIR)/Jeu.o $(OBJ_DIR)/Ennemi.o $(OBJ_DIR)/JeuModeTexte.o $(OBJ_DIR)/StockageRessources.o $(OBJ_DIR)/Ferme.o $(OBJ_DIR)/BaseCentrale.o
+OBJS_JEU = $(OBJ_DIR)/BatimentDefense.o $(OBJ_DIR)/Vect2.o $(OBJ_DIR)/Jeu.o $(OBJ_DIR)/Ennemi.o $(OBJ_DIR)/JeuModeTexte.o $(OBJ_DIR)/StockageRessources.o $(OBJ_DIR)/Ferme.o $(OBJ_DIR)/BaseCentrale.o $(OBJ_DIR)/winTxt.o
 
 FLAGS = -ggdb -Wall
 CC = g++
@@ -33,7 +33,10 @@ $(OBJ_DIR)/StockageRessources.o: $(SRC_DIR)/StockageRessources.cpp
 $(OBJ_DIR)/Ferme.o:  $(SRC_DIR)/StockageRessources.h $(SRC_DIR)/Vect2.h $(SRC_DIR)/Ferme.cpp
 	$(CC) $(FLAGS) -c $(SRC_DIR)/Ferme.cpp  -o $(OBJ_DIR)/Ferme.o
 
-$(OBJ_DIR)/JeuModeTexte.o: $(SRC_DIR)/JeuModeTexte.cpp $(SRC_DIR)/Vect2.h
+$(OBJ_DIR)/winTxt.o: $(SRC_DIR)/winTxt.cpp
+	$(CC) $(FLAGS) -c $(SRC_DIR)/winTxt.cpp -o $(OBJ_DIR)/winTxt.o
+
+$(OBJ_DIR)/JeuModeTexte.o: $(SRC_DIR)/JeuModeTexte.cpp $(SRC_DIR)/Vect2.h $(SRC_DIR)/winTxt.h
 	$(CC) $(FLAGS) -c $(SRC_DIR)/JeuModeTexte.cpp -o $(OBJ_DIR)/JeuModeTexte.o
 
 clean:

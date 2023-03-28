@@ -7,6 +7,39 @@
 #include <ctime> // pour la fonction time()
 #include <unistd.h>
 #include "BaseCentrale.h"
+#include "winTxt.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <cassert>
+/*
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif // WIN32
+#include <conio.h>
+#include "winTxt.h"
+*/
+
+#if _WIN32
+#include <windef.h>
+#include <winbase.h>
+#include <wincon.h>
+#include <windows.h>
+#include <conio.h>
+#else
+#include <unistd.h>
+#include <termios.h>
+#include <unistd.h>
+#endif
+
+#include <stdio.h>
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
+
 
 using namespace std;
 
@@ -48,11 +81,6 @@ JeuModeTexte::JeuModeTexte(float largeur, float hauteur) : m_largeur(largeur), m
             m_carte[i][j] = '^';
         }
     }
-
-
-
-
-
 }
 
 void JeuModeTexte::affObj(Vect2 post, int size, char car){
@@ -160,6 +188,7 @@ void JeuModeTexte::afficher() const {
     }
 }
 
+/*
 void termClear()  // efface le terminal
 {
 #ifdef _WIN32
@@ -168,6 +197,7 @@ void termClear()  // efface le terminal
     system("clear");
 #endif
 }
+*/
 
 void H(int h)
 {
@@ -226,12 +256,61 @@ void JeuModeTexte::initTab(){
             m_carte[i][j] = '^';
         }
     }
-
 }
 
+/*
+int kbhit(void)
+{
+    struct termios oldt, newt;
+    int ch;
+    int oldf;
+
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+    fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+
+    ch = getchar();
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    fcntl(STDIN_FILENO, F_SETFL, oldf);
+
+    if(ch != EOF)
+    {
+        ungetc(ch, stdin);
+        return 1;
+    }
+
+    return 0;
+}
+*/
+
+/*
+char getCh() { // lire un caractere si une touche a ete pressee
+    char touche=0;
+    #ifdef _WIN32
+        if (kbhit())
+        {
+            DWORD mode;
+            DWORD n;
+            HANDLE consoleI = GetStdHandle(STD_INPUT_HANDLE);
+            GetConsoleMode(consoleI, &mode);
+            SetConsoleMode(consoleI, mode & ~ENABLE_LINE_INPUT & ~ENABLE_ECHO_INPUT);
+            ReadConsole(consoleI, &touche, 1, &n, NULL);
+        }
+    #else
+        if (kbhit())
+            touche = fgetc(stdin);
+    #endif
+    return touche;
+}
+*/
 
 int main(){
 
+    termClear();
     Jeu jeuUnique;
     //Taille : (50,25) / (40,20) / (60,30)
     JeuModeTexte map(60,30);
@@ -336,8 +415,15 @@ int main(){
     
     // Démarrage de la production des fermes
 
-    while(seconds!=20) {
+
+    WinTXT win (map.getHauteur(),map.getLargeur());
+    int c;
+
+    do{
         termClear();
+		usleep(100000);
+        c = win.getCh();
+
 
 
         // obtenir le temps actuel et calculer le temps écoulé depuis le début
@@ -377,7 +463,7 @@ int main(){
         jeuUnique.deplacerEnnemis();
      //   map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
 
-	map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
+	    map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
     	map.affObj(jeuUnique.tabEnnemi.at(1).get_position(),1,'Z');
     	map.affObj(jeuUnique.tabEnnemi.at(2).get_position(),1,'Z');
 
@@ -398,7 +484,7 @@ int main(){
     }
 
 
-//afficher toutes les entites
+        //afficher toutes les entites
 
         map.afficher();
         map.initTab();
@@ -438,20 +524,47 @@ int main(){
 
         cout << "Batiment N° " << 0 <<endl;
        
-	cout<<" --- STATUS BATIMENTS --- "<<endl;
+	    cout<<" --- STATUS BATIMENTS --- "<<endl;
         jeuUnique.tabBatDef.at(0).afficher();
         
         jeuUnique.tabBatDef.at(1).afficher();
 
-        
-
-        usleep(100000);
-    }
-
+        if (c == 'm'){
+            char ch;
+            int x,y;
+            cout << "Menu: " <<endl;
+            cout << "1.Pour construire un batiment" <<endl;
+            cout << "2.Pour quitter" <<endl;
+            cin >> ch;
+            switch (ch){
+                case '1':
+                {
+                    cout << jeuUnique.tabBatDef.size() <<endl;  
+                    cout << "Donner la coord x: "; cin >> x; cout << endl;
+                    cout << "Donner la coord y: "; cin >> y;
+                    BatimentDefense bat(TypeBatiment::Tourelle);
+                    jeuUnique.tabBatDef.push_back(bat); 
+                    jeuUnique.tabBatDef.at(jeuUnique.tabBatDef.size()-1).setPosition(y,x);
+                    map.affObj(jeuUnique.tabBatDef.at(jeuUnique.tabBatDef.size()-1).getPosition(),4,'T');
+                    break;
+                }
+                case '2':
+                {
+                    c = 'q';
+                    break;
+                }
+                default:
+                {
+                    cout << "MENU ERROR" <<endl;
+                    break;
+                }
+            }
+        }
+    }while (c != 'q');
+    
     // Affichage des ressources finales
     /*cout << "                                       Ressources actuel :" << endl;
     stockage.afficherRessources();*/
-
 
     return 0;
 }

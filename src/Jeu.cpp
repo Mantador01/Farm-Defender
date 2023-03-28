@@ -163,3 +163,24 @@ void Jeu::enleveEntDestruites(){
         }
 
 }
+
+void Jeu::menu() const{
+    char touche;
+    do{
+        cout << "Que voulez-vous faire?" << endl;
+        cout << "1. Pour construire un batiment de défense" <<endl;
+        cout << "2. Pour quiter" <<endl;
+        cin >> touche;
+
+        switch(touche){
+            case '1':
+                //construireBatiment();
+                break;
+            case '2':
+                cout << "Merci d'avoir joué!" <<endl;
+                break; 
+        }
+    }
+    while (touche != 2);
+}
+
