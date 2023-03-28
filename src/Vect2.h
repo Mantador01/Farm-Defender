@@ -36,7 +36,7 @@ class Vect2
         //void Vect2::operator = (Vect2 a);
         
         
-                /**
+        /**
         @brief constructeur de vecteur de la classe Vect2
         Permet la construction de vecteurs a partir de 2 réels.
         @param float a premier réel pour la création du vecteur.
@@ -81,7 +81,14 @@ class Vect2
         @brief Initialiseur des réels x et y
         */
         float x,y;
+
+        /**
+        @brief normalise un vecteur
+        */
+        void normailiser();
         
+
+
     private:
 
 };

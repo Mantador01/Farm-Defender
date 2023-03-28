@@ -1,5 +1,5 @@
 #include "Jeu.h"
-
+#include <unistd.h> //sleep?
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -17,7 +17,7 @@ void Jeu::deplacerEnnemis(){
 
 
   //  (std::vector<Ennemi> & tabEnnemi,vector<BatimentDefense> tabBatDef, vector<Ferme> TabFerme,BaseCentrale baseCentrale
-
+   // enleveEntDestruites();
 
     long unsigned int e,bat,ferme;
     long unsigned int indiceMinDistance;
@@ -35,7 +35,7 @@ void Jeu::deplacerEnnemis(){
 
     for(e=0;e<tabEnnemi.size();e++)  //<
     { 
-    
+    cout<<"indice ennemi "<<e<<"  ";
         batProche=false;
         enboucle=tabEnnemi.at(e);
         posEnne= enboucle.get_position();
@@ -44,12 +44,9 @@ void Jeu::deplacerEnnemis(){
         distanceMinimale=posEnne.distance(posBati); 
         indiceMinDistance=0;
         
-
-        for(bat=0;bat<tabBatDef.size();bat++)
-        {
-            if(deplacerEnnemiBool==true){
-
-            }
+        if(tabBatDef.size()>0){
+        for(bat=0;bat<tabBatDef.size();bat++) //test proximité des batiments
+        {   cout<<"indice bat "<<bat;
             if(bat==0){distanceMinimale=posEnne.distance(posBati); indiceMinDistance=0;}
             bati=tabBatDef.at(bat);
             posBati=bati.getPosition();
@@ -57,13 +54,13 @@ void Jeu::deplacerEnnemis(){
             if(distanceActuelle<200.f)  //if(distanceActuelle<2.f)
             {
                 batProche=true;
-                //cout<<batProche<<"bat proche";
+                cout<<batProche<<"bat proche pour ennemi num :"<<e<<" ";
                 if(distanceActuelle<distanceMinimale)
                 {
                     distanceMinimale=distanceActuelle;
                     indiceMinDistance=bat;
                     //cout<<indiceMinDistance;
-                    if(distanceMinimale<2.2) //ennemi est assez proche pour attaquer le batiment
+                    if(distanceMinimale<0.1) //ennemi est assez proche pour attaquer le batiment
                     {
                     deplacerEnnemiBool=false;
                     indiceBatdegat=bat;
@@ -76,6 +73,7 @@ void Jeu::deplacerEnnemis(){
 
             }
         }
+        }
 
         
         //bool test = true;
@@ -83,16 +81,17 @@ void Jeu::deplacerEnnemis(){
 
             if(batProche==true) ///l'ennemi va etre devié vers le batiment le plus proche
             {
-                float distance_pour_normaliser;
+                //float distance_pour_normaliser;
                 Vect2 nouveauDepl;
-                bati=tabBatDef.at(indiceMinDistance);
-                posBati=bati.getPosition();
-                distance_pour_normaliser=posBati.distance(posEnne);
+                //bati=tabBatDef.at(indiceMinDistance);
+                posBati=tabBatDef.at(indiceMinDistance).getPosition();
+                //distance_pour_normaliser=posBati.distance(posEnne);
                 nouveauDepl=posBati-posEnne;
-                nouveauDepl=nouveauDepl*(1/distance_pour_normaliser);
+                //nouveauDepl=nouveauDepl*(1/distance_pour_normaliser);
+                nouveauDepl.normailiser();
 
                 tabEnnemi.at(e).set_direction(nouveauDepl);
-                //cout<<"devié ver bat proche";
+                cout<<"devié ver bat proche";
                 //normaliser
 
                 //nouveauDepl=nouveauDepl*(1/2);
@@ -139,61 +138,71 @@ void Jeu::deplacerEnnemis(){
             distanceMinimale=posEnne.distance(posBati);
             distanceActuelle=posEnne.distance(posBati);
 
-
-
-
-
-        for(ferme=0;ferme<TabFerme.size();ferme++)
-        {
-            ferme1=TabFerme.at(ferme);
-            posBati=ferme1.get_position();
-            distanceActuelle=posEnne.distance(posBati);//tabEnnemi.po
-
-            if(distanceActuelle<10.f)  //if(distanceActuelle<2.f)
+            for(ferme=0;ferme<TabFerme.size();ferme++)
             {
+                ferme1=TabFerme.at(ferme);
+                posBati=ferme1.get_position();
+                distanceActuelle=posEnne.distance(posBati);//tabEnnemi.po
 
-                if(distanceActuelle<distanceMinimale)
+                if(distanceActuelle<10.f)  //if(distanceActuelle<2.f)
                 {
-                    distanceMinimale=distanceActuelle;
-                    indiceMinDistance=ferme;
-                    //cout<<indiceMinDistance;
-                    if(distanceMinimale<1.2) //ennemi est assez proche pour attaquer le batiment
-                    {
-                        attaqueFerme=true;
-                        indiceBatdegat=ferme;
-                    }
 
-                }
-            }   
-        }
-
-            if(attaqueFerme)
+                    if(distanceActuelle<distanceMinimale)
                     {
-                        TabFerme.at(indiceBatdegat).degat(enboucle.get_degat());
-                             //   faire des degats dans la ferme la plus proche
+                        distanceMinimale=distanceActuelle;
+                        indiceMinDistance=ferme;
+                        //cout<<indiceMinDistance;
+                        if(distanceMinimale<1.2) //ennemi est assez proche pour attaquer le batiment
+                        {
+                            attaqueFerme=true;
+                            indiceBatdegat=ferme;
+                        }
 
                     }
+                }   
+            }
+
+                if(attaqueFerme)
+                        {
+                            TabFerme.at(indiceBatdegat).degat(enboucle.get_degat());
+                                //   faire des degats dans la ferme la plus proche
+
+                        }
 
         }
 
-
+    cout<<endl;
     }
 
 }
 
 void Jeu::enleveEntDestruites(){
 
+    cout<<"eneeve det"<<endl; 
     long unsigned int bat,e,ferme;
-    for(bat=tabBatDef.size()-1;bat<=0;bat--)
-        {
-            if (tabBatDef.at(bat).getDetruit()==true)
-            {
-                tabBatDef.erase( tabBatDef.begin() + bat);           
-            }
+
+    bat=tabBatDef.size();
+    
+    if(tabBatDef.size()>0){
+        cout<<" size "<<tabBatDef.size()<<"  taille tab  ";
+    for(bat=tabBatDef.size();bat>0;bat--)
+        { 
+            
+                cout<<"Batiment indice"<< bat-1 <<" "; 
+                if (tabBatDef.at(bat-1).getDetruit()==true ||  tabBatDef.at(bat-1).getPointsDeVie()<=0 )
+                {
+                tabBatDef.erase( tabBatDef.begin() + bat-1);
+                    cout<<"BATIMENT "<<bat-1<< " EFFACEE"<<endl; 
+                    //usleep(1000000);          
+                }
+
+    
+
         }
-    if(tabBatDef.size()>0)
+    }
+  /* if(TabFerme.size()>0)
     {
-        for(ferme=TabFerme.size()-1;ferme<=0;ferme--)
+        for(ferme=TabFerme.size()-1;ferme>=0;ferme--)
         {
             if (TabFerme.at(ferme).est_vivant()==false)  //si la ferme n'est plus vivante
             {
@@ -204,7 +213,7 @@ void Jeu::enleveEntDestruites(){
 
     if(tabEnnemi.size()>0)
     {
-        for(e=tabEnnemi.size()-1;e<=0;e--)
+        for(e=tabEnnemi.size()-1;e>=0;e--)
         {
             if (tabEnnemi.at(e).get_statut()==false)  //si l'ennemi est eliminé
             {
@@ -214,7 +223,7 @@ void Jeu::enleveEntDestruites(){
     }
 
     
-
+    */
     
 
 }
