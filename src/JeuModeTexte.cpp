@@ -364,7 +364,7 @@ int main(){
 
     do{
         termClear();
-		usleep(100000);
+		
         c = win.getCh();
 
 
@@ -505,6 +505,8 @@ int main(){
                 }
             }
         }
+        
+        usleep(100000);
     }while (c != 'q');
     
     // Affichage des ressources finales

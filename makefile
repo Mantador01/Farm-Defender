@@ -52,4 +52,4 @@ $(OBJ_DIR)/JeuModeTexte.o: $(SRC_DIR)/JeuModeTexte.cpp $(SRC_DIR)/Vect2.h $(SRC_
 	$(CC) $(FLAGS) -c $(SRC_DIR)/JeuModeTexte.cpp -o $(OBJ_DIR)/JeuModeTexte.o
 
 clean:
-	rm -f $(OBJS_JEU) $(OBJS_GR) $(BIN_DIR)/jeu $(BIN_DIR)/gr $(DATA_DIR)/*
+	rm -f $(OBJS_JEU) $(OBJS_GR) $(BIN_DIR)/jeu $(BIN_DIR)/gr 
