@@ -7,6 +7,44 @@ using namespace std;
 Jeu::Jeu(){
 
     jeu_largeur=40; jeu_hauteur=20;
+
+    BatimentDefense bat1(TypeBatiment::Tourelle);
+    BatimentDefense bat2(TypeBatiment::Canon);  
+
+    BatimentDefense bat3(TypeBatiment::Canon);  
+    bat3.setPosition (10,2);
+
+    tabBatDef.push_back(bat1);
+    tabBatDef.push_back(bat2);
+    tabBatDef.push_back(bat3);
+
+    tabBatDef.at(0).setPosition(1,1);
+    tabBatDef.at(1).setPosition(4,4);
+
+    Ennemi enm1(Type_ennemi::zombi);
+    tabEnnemi.push_back(enm1);
+
+    Vect2 pos1(15,17);
+
+    Vect2 dire(1,0);
+
+    tabEnnemi.at(0).set_pos(pos1);
+
+    tabEnnemi.at(0).set_direction(dire);
+
+    Ennemi zombiTest;
+
+    Vect2 posZombi(12,17);
+    zombiTest.set_pos(posZombi);
+    Vect2 dire2(1,0);
+    zombiTest.set_direction(dire2);
+    tabEnnemi.push_back(zombiTest);
+    
+     Vect2 posZombi2(11,19);
+    zombiTest.set_pos(posZombi2);
+    tabEnnemi.push_back(zombiTest);
+
+
 }
 
 Jeu::~Jeu(){

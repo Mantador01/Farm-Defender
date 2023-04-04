@@ -1,6 +1,6 @@
 #include "JeuModeTexte.h"
 #include "BatimentDefense.h"
-#include "Jeu.h"
+//#include "Jeu.h"
 #include <iostream>
 #include "StockageRessources.h"
 #include "Ferme.h"
@@ -118,8 +118,6 @@ void JeuModeTexte::affObj(Vect2 post, int size, char car){
         }
     }    
 } 
-
-
 
 
 void JeuModeTexte::effacerObj(Vect2 post, int size){
@@ -247,119 +245,24 @@ void JeuModeTexte::initTab(){
     }
 }
 
-int main(){
+void BoucleJeu(Jeu & j){
 
-    termClear();
-    Jeu jeuUnique;
+    //Jeu jeuUnique;
     //Taille : (50,25) / (40,20) / (60,30)
     JeuModeTexte map(60,30);
-
-    // Création d'un stockage de ressources
     StockageRessources stockage;
 
-    BaseCentrale base(stockage);
-
-    BatimentDefense bat1(TypeBatiment::Tourelle);
-    BatimentDefense bat2(TypeBatiment::Canon);  
-
-    BatimentDefense bat3(TypeBatiment::Canon);  
-    bat3.setPosition (10,2);
-
-    jeuUnique.tabBatDef.push_back(bat1);
-    jeuUnique.tabBatDef.push_back(bat2);
-    jeuUnique.tabBatDef.push_back(bat3);  //////
-
-    jeuUnique.tabBatDef.at(0).setPosition(1,1);
-    jeuUnique.tabBatDef.at(1).setPosition(4,4);
-
-    //x**2 / 50   -   x / 2   +  11
-    base.setPos(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
-    map.affObj(base.pos,base.m_size,base.m_carac);
-//
-        ////////////////////////ENNEMI//////////////////////////////
-
-    Ennemi enm1(Type_ennemi::zombi);
-
-    //Ennemi enm2(Type_ennemi::pillard);
-
-
-
-    jeuUnique.tabEnnemi.push_back(enm1);
-
-   // jeuUnique.tabEnnemi.push_back(enm2);
-
-
-
-    Vect2 pos1(15,17);
-
-    Vect2 dire(1,0);
-
-    jeuUnique.tabEnnemi.at(0).set_pos(pos1);
-
-    jeuUnique.tabEnnemi.at(0).set_direction(dire);
-
-    
-/*
-    Vect2 pos2(16,18);
-
-    jeuUnique.tabEnnemi.at(1).set_pos(pos2);
-
-    jeuUnique.tabEnnemi.at(1).set_direction(dire);*/
-
-
-
-    ////////////////////////ENNEMI//////////////////////////////
-
-
-
-    time_t startTime = time(NULL); // temps de départ
-    time_t currentTime;
-    int elapsedSeconds;
-    int hours, minutes, seconds;
-
-    Vect2 pos;
-    pos.x = 0;
-    pos.y = 0;
-    Ennemi zombiTest;
-
-    // Création de 3 fermes
     Ferme ferme1(stockage);
     Ferme ferme2(stockage);
     Ferme ferme3(stockage);
 
-
-    //Vect2 posZombi(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
-    Vect2 posZombi(12,17);
-    zombiTest.set_pos(posZombi);
-    Vect2 dire2(1,0);
-    zombiTest.set_direction(dire2);
-    jeuUnique.tabEnnemi.push_back(zombiTest);
     
-     Vect2 posZombi2(11,19);
-    zombiTest.set_pos(posZombi2);
-    jeuUnique.tabEnnemi.push_back(zombiTest);
-    //map.affObj(zombiTest.get_position(),1,'Z');
-
-    /*ferme1.creation(pos);
-    ferme2.creation(pos);
-    ferme3.creation(pos);*/
+    time_t startTime = time(NULL); // temps de départ
+    time_t currentTime;
+    int elapsedSeconds;
+    int hours, minutes, seconds;
     
-    //BaseCentrale BC(stockage);
-
-        // Affichage des ressources initiales
-    cout << "Ressources initiales :" << endl;
-    stockage.afficherRessources();
-    
-    //JeuModeTexte map(40,20);
-    /*map.affObj(bat.getPosition(),bat.getSize(),bat.getCarac());
-    map.afficher();*/
-
-
-    //jeuUnique.tabBatDef.erase( jeuUnique.tabBatDef.begin()+0);
-    //Démarrage de la production des fermes
-
-
-    WinTXT win (map.getHauteur(),map.getLargeur());
+    WinTXT win (60,30);
     int c;
 
     do{
@@ -378,53 +281,52 @@ int main(){
         minutes = (elapsedSeconds % 3600) / 60;
         seconds = elapsedSeconds % 60;
 
-        for (unsigned int i = 0; i<jeuUnique.tabBatDef.size();i++){
-        switch (jeuUnique.tabBatDef.at(i).getType()){
+        for (unsigned int i = 0; i<j.tabBatDef.size();i++){
+        switch (j.tabBatDef.at(i).getType()){
             case TypeBatiment::Tourelle:
-                jeuUnique.tabBatDef.at(i).setSize(4);
-                jeuUnique.tabBatDef.at(i).setCarac('.');
+                j.tabBatDef.at(i).setSize(4);
+                j.tabBatDef.at(i).setCarac('.');
                 break;
             case TypeBatiment::Canon:
-                jeuUnique.tabBatDef.at(i).setSize(4); //2
-                jeuUnique.tabBatDef.at(i).setCarac('.'); 
+                j.tabBatDef.at(i).setSize(4); //2
+                j.tabBatDef.at(i).setCarac('.'); 
                 break;            
         }
 
-        //map.effacerObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize());
+        //map.effacerObj(j.tabBatDef.at(i).getPosition(),j.tabBatDef.at(i).getSize());
 
 
     }
-    	//map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'.');
-    	//map.affObj(jeuUnique.tabEnnemi.at(1).get_position(),1,'.');
-    	//map.affObj(jeuUnique.tabEnnemi.at(2).get_position(),1,'.');
+    	//map.affObj(j.tabEnnemi.at(0).get_position(),1,'.');
+    	//map.affObj(j.tabEnnemi.at(1).get_position(),1,'.');
+    	//map.affObj(j.tabEnnemi.at(2).get_position(),1,'.');
 
 
-        jeuUnique.enleveEntDestruites();
+        j.enleveEntDestruites();
     
-        //    map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'.');
+        //    map.affObj(j.tabEnnemi.at(0).get_position(),1,'.');
       
-        jeuUnique.deplacerEnnemis();
-     //   map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
+        j.deplacerEnnemis();
+     //   map.affObj(j.tabEnnemi.at(0).get_position(),1,'Z');
 
-	    map.affObj(jeuUnique.tabEnnemi.at(0).get_position(),1,'Z');
-    	map.affObj(jeuUnique.tabEnnemi.at(1).get_position(),1,'Z');
-    	map.affObj(jeuUnique.tabEnnemi.at(2).get_position(),1,'Z');
+	    map.affObj(j.tabEnnemi.at(0).get_position(),1,'Z');
+    	map.affObj(j.tabEnnemi.at(1).get_position(),1,'Z');
+    	map.affObj(j.tabEnnemi.at(2).get_position(),1,'Z');
 
 
-        for (unsigned int i = 0; i<jeuUnique.tabBatDef.size();i++){
-        switch (jeuUnique.tabBatDef.at(i).getType()){
+        for (unsigned int i = 0; i<j.tabBatDef.size();i++){
+        switch (j.tabBatDef.at(i).getType()){
             case TypeBatiment::Tourelle:
-                jeuUnique.tabBatDef.at(i).setSize(4);
-                jeuUnique.tabBatDef.at(i).setCarac('T');
+                j.tabBatDef.at(i).setSize(4);
+                j.tabBatDef.at(i).setCarac('T');
                 break;
             case TypeBatiment::Canon:
-                jeuUnique.tabBatDef.at(i).setSize(4); //2
-                jeuUnique.tabBatDef.at(i).setCarac('C'); 
+                j.tabBatDef.at(i).setSize(4); //2
+                j.tabBatDef.at(i).setCarac('C'); 
                 break;            
         }
-        map.affObj(jeuUnique.tabBatDef.at(i).getPosition(),jeuUnique.tabBatDef.at(i).getSize(),jeuUnique.tabBatDef.at(i).getCarac());
-
-    }
+        map.affObj(j.tabBatDef.at(i).getPosition(),j.tabBatDef.at(i).getSize(),j.tabBatDef.at(i).getCarac());
+        }
 
 
         //afficher toutes les entites
@@ -461,7 +363,7 @@ int main(){
         
         /*cout << "****************************Gestion Ennemi's" <<endl;
 
-        jeuUnique.tabEnnemi.at(0).afficher();*/
+        j.tabEnnemi.at(0).afficher();*/
 
         cout << "****************************Gestion BatimentDefense's" <<endl;
 
@@ -469,10 +371,10 @@ int main(){
        
 
 	    cout<<" --- STATUS BATIMENTS --- "<<endl;
-        //jeuUnique.tabBatDef.at(0).afficher();
+        //j.tabBatDef.at(0).afficher();
 
         
-        //jeuUnique.tabBatDef.at(1).afficher();
+        //j.tabBatDef.at(1).afficher();
 
         if (c == 'm'){
             char ch;
@@ -484,13 +386,13 @@ int main(){
             switch (ch){
                 case '1':
                 {
-                    cout << jeuUnique.tabBatDef.size() <<endl;  
+                    cout << j.tabBatDef.size() <<endl;  
                     cout << "Donner la coord x: "; cin >> x; cout << endl;
                     cout << "Donner la coord y: "; cin >> y;
                     BatimentDefense bat(TypeBatiment::Tourelle);
-                    jeuUnique.tabBatDef.push_back(bat); 
-                    jeuUnique.tabBatDef.at(jeuUnique.tabBatDef.size()-1).setPosition(y,x);
-                    map.affObj(jeuUnique.tabBatDef.at(jeuUnique.tabBatDef.size()-1).getPosition(),4,'T');
+                    j.tabBatDef.push_back(bat); 
+                    j.tabBatDef.at(j.tabBatDef.size()-1).setPosition(y,x);
+                    map.affObj(j.tabBatDef.at(j.tabBatDef.size()-1).getPosition(),4,'T');
                     break;
                 }
                 case '2':
@@ -508,10 +410,34 @@ int main(){
         
         usleep(100000);
     }while (c != 'q');
-    
-    // Affichage des ressources finales
-    /*cout << "                                       Ressources actuel :" << endl;
-    stockage.afficherRessources();*/
+}
+
+int main(){
+
+    termClear();
+    Jeu jeuUnique;
+    //Taille : (50,25) / (40,20) / (60,30)
+    JeuModeTexte map(60,30);
+
+    // Création d'un stockage de ressources
+    StockageRessources stockage;
+
+    BaseCentrale base(stockage);
+
+    base.setPos(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
+    map.affObj(base.pos,base.m_size,base.m_carac);
+
+    /*
+    Vect2 pos;
+    pos.x = 0;
+    pos.y = 0;
+    Ennemi zombiTest;
+    */
+
+    cout << "Ressources initiales :" << endl;
+    stockage.afficherRessources();
+
+    BoucleJeu(jeuUnique);
 
     return 0;
 }

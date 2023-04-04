@@ -48,7 +48,7 @@ $(OBJ_DIR)/Ferme.o:  $(SRC_DIR)/StockageRessources.h $(SRC_DIR)/Vect2.h $(SRC_DI
 $(OBJ_DIR)/winTxt.o: $(SRC_DIR)/winTxt.cpp
 	$(CC) $(FLAGS) -c $(SRC_DIR)/winTxt.cpp -o $(OBJ_DIR)/winTxt.o
 
-$(OBJ_DIR)/JeuModeTexte.o: $(SRC_DIR)/JeuModeTexte.cpp $(SRC_DIR)/Vect2.h $(SRC_DIR)/winTxt.h
+$(OBJ_DIR)/JeuModeTexte.o: $(SRC_DIR)/JeuModeTexte.cpp $(SRC_DIR)/Vect2.h $(SRC_DIR)/winTxt.h $(SRC_DIR)/Jeu.h
 	$(CC) $(FLAGS) -c $(SRC_DIR)/JeuModeTexte.cpp -o $(OBJ_DIR)/JeuModeTexte.o
 
 clean:

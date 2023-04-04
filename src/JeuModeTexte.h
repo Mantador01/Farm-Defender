@@ -11,6 +11,7 @@
     #define JEUMODETEXTE_H
 
     #include "Vect2.h"
+    #include "Jeu.h"
 
     /**
     @brief Classe résponsable de l'affichage textuelle
@@ -22,6 +23,7 @@
         char* win;      //!< \brief stocke le contenu de la fen�tre dans un tableau 1D mais on y accede en 2D
 
     public:
+ 
         JeuModeTexte(float largeur, float hauteur);
         void affObj(Vect2 post, int size, char car);
         void effacerObj(Vect2 post, int size);
@@ -30,6 +32,7 @@
         void afficher() const;
         int getHauteur() const;
         int getLargeur() const;
+        void BoucleJeu(Jeu &j);
 
     };
 

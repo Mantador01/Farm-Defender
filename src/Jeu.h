@@ -11,7 +11,7 @@
     #define JEU_H
 
     #include "BatimentDefense.h"
-    #include "JeuModeTexte.h"
+    //#include "JeuModeTexte.h"
     #include "Ennemi.h"
     #include "StockageRessources.h"
     #include "Ferme.h"
