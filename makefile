@@ -1,7 +1,7 @@
 OBJS_JEU = $(OBJ_DIR)/BatimentDefense.o $(OBJ_DIR)/Vect2.o $(OBJ_DIR)/Jeu.o $(OBJ_DIR)/Ennemi.o $(OBJ_DIR)/JeuModeTexte.o $(OBJ_DIR)/StockageRessources.o $(OBJ_DIR)/Ferme.o $(OBJ_DIR)/BaseCentrale.o $(OBJ_DIR)/winTxt.o
-OBJS_GR = $(OBJ_DIR)/JeuModeGraphique.o $(OBJ_DIR)/sdlJeu.o
+OBJS_GR = $(OBJ_DIR)/JeuModeGraphique.o $(OBJ_DIR)/sdlJeu.o	$(OBJ_DIR)/BatimentDefense.o $(OBJ_DIR)/Vect2.o $(OBJ_DIR)/Jeu.o $(OBJ_DIR)/Ennemi.o $(OBJ_DIR)/StockageRessources.o $(OBJ_DIR)/Ferme.o $(OBJ_DIR)/BaseCentrale.o
 
-SDL1 = -lSDL2 -lSDL2_ttf -lSDL2_image
+SDL1 = -lSDL2 -lSDL2_ttf -lSDL2_image -lX11 -lSDL2_mixer
 SDL2 = -ISDL2
 FLAGS = -ggdb -Wall
 CC = g++

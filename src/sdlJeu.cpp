@@ -2,12 +2,14 @@
 #include <time.h>
 #include "sdlJeu.h"
 #include <stdlib.h>
+#include <X11/Xlib.h>
+
+
 
 #include <iostream>
 using namespace std;
 
-//const int TAILLE_SPRITE = 32;
-
+const int TAILLE_SPRITE = 32;
 
 float temps () {
     return float(SDL_GetTicks()) / CLOCKS_PER_SEC;  // conversion des ms en secondes en divisant par 1000
@@ -92,7 +94,7 @@ void Image::setSurface(SDL_Surface * surf) {m_surface = surf;}
 
 // ============= CLASS SDLJEU =============== //
 
-SDLSimple::SDLSimple () /*: jeu()*/ {
+SDLSimple::SDLSimple ()  : jeu_sdl() {
     // Initialisation de la SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
@@ -113,16 +115,16 @@ SDLSimple::SDLSimple () /*: jeu()*/ {
         exit(1);
     }
 
-    /*
+    
     if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
     {
         cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << endl;
         cout << "No sound !!!" << endl;
-        //SDL_Quit();exit(1);
+        SDL_Quit();exit(1);
         withSound = false;
     }
     else withSound = true;
-    */
+    
 
     /*
 	int dimx, dimy;
@@ -132,8 +134,20 @@ SDLSimple::SDLSimple () /*: jeu()*/ {
 	dimy = dimy * TAILLE_SPRITE;
     */
 
+    Display *display = XOpenDisplay(nullptr);
+    Screen *screen = DefaultScreenOfDisplay(display);
+    
+    const int screenWidth = screen->width;
+    const int screenHeight = screen->height;
+
+	jeu_sdl.jeu_hauteur = screenWidth;
+    jeu_sdl.jeu_largeur = screenHeight;
+
+    XCloseDisplay(display);
+
+	cout<<" SDL COUT : "<< jeu_sdl.jeu_hauteur<< " " << jeu_sdl.jeu_largeur <<endl;
     // Creation de la fenetre
-    window = SDL_CreateWindow("FarmDefender", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow("FarmDefender", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, jeu_sdl.jeu_hauteur, jeu_sdl.jeu_largeur, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (window == nullptr) {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl; 
         SDL_Quit(); 
@@ -143,6 +157,8 @@ SDLSimple::SDLSimple () /*: jeu()*/ {
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 
     // IMAGES
+    im_zombi.loadFromFile("data/Zombi.png",renderer);
+    im_plaine.loadFromFile("data/Plaine.jpg",renderer);
     /*
     im_pacman.loadFromFile("data/pacman.png",renderer);
     im_mur.loadFromFile("data/mur.png",renderer);
@@ -169,39 +185,46 @@ SDLSimple::SDLSimple () /*: jeu()*/ {
     */
 
     // SONS
-    /*
+    
     if (withSound)
     {
-        sound = Mix_LoadWAV("data/son.wav");
-        if (sound == nullptr) 
-            sound = Mix_LoadWAV("../data/son.wav");
+        sound = Mix_LoadWAV("../data/son.wav");
+        if (sound == nullptr)
+          sound = Mix_LoadWAV("data/son.wav");
         if (sound == nullptr) {
-                cout << "Failed to load son.wav! SDL_mixer Error: " << Mix_GetError() << endl; 
+                cout << "Failed to load son.wav :( SDL_mixer Error: " << Mix_GetError() << endl; 
                 SDL_Quit();
                 exit(1);
         }
     }
-    */
+
 }
 
-/*
+
 SDLSimple::~SDLSimple () {
     if (withSound) Mix_Quit();
-    TTF_CloseFont(font);
-    TTF_Quit();
+    //TTF_CloseFont(font);
+    //TTF_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
-*/
-SDLSimple::~SDLSimple (){
 
-}
+/*SDLSimple::~SDLSimple (){
+
+}*/
 
 void SDLSimple::sdlAff () {
+
 	//Remplir l'écran de blanc
     SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
     SDL_RenderClear(renderer);
+
+    //Afficher l'image du background
+    im_plaine.draw(renderer,0,0,jeu_sdl.jeu_largeur,jeu_sdl.jeu_hauteur);
+
+	// Afficher le sprite du Zombi
+    im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(0).splitX(),jeu_sdl.tabEnnemi.at(0).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
 
     /*
 	int x,y;
@@ -238,6 +261,8 @@ void SDLSimple::sdlBoucle () {
 	bool quit = false;
 
     Uint32 t = SDL_GetTicks(), nt;
+    Ennemi enm1;
+    jeu_sdl.tabEnnemi.push_back(enm1);
 
 	// tant que ce n'est pas la fin ...
 	while (!quit) {
@@ -253,33 +278,18 @@ void SDLSimple::sdlBoucle () {
 		// tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
 			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
-            /*
 			else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
-                bool mangePastille = false;
 				switch (events.key.keysym.scancode) {
-				case SDL_SCANCODE_UP:
-					mangePastille = jeu.actionClavier('b');    // car Y inverse
-					break;
-				case SDL_SCANCODE_DOWN:
-					mangePastille = jeu.actionClavier('h');     // car Y inverse
-					break;
-				case SDL_SCANCODE_LEFT:
-					mangePastille = jeu.actionClavier('g');
-					break;
-				case SDL_SCANCODE_RIGHT:
-					mangePastille = jeu.actionClavier('d');
-					break;
-                case SDL_SCANCODE_ESCAPE:
-                case SDL_SCANCODE_Q:
+                    case SDL_SCANCODE_ESCAPE:
+                    case SDL_SCANCODE_Q:
                     quit = true;
                     break;
-				default: break;
-				}
-				if ((withSound) && (mangePastille))
-                    Mix_PlayChannel(-1,sound,0);
+			    default: break;
+				}            
 			}
-            */
 		}
+
+        Mix_PlayChannel(-1,sound,0);
 
 		// on affiche le jeu sur le buffer cach�
 		sdlAff();

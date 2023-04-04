@@ -6,7 +6,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
 
-//#include "Jeu.h"
+#include "Jeu.h"
 
 //! \brief Pour gérer une image avec SDL2
 class Image {
@@ -36,7 +36,7 @@ class SDLSimple {
 
 private :
 
-	//Jeu jeu;
+	
 
     SDL_Window * window;
     SDL_Renderer * renderer;
@@ -52,10 +52,13 @@ private :
     //Image im_mur;
     //Image im_pastille;
     //Image im_fantome;
+    Image im_zombi;
+    Image im_plaine;
 
     bool souris;
     bool touche;
 public :
+    Jeu jeu_sdl;
 
     SDLSimple ();
     ~SDLSimple ();
