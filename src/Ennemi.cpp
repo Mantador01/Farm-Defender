@@ -159,3 +159,13 @@ void Ennemi::afficher()
 bool Ennemi::get_statut(){
     return statut;
 }
+
+float Ennemi::splitX()
+{
+    return position.x;
+}
+
+float Ennemi::splitY()
+{
+    return position.y;
+}

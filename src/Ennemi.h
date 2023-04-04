@@ -86,6 +86,8 @@ private:
 
 
 public:
+    float splitX();
+    float splitY();
 	
     /**
     @brief Constructeur par défaut: Initialise l’ennemi comme un zombi
