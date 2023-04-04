@@ -46,3 +46,7 @@ void BaseCentrale::setPos (int x, int y){
     pos.x = x;
     pos.y = y;
 }
+
+Vect2 BaseCentrale::getPos(){
+    return pos;
+}

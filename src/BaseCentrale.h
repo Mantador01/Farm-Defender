@@ -53,6 +53,11 @@ public:
     Vect2 pos;
 
     void setPos (int x, int y);
+    
+    /**
+    @return Vect2 : returne pos la position de la BaseCentrale.
+    */
+    Vect2 getPos();
 private:
     /**
     @param StockageRessources : m_stockage le stockage des ressources que produiront la BaseCentrale.

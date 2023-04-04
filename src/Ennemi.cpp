@@ -50,7 +50,7 @@ Ennemi::Ennemi()
     }
 }
 
-Ennemi::Ennemi(Type_ennemi typeENnemi){
+/*Ennemi::Ennemi(Type_ennemi typeENnemi){
     statut=true;
     type_en=typeENnemi;
     if (type_en==zombi)
@@ -74,7 +74,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
     Vect2 dir(10.f,-10.f);
     direction=dir;
     }
-}
+}*/
 
 int Ennemi::get_degat()
 {
@@ -168,4 +168,87 @@ float Ennemi::splitX()
 float Ennemi::splitY()
 {
     return position.y;
+}
+
+Ennemi::Ennemi(Type_ennemi typeENnemi){
+    statut=true;
+    type_en=typeENnemi;
+	Vect2 dir(10.f,-10.f);
+    direction=dir;
+    
+    /*Type_ennemi zombi;
+	Type_ennemi z_infectieu;
+	Type_ennemi z_berserker;
+	Type_ennemi pillard;*/
+    
+    if (type_en==zombi)
+    {
+        sante=10;
+        degat=1;
+        vitesse=1;
+        int r=rand()%3;
+        float X,Y;
+         switch(r){
+            case 0: {X=XPntGenZSpw1; Y=YPntGenZSpw1;
+                    break;}
+            case 1: {X=XPntGenZSpw2; Y=YPntGenZSpw2;
+                    break;}
+            case 2: {X=XPntGenZSpw3; Y=YPntGenZSpw3;
+                    break;}
+        }
+    Vect2 pos(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10)));
+    position=pos;
+    }
+	if(type_en==z_infectieu){
+		sante=10;
+        degat=2;
+        vitesse=1.1;
+        int r=rand()%3;
+        float X,Y;
+		switch(r){
+            case 0: {X=XPntGenZSpw1; Y=YPntGenZSpw1;
+                    break;}
+            case 1: {X=XPntGenZSpw2; Y=YPntGenZSpw2;
+                    break;}
+            case 2: {X=XPntGenZSpw3; Y=YPntGenZSpw3;
+                    break;}
+        }
+    Vect2 pos(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10)));
+    position=pos;
+	}
+	if(type_en==z_berserker){
+		sante=10;
+        degat=2;
+        vitesse=1.1;
+        int r=rand()%3;
+        float X,Y;
+		switch(r){
+            case 0: {X=XPntGenZSpw1; Y=YPntGenZSpw1;
+                    break;}
+            case 1: {X=XPntGenZSpw2; Y=YPntGenZSpw2;
+                    break;}
+            case 2: {X=XPntGenZSpw3; Y=YPntGenZSpw3;
+                    break;}
+        }
+    Vect2 pos(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10)));
+    position=pos;
+	}
+	if(type_en==pillard){
+		sante=10;
+        degat=3;
+        vitesse=0.8;
+        int r=rand()%3;
+        float X,Y;
+		switch(r){
+            case 0: {X=XPntGenZSpw1; Y=YPntGenZSpw1;
+                    break;}
+            case 1: {X=XPntGenZSpw2; Y=YPntGenZSpw2;
+                    break;}
+            case 2: {X=XPntGenZSpw3; Y=YPntGenZSpw3;
+                    break;}
+        }
+    Vect2 pos(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10)));
+    position=pos;
+	}
+    
 }
