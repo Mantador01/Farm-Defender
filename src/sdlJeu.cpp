@@ -262,11 +262,15 @@ void SDLSimple::sdlBoucle () {
 
     Uint32 t = SDL_GetTicks(), nt;
     Ennemi enm1;
+    Vect2 dir(0.5,0.5);
+    enm1.set_direction(dir);
+    jeu_sdl.tabEnnemi.clear();
     jeu_sdl.tabEnnemi.push_back(enm1);
 
 	// tant que ce n'est pas la fin ...
 	while (!quit) {
-
+        //jeu_sdl.deplacerEnnemis();
+        jeu_sdl.tabEnnemi.at(0).deplacer();
         /*
         nt = SDL_GetTicks();
         if (nt-t>500) {
@@ -289,7 +293,7 @@ void SDLSimple::sdlBoucle () {
 			}
 		}
 
-        Mix_PlayChannel(-1,sound,0);
+       //// Mix_PlayChannel(-1,sound,0);
 
 		// on affiche le jeu sur le buffer cach�
 		sdlAff();

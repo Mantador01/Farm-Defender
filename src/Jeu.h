@@ -19,6 +19,12 @@
     #include <iostream>
     #include <vector>
 
+    
+
+    /**
+    @brief Classe représentant le noyau du jeu (entités et autres champs)
+    */
+
     class Jeu{
         public:
         /**
@@ -45,9 +51,7 @@
 
          /**
         @brief deplacerEnnemis deplace tous les ennemis du jeu en prenant en compte les positionnemet des batiments
-        @param tableaux dynamiques d'Ennemis, de batimets de defence, de fermess et la base centrale
         */
- 
         void deplacerEnnemis();
 
         /**
@@ -60,9 +64,26 @@
         */
         void enleveEntDestruites();
 
+        /**
+         @brief Constructeur de Jeu 
+        */
         Jeu();
 
+        /**
+         @brief Destructeur de Jeu
+        */
         ~Jeu();
+
+        /**
+         @brief Effectue des degat faits par les batiments sur les ennemis
+        */
+        void faireDegatBat();
+
+        /**
+         @brief place un N ennemis de type type_en dans le tableau qui contient tous les ennemis
+         @param type_en type des ennemis, de type Type_ennemi ,int effectif le nombre d'ennemis
+        */
+        void placerEnnemis(Type_ennemi type_en,int effectif);
 
 
 

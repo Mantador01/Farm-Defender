@@ -13,7 +13,7 @@ Description détaillée du fichier Ennemi.h
 #include "Vect2.h"
 #include <stdlib.h>
 /**
-@brief type ennumere pour identifier un ennemi
+@brief type ennumere pour identifier le type d'ennemi
 */
 enum Type_ennemi
 {
@@ -86,7 +86,15 @@ private:
 
 
 public:
+    /**
+    @brief Accesseur pour champ x de position d'ennemi
+    @return valeur de type float
+    */
     float splitX();
+    /**
+    @brief Accesseur pour champ y de position d'ennemi
+    @return valeur de type float
+    */
     float splitY();
 	
     /**
@@ -101,16 +109,15 @@ public:
     /**
     @brief Constructeur Ennemi avec paramètres
     Initialise les champs avec les valeurs passées en paramètres
-    @param dimensionY Hauteur de l'image
+    @param nomé Type_ennemi de type :typeEnnemi
     */
     Ennemi(Type_ennemi typeEnnemi);
 
     /**
-    @brief Deplace l ennemi selon la position et sa dirrection
-    Remplit les pixels du rectangle avec la couleur spécifiée
+    @brief deplace un elemi selon sa position,direction et vitesse
     */
     void deplacer();
-    // un tableu qiu repertorie toutes les positions des obstacles pour les ennemis
+    
 
     /**
     @brief enleverVide eleve points_enleves des points de sante et si ce champ et met a jour le statut
@@ -133,7 +140,7 @@ public:
     */
    void afficher();
     
-    void agir(); // gestion du déplacement, dégâts, sante …
+    //void agir(); // gestion du déplacement, dégâts, sante …
 
     /**
     @brief mutateur pour la direction de Ennemi 
