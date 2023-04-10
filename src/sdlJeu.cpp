@@ -231,6 +231,7 @@ void SDLSimple::sdlAff () {
 
     // Afficher le spirte du batiment de défense
     im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(0).splitX(),jeu_sdl.tabBatDef.at(0).splitY(),TAILLE_SPRITE*3,TAILLE_SPRITE*3);
+    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(1).splitX(),jeu_sdl.tabBatDef.at(0).splitY(),TAILLE_SPRITE*3,TAILLE_SPRITE*3);
 
     /*
 	int x,y;
