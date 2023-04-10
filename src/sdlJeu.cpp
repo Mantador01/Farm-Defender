@@ -226,6 +226,8 @@ void SDLSimple::sdlAff () {
 
 	// Afficher le sprite du Zombi
     im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(0).splitX(),jeu_sdl.tabEnnemi.at(0).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
+    im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(1).splitX(),jeu_sdl.tabEnnemi.at(1).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
+    im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(2).splitX(),jeu_sdl.tabEnnemi.at(2).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
 
     // Afficher le spirte du batiment de défense
     im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(0).splitX(),jeu_sdl.tabBatDef.at(0).splitY(),TAILLE_SPRITE*3,TAILLE_SPRITE*3);
@@ -275,6 +277,8 @@ void SDLSimple::sdlBoucle () {
 	while (!quit) {
         //jeu_sdl.deplacerEnnemis();
         jeu_sdl.tabEnnemi.at(0).deplacer();
+        jeu_sdl.tabEnnemi.at(1).deplacer();
+        jeu_sdl.tabEnnemi.at(2).deplacer();
         /*
         nt = SDL_GetTicks();
         if (nt-t>500) {
