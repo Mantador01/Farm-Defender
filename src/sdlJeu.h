@@ -54,6 +54,7 @@ private :
     //Image im_fantome;
     Image im_zombi;
     Image im_plaine;
+    Image im_batdef;
 
     bool souris;
     bool touche;

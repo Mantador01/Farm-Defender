@@ -158,7 +158,8 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
 
     // IMAGES
     im_zombi.loadFromFile("data/Zombi.png",renderer);
-    im_plaine.loadFromFile("data/Plaine.jpg",renderer);
+    im_plaine.loadFromFile("data/carte2.png",renderer);
+    im_batdef.loadFromFile("data/batdef.png",renderer);
     /*
     im_pacman.loadFromFile("data/pacman.png",renderer);
     im_mur.loadFromFile("data/mur.png",renderer);
@@ -226,6 +227,9 @@ void SDLSimple::sdlAff () {
 	// Afficher le sprite du Zombi
     im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(0).splitX(),jeu_sdl.tabEnnemi.at(0).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
 
+    // Afficher le spirte du batiment de défense
+    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(0).splitX(),jeu_sdl.tabBatDef.at(0).splitY(),TAILLE_SPRITE*3,TAILLE_SPRITE*3);
+
     /*
 	int x,y;
 	const Terrain& ter = jeu.getConstTerrain();
@@ -261,11 +265,11 @@ void SDLSimple::sdlBoucle () {
 	bool quit = false;
 
     Uint32 t = SDL_GetTicks(), nt;
-    Ennemi enm1;
-    Vect2 dir(0.5,0.5);
-    enm1.set_direction(dir);
-    jeu_sdl.tabEnnemi.clear();
-    jeu_sdl.tabEnnemi.push_back(enm1);
+    //Ennemi enm1;
+    //Vect2 dir(0.5,0.5);
+    //enm1.set_direction(dir);
+    //jeu_sdl.tabEnnemi.clear();
+    //jeu_sdl.tabEnnemi.push_back(enm1);
 
 	// tant que ce n'est pas la fin ...
 	while (!quit) {

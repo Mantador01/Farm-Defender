@@ -136,3 +136,12 @@ void BatimentDefense::afficher(){
     cout << "Batiment détruit"<<endl;}
 }
 
+float BatimentDefense::splitX()
+{
+    return m_position.x;
+}
+
+float BatimentDefense::splitY()
+{
+    return m_position.y;
+}

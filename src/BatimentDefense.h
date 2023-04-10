@@ -49,6 +49,10 @@
         void enleverPointsVie(int points_enleves);
         bool getDetruit ();
 
+        float splitX();
+        float splitY();
+
+
         private:
 
         int m_size;

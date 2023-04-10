@@ -18,7 +18,7 @@ Jeu::Jeu(){
     tabBatDef.push_back(bat2);
     tabBatDef.push_back(bat3);
 
-    tabBatDef.at(0).setPosition(1,1);
+    tabBatDef.at(0).setPosition(100,100);
     tabBatDef.at(1).setPosition(4,4);
 
     Ennemi enm1(Type_ennemi::zombi);
