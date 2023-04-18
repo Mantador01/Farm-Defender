@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <X11/Xlib.h>
 
+#define HAUTEUR 55
+#define LARGEUR 200
+
 
 
 #include <iostream>
@@ -85,6 +88,8 @@ void Image::draw (SDL_Renderer * renderer, int x, int y, int w, int h) {
 
     ok = SDL_RenderCopy(renderer,m_texture,nullptr,&r);
     assert(ok == 0);
+
+    
 }
 
 SDL_Texture * Image::getTexture() const {return m_texture;}
@@ -303,7 +308,42 @@ void SDLSimple::sdlBoucle () {
 			    default: break;
 				}            
 			}
-		}
+            switch(events.type){
+        case SDL_WINDOWEVENT:
+            if (events.window.event == SDL_WINDOWEVENT_CLOSE)
+                quit != SDL_FALSE;
+                break;
+        case SDL_KEYDOWN:
+            SDL_Log("+key");
+
+            if (events.key.keysym.scancode == SDL_SCANCODE_W)
+                SDL_Log("Scancode W");
+
+            if (events.key.keysym.sym == SDLK_w)
+                SDL_Log("Keycode W");
+
+            if (events.key.keysym.sym == SDLK_z)
+                SDL_Log("Keycode Z");
+
+            break;
+        case SDL_KEYUP: 
+            SDL_Log("-key");
+            break;
+        case SDL_MOUSEMOTION: // Déplacement de souris
+            SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+            break;
+        case SDL_MOUSEBUTTONDOWN: // Click de souris 
+            SDL_Log("+clic");
+            break;
+        case SDL_MOUSEBUTTONUP: // Click de souris relâché
+            SDL_Log("-clic");
+            break;
+        case SDL_MOUSEWHEEL: // Scroll de la molette
+            SDL_Log("wheel");
+            break;
+        }
+		}        
+    
 
        //// Mix_PlayChannel(-1,sound,0);
 
