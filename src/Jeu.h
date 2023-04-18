@@ -86,9 +86,45 @@
         void placerEnnemis(Type_ennemi type_en,int effectif);
 
 
+        /**
+        @brief Fonction production qui incrémente les ressources de 10 a chaques appels de cette fonction seulement si la BaseCentrale est vivante.
+        @param Booléen : est_vivant renvoie true si la ferme est toujour vivante(vie>0) false sinon.
+        */
+        void BCproduction(bool est_vivant);
 
-        //private:
-        //rien pour le moment
+        /**
+        @brief Fonction degat qui permet de soustraire les dégats passer en paramètre et la vie de la BaseCentrale.
+        @param Entier : degat les dégats a soustraire a la vie.
+        */
+        void BCdegat(int degat);
+
+        /**
+        @brief Fonction qui renvoie true si la BaseCentrale est vivante et donc le jeu continue.
+        */
+        bool BCest_vivant();
+
+        int BCm_carac;
+
+        int BCm_size;
+
+        /**
+        @param Vect2 : pos la position de la BaseCentrale.
+        */
+        Vect2 BCpos;
+
+        void BCsetPos (int x, int y);
+        
+        /**
+        @return Vect2 : returne pos la position de la BaseCentrale.
+        */
+        Vect2 BCgetPos();
+    private:
+
+        /**
+        @param Entier : m_pointsDeVie la vie de la BaseCentrale.
+        */
+        int BCm_pointsDeVie;
+
     
     };
 
