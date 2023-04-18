@@ -87,221 +87,6 @@ Jeu::~Jeu(){
 
 }
 
-void Jeu::deplacerEnnemis(){
-
-
-  //  (std::vector<Ennemi> & tabEnnemi,vector<BatimentDefense> tabBatDef, vector<Ferme> TabFerme,BaseCentrale baseCentrale
-   // enleveEntDestruites();
-
-    long unsigned int e,bat,ferme;
-    long unsigned int indiceMinDistance;
-    long unsigned int indiceBatdegat;
-    float distanceActuelle,distanceMinimale;
-    bool batProche,deplacerEnnemiBool;
-    Ennemi enboucle;
-    Vect2 posEnne,posBati;
-    BatimentDefense bati;
-
-    StockageRessources stockage;
-    Ferme ferme1(stockage);
-    Vect2 pos(0,0);
-    ferme1.creation(pos);
-
-    for(e=0;e<tabEnnemi.size();e++)  //<
-    { 
-    //cout<<"indice ennemi "<<e<<"  ";
-        batProche=false;
-        enboucle=tabEnnemi.at(e);
-        posEnne= enboucle.get_position();
-        deplacerEnnemiBool=true;
-        
-        distanceMinimale=posEnne.distance(posBati); 
-        indiceMinDistance=0;
-        
-        if(tabBatDef.size()>0){
-        for(bat=0;bat<tabBatDef.size();bat++) //test proximité des batiments
-        {   //cout<<"indice bat "<<bat;
-            if(bat==0){distanceMinimale=posEnne.distance(posBati); indiceMinDistance=0;}
-            bati=tabBatDef.at(bat);
-            posBati=bati.getPosition();
-            distanceActuelle=posEnne.distance(posBati);//tabEnnemi.po
-            if(distanceActuelle<200.f)  //if(distanceActuelle<2.f)
-            {
-                batProche=true;
-                //cout<<batProche<<"bat proche pour ennemi num :"<<e<<" ";
-                if(distanceActuelle<distanceMinimale)
-                {
-                    distanceMinimale=distanceActuelle;
-                    indiceMinDistance=bat;
-                    //cout<<indiceMinDistance;
-                    if(distanceMinimale<0.1) //ennemi est assez proche pour attaquer le batiment
-                    {
-                    deplacerEnnemiBool=false;
-                    indiceBatdegat=bat;
-                    //cout<<indiceBatdegat<<" : indiceBatdegat  ";
-
-                    //ennemi fait des degats au batiment    
-                    }
-                }
-
-
-            }
-        }
-        }
-
-        
-        //bool test = true;
-        if(deplacerEnnemiBool==true){
-
-            if(batProche==true) ///l'ennemi va etre devié vers le batiment le plus proche
-            {
-                //float distance_pour_normaliser;
-                Vect2 nouveauDepl;
-                //bati=tabBatDef.at(indiceMinDistance);
-                posBati=tabBatDef.at(indiceMinDistance).getPosition();
-                //distance_pour_normaliser=posBati.distance(posEnne);
-                nouveauDepl=posBati-posEnne;
-                //nouveauDepl=nouveauDepl*(1/distance_pour_normaliser);
-                nouveauDepl.normailiser();
-
-                tabEnnemi.at(e).set_direction(nouveauDepl);
-                //cout<<"devié ver bat proche";
-                //normaliser
-
-                //nouveauDepl=nouveauDepl*(1/2);
-            }
-
-            //tabEnnemi.at(e).deplacer();
-
-       }else{
-           // std::cout<<indiceBatdegat;
-            ///if faut faire des degats dans le bat a l'indice indiceBatdegat
-            //cout<<"ennemi indice "<<e<<"   se deplace"<<endl;
-            tabBatDef.at(indiceBatdegat).enleverPointsVie(enboucle.get_degat());
-            //cout<<"degat "<<enboucle.get_degat()<<endl;
-
-       }
-
-        ////*/
-
-
-
-
-        if(deplacerEnnemiBool==true)
-        {
-            Vect2 posActuelle=tabEnnemi.at(e).get_position();
-            if( (posActuelle.x> 1 && posActuelle.x<56)&&( posActuelle.y>1 && posActuelle.y<30))
-            {
-             //cout<<"ennemi indice "<<e<<"   se deplace"<<endl;
-                tabEnnemi.at(e).deplacer();
-                       
-            }
-            
-        }
-
-
-        /// enboucle est une copie l'enemi actuel 
-        //deplacerEnnemiBool=true;
-        bool attaqueFerme=false;
-        
-        if(TabFerme.size()>0){
-             
-            indiceMinDistance=0;
-            ferme1=TabFerme.at(ferme);
-            posBati=ferme1.get_position();
-            distanceMinimale=posEnne.distance(posBati);
-            distanceActuelle=posEnne.distance(posBati);
-
-            for(ferme=0;ferme<TabFerme.size();ferme++)
-            {
-                ferme1=TabFerme.at(ferme);
-                posBati=ferme1.get_position();
-                distanceActuelle=posEnne.distance(posBati);//tabEnnemi.po
-
-                if(distanceActuelle<10.f)  //if(distanceActuelle<2.f)
-                {
-
-                    if(distanceActuelle<distanceMinimale)
-                    {
-                        distanceMinimale=distanceActuelle;
-                        indiceMinDistance=ferme;
-                        //cout<<indiceMinDistance;
-                        if(distanceMinimale<1.2) //ennemi est assez proche pour attaquer le batiment
-                        {
-                            attaqueFerme=true;
-                            indiceBatdegat=ferme;
-                        }
-
-                    }
-                }   
-            }
-
-                if(attaqueFerme)
-                        {
-                            TabFerme.at(indiceBatdegat).degat(enboucle.get_degat());
-                                //   faire des degats dans la ferme la plus proche
-
-                        }
-
-        }
-
-    //cout<<endl;
-    }
-
-}
-
-void Jeu::enleveEntDestruites(){
-
-    cout<<"eneeve det"<<endl; 
-    long unsigned int bat,e,ferme;
-
-    bat=tabBatDef.size();
-    
-    if(tabBatDef.size()>0){
-        cout<<" size "<<tabBatDef.size()<<"  taille tab  ";
-    for(bat=tabBatDef.size();bat>0;bat--)
-        { 
-            
-                cout<<"Batiment indice"<< bat-1 <<" "; 
-                if (tabBatDef.at(bat-1).getDetruit()==true ||  tabBatDef.at(bat-1).getPointsDeVie()<=0 )
-                {
-                tabBatDef.erase( tabBatDef.begin() + bat-1);
-                    cout<<"BATIMENT "<<bat-1<< " EFFACEE"<<endl; 
-                    //usleep(1000000);          
-                }
-
-    
-
-        }
-    }
-  /* if(TabFerme.size()>0)
-    {
-        for(ferme=TabFerme.size()-1;ferme>=0;ferme--)
-        {
-            if (TabFerme.at(ferme).est_vivant()==false)  //si la ferme n'est plus vivante
-            {
-                TabFerme.erase(TabFerme.begin() + ferme);
-            }
-        }
-    }
-
-    if(tabEnnemi.size()>0)
-    {
-        for(e=tabEnnemi.size()-1;e>=0;e--)
-        {
-            if (tabEnnemi.at(e).get_statut()==false)  //si l'ennemi est eliminé
-            {
-                tabEnnemi.erase(tabEnnemi.begin()+e);
-            }
-        }
-    }
-
-    
-    */
-    
-
-
-}
 
 
 void Jeu::placerEnnemis(Type_ennemi type_en,int effectif){
@@ -390,6 +175,184 @@ void Jeu::placerEnnemis(Type_ennemi type_en,int effectif){
 			}
 		}
 }
+
+
+void Jeu::bat_proche_ennemi(Ennemi & enboucle, bool & initBat,float & distanceMinimale,Vect2 & cible,long unsigned int & indiceMinDistance ){
+    initBat=false;
+    float distanceActuelle;
+    long unsigned int bat;
+
+    if(tabBatDef.size()>0){
+        BatimentDefense batiment;
+        for(bat=0;bat<tabBatDef.size();bat++){ //parcours de tous les batiments
+            batiment=tabBatDef.at(bat);
+            if(batiment.getDetruit()==false){//est vivant
+                distanceActuelle=enboucle.get_position().distance(batiment.getPosition());
+                if(initBat==false){
+                    initBat=true; indiceMinDistance=bat;
+                    distanceMinimale=distanceActuelle;
+                }else{
+                    if(distanceActuelle<distanceMinimale){
+                        distanceMinimale=distanceActuelle;
+                        indiceMinDistance=bat;
+                    }
+
+                }
+            }
+        }
+        cible=tabBatDef.at(indiceMinDistance).getPosition();
+    }
+
+}
+
+void Jeu::ferme_proche_ennemi(Ennemi & enboucle, bool & initFerme,float & distanceMinimale,Vect2 & cible, long unsigned int & indiceMinDistance){
+    initFerme=false;
+    float distanceActuelle;
+    long unsigned int ferme;
+
+    StockageRessources stockage;
+    Ferme fermeActuelle(stockage);
+    Vect2 pos(0,0);
+    fermeActuelle.creation(pos);
+
+
+
+    if(TabFerme.size()>0){
+        for(ferme=0;ferme<TabFerme.size();ferme++){ //parcours de tous les batiments
+            fermeActuelle=TabFerme.at(ferme);
+            if(fermeActuelle.est_vivant()==true){//est vivante
+                Vect2 pos=enboucle.get_position();
+                distanceActuelle=pos.distance(fermeActuelle.get_position());
+                if(initFerme==false){
+                    initFerme=true; indiceMinDistance=ferme;
+                    distanceMinimale=distanceActuelle;
+                }else{
+                    if(distanceActuelle<distanceMinimale){
+                        distanceMinimale=distanceActuelle;
+                        indiceMinDistance=initFerme;
+                    }
+
+                }
+            }
+        }
+        cible=TabFerme.at(indiceMinDistance).get_position();
+    }
+
+}
+
+void Jeu::baseCentrale_proche_ennemi(Ennemi & enboucle, float & distance,Vect2 & cible ){
+    //Vect2 baseCentre(jeu_largeur/2, jeu_hauteur/2);
+    cible=BCpos;
+    distance=enboucle.get_position().distance(cible);
+}
+
+void Jeu::deplacerEnnemis(){ 
+    long unsigned int e,indiceMinDistBatDef,indiceMinDistFerme;
+    bool initBat=false,initFerme=false,deplacerEnnemiBool;
+    Vect2 cibleBatDef,cibleFerme,cibleBaseCentrale;
+    Vect2 nouveauDepl,cibleGenerale;
+    float distMinBatDef,distMinFerme,distBaseCentrale;
+    float distMinGenerale;
+    Ennemi enboucle;
+    int aiguillageAttaque=0;  // 0 vers baseCentrale 1 vers Batiment at intBat 2 vers Ferme at indFerme
+    Type_ennemi typeEnnemi;
+
+    for(e=0;e<tabEnnemi.size();e++){
+
+        if(tabEnnemi.at(e).get_statut()==true){ //si ennemi est vivant
+
+            
+            initBat=false;initFerme=false;
+            deplacerEnnemiBool=true;
+
+            enboucle=tabEnnemi.at(e);
+
+            /////if enboucle de type zombi alors deplacement vers la base centrale
+
+            typeEnnemi=enboucle.getType();
+
+            if(typeEnnemi==zombi){
+                baseCentrale_proche_ennemi(enboucle,distBaseCentrale,cibleBaseCentrale);
+                if(distBaseCentrale<1.f){ //6.f
+                    //BaseCentrale.degat(enboucle.get_degat());
+
+                }else{
+                    nouveauDepl=cibleBaseCentrale-enboucle.get_position();
+                    nouveauDepl.normailiser();
+                    tabEnnemi.at(e).set_direction(nouveauDepl);
+                    tabEnnemi.at(e).deplacer();
+
+                }
+
+            }else{
+                bat_proche_ennemi(enboucle,initBat,distMinBatDef,cibleBatDef,indiceMinDistBatDef);
+                ferme_proche_ennemi(enboucle,initFerme,distMinFerme,cibleFerme,indiceMinDistFerme);
+                baseCentrale_proche_ennemi(enboucle,distBaseCentrale,cibleBaseCentrale);
+
+                distMinGenerale=distBaseCentrale;
+                if(initBat==true){
+                    if(distMinBatDef<distMinGenerale){
+                    aiguillageAttaque=1;
+                    distMinGenerale=distMinBatDef;
+                }
+                }
+                if(initFerme==true){
+                    if(distMinFerme<distMinGenerale){
+                    aiguillageAttaque=2;
+                    distMinGenerale=distMinFerme;
+                }
+                }
+                
+
+                if(distMinGenerale<6.f){
+                    deplacerEnnemiBool=false;
+                    switch(aiguillageAttaque)
+                    {
+                        case 0:
+                            //BaseCentrale.degat(enboucle.get_degat());
+                            break;
+                        case 1:
+                            tabBatDef.at(indiceMinDistBatDef).enleverPointsVie(enboucle.get_degat());
+                            break;
+                        case 2:
+                            TabFerme.at(indiceMinDistFerme).degat(enboucle.get_degat());
+                            break;
+
+                    }
+                }
+
+                if(deplacerEnnemiBool==true){
+
+                    switch(aiguillageAttaque)
+                    {
+                        case 0:
+                            cibleGenerale=cibleBaseCentrale;
+                            break;
+                        case 1:
+                            cibleGenerale=cibleBatDef;
+                            break;
+                        case 2:
+                            cibleGenerale=cibleFerme;
+                            break;
+
+                    }
+                    
+                    //Pour normaliser le vecteur de deplacemetdistance_pour_normaliser;
+                    nouveauDepl=cibleGenerale-enboucle.get_position();
+                    nouveauDepl.normailiser();
+                    tabEnnemi.at(e).set_direction(nouveauDepl);
+                    tabEnnemi.at(e).deplacer();
+                }
+
+            }
+
+        }   
+            
+    }
+
+}
+
+
 
 void Jeu::faireDegatBat(){
 /*

@@ -302,7 +302,7 @@ void BoucleJeu(Jeu & j){
     	//map.affObj(j.tabEnnemi.at(2).get_position(),1,'.');
 
 
-        j.enleveEntDestruites();
+        //j.enleveEntDestruites();
     
         //    map.affObj(j.tabEnnemi.at(0).get_position(),1,'.');
       

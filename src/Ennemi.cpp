@@ -27,6 +27,7 @@ const float YPntGenZSpw3 = 15 ;
 
 Ennemi::Ennemi()
 {   statut=true;
+    temps_mort=0;
     type_en=zombi;
     sante=10;
     degat=5; ///1
@@ -172,6 +173,7 @@ float Ennemi::splitY()
 
 Ennemi::Ennemi(Type_ennemi typeENnemi){
     statut=true;
+    temps_mort=0;
     type_en=typeENnemi;
 	Vect2 dir(10.f,-10.f);
     direction=dir;
@@ -251,4 +253,12 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
     position=pos;
 	}
     
+}
+
+float Ennemi::get_temps_mort(){
+    return temps_mort;
+}
+
+void Ennemi::add_temps_mort(float tempsMort){
+    temps_mort=temps_mort+tempsMort;
 }

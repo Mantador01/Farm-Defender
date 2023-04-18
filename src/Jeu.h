@@ -43,21 +43,32 @@
         * @brief tablequ dinamique qui contient tous les Fermes du jeu tant que les ennemis ne soient pas elimines
         */
         vector<Ferme> TabFerme;
-
-        /**
-        * @brief base qui fait la gestion des resources de fermes 
-        */
-        //BaseCentrale baseCentrale;
-
-         /**
-        @brief deplacerEnnemis deplace tous les ennemis du jeu en prenant en compte les positionnemet des batiments
-        */
-        void deplacerEnnemis();
-
         /**
          @brief dimention du terrain de jeu 
         */
         float jeu_largeur, jeu_hauteur;
+
+        /**
+         @brief calcule la distance entre la base centrale et l'ennemi 
+         @param enboucle ennemi, float distance, vect2 cible position base centrale
+        */
+        void baseCentrale_proche_ennemi(Ennemi & enboucle, float & distance,Vect2 & cible );
+        
+        /**
+         @brief si un batiment vivant est proche, trouve le batiment le plus proche, son indice dans le tableau et ca position
+         @param enboucle ennemi, bool initBat true si il y aun batiment vivant, float distanceMinimale  vect2 cible, indiceMinDistance indice dans tab
+        */
+        void bat_proche_ennemi(Ennemi & enboucle, bool & initBat,float & distanceMinimale,Vect2 & cible,long unsigned int & indiceMinDistance );
+        
+        /**
+         @brief si un batiment vivant est proche, trouve le batiment le plus proche, son indice dans le tableau et ca position
+         @param enboucle ennemi, bool initferme true si il y aun batiment vivant, float distanceMinimale  vect2 cible , indiceMinDistance indice dans tab
+        */
+        void ferme_proche_ennemi(Ennemi & enboucle, bool & initFerme,float & distanceMinimale,Vect2 & cible, long unsigned int & indiceMinDistance);
+        /**
+        @brief deplacerEnnemis deplace tous les ennemis du jeu en prenant en compte les positionnemet des batiments
+        */
+        void deplacerEnnemis();
 
         /**
          @brief enleve les entités qui ont ete éliminés  

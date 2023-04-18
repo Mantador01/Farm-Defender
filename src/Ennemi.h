@@ -83,6 +83,11 @@ private:
     */
 
     Vect2 position;
+     /**
+    * @brief combien de temps l'ennemi a ete eliminé / temps ou il est mort
+    * 
+    */
+    float temps_mort;
 
 
 public:
@@ -163,6 +168,18 @@ public:
     @return valeur du statut
     */
    bool get_statut();
+
+   /**
+    @brief Accesseur pour temps mort d'un ennemi
+    @return valeur detemps mort
+    */
+   float get_temps_mort();
+
+   /**
+   @brief mutateur pour temps mort d'un ennemi ajoute tempsMort a temps mort d'un ennemi
+    @param float tempsMort a ajouter
+    */
+   void add_temps_mort(float tempsMort);
 
 };
 
