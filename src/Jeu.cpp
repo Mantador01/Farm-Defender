@@ -4,9 +4,43 @@
 #include <vector>
 using namespace std;
 
+void Jeu::BCproduction(bool est_vivant)
+{
+    if(est_vivant){
+    stockage.ajouterRessource("gold", 10);
+    stockage.ajouterRessource("pierre", 10);
+    stockage.ajouterRessource("bois", 10);
+    stockage.ajouterRessource("nourriture", 10);}
+}
+
+void Jeu::BCdegat(int degat)
+{
+    BCm_pointsDeVie -= degat;
+}
+
+bool Jeu::BCest_vivant()
+{
+    if(BCm_pointsDeVie<=0){
+        return false;
+    }else{return true;}
+}
+
+void Jeu::BCsetPos (int x, int y){
+    BCpos.x = x;
+    BCpos.y = y;
+}
+
+Vect2 Jeu::BCgetPos(){
+    return BCpos;
+}
+
+
+
+
 Jeu::Jeu(){
 
     jeu_largeur=40; jeu_hauteur=20;
+    BCm_carac = 'O';
 
     BatimentDefense bat1(TypeBatiment::Tourelle);
     BatimentDefense bat2(TypeBatiment::Canon);  
@@ -18,8 +52,10 @@ Jeu::Jeu(){
     tabBatDef.push_back(bat2);
     tabBatDef.push_back(bat3);
 
-    tabBatDef.at(0).setPosition(100,100);
-    tabBatDef.at(1).setPosition(750,200);
+  //  tabBatDef.at(0).setPosition(100,100);
+   // tabBatDef.at(1).setPosition(750,200);
+     tabBatDef.at(0).setPosition(5,5);
+    tabBatDef.at(1).setPosition(7,7);
 
     Ennemi enm1(Type_ennemi::zombi);
     tabEnnemi.push_back(enm1);

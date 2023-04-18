@@ -8,13 +8,13 @@ int main (int argc, char** argv) {
 
 	
 
-	Display *display = XOpenDisplay(nullptr);
-    Screen *screen = DefaultScreenOfDisplay(display);
+	//Display *display = XOpenDisplay(nullptr);
+    //Screen *screen = DefaultScreenOfDisplay(display);
     
-    const int screenWidth = screen->width;
-    const int screenHeight = screen->height;
+    //const int screenWidth = screen->width;
+    //const int screenHeight = screen->height;
     
-    cout << "La résolution de l'écran est de " << screenWidth << "x" << screenHeight << std::endl;
+    //cout << "La résolution de l'écran est de " << screenWidth << "x" << screenHeight << std::endl;
 
 	
 
@@ -22,14 +22,14 @@ int main (int argc, char** argv) {
     // SDL.jeu_sdl.jeu_hauteur = 500;
 
 
-    XCloseDisplay(display);
+    //XCloseDisplay(display);
 	SDLSimple sj;
-	cout<<" constructeur : "<< sj.jeu_sdl.jeu_hauteur<< " " << sj.jeu_sdl.jeu_largeur <<endl;
+	//cout<<" constructeur : "<< sj.jeu_sdl.jeu_hauteur<< " " << sj.jeu_sdl.jeu_largeur <<endl;
 
-	sj.jeu_sdl.jeu_largeur = screenWidth;
-    sj.jeu_sdl.jeu_hauteur = screenHeight;
+	//sj.jeu_sdl.jeu_largeur = 640;
+    //sj.jeu_sdl.jeu_hauteur = 960;
 
-	cout<<" modif : "<< sj.jeu_sdl.jeu_hauteur<< " " << sj.jeu_sdl.jeu_largeur <<endl;
+	//cout<<" modif : "<< sj.jeu_sdl.jeu_hauteur<< " " << sj.jeu_sdl.jeu_largeur <<endl;
 
 	sj.sdlBoucle();
 	return 0;

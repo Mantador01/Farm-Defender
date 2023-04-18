@@ -327,6 +327,10 @@ void BoucleJeu(Jeu & j){
         }
         map.affObj(j.tabBatDef.at(i).getPosition(),j.tabBatDef.at(i).getSize(),j.tabBatDef.at(i).getCarac());
         }
+        cout<<"POS : "<<j.BCpos.x<<" "<<j.BCpos.y<<endl;
+        cout<<"char : "<<j.BCm_carac<<endl;
+        map.affObj(j.BCpos,2,j.BCm_carac);
+
 
 
         //afficher toutes les entites
@@ -422,10 +426,10 @@ int main(){
     // Création d'un stockage de ressources
     StockageRessources stockage;
 
-    BaseCentrale base(stockage);
+    // BaseCentrale base(stockage);
 
-    base.setPos(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
-    map.affObj(base.pos,base.m_size,base.m_carac);
+    jeuUnique.BCsetPos(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
+    // map.affObj(jeuUnique.BCpos,jeuUnique.BCm_size,jeuUnique.BCm_carac);
 
     /*
     Vect2 pos;

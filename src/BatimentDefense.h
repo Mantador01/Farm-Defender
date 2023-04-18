@@ -52,6 +52,10 @@
         float splitX();
         float splitY();
 
+        float getX () const;
+        float getY () const;
+
+
 
         private:
 

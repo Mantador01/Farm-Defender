@@ -134,20 +134,20 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
 	dimy = dimy * TAILLE_SPRITE;
     */
 
-    Display *display = XOpenDisplay(nullptr);
-    Screen *screen = DefaultScreenOfDisplay(display);
+    //Display *display = XOpenDisplay(nullptr);
+    //Screen *screen = DefaultScreenOfDisplay(display);
     
-    const int screenWidth = screen->width;
-    const int screenHeight = screen->height;
+    //const int screenWidth = screen->width;
+    //const int screenHeight = screen->height;
 
-	jeu_sdl.jeu_hauteur = screenWidth;
-    jeu_sdl.jeu_largeur = screenHeight;
+	//jeu_sdl.960 = screenWidth;
+    //jeu_sdl.640 = screenHeight;
 
-    XCloseDisplay(display);
+    //XCloseDisplay(display);
 
-	cout<<" SDL COUT : "<< jeu_sdl.jeu_hauteur<< " " << jeu_sdl.jeu_largeur <<endl;
+	cout<<" SDL COUT : "<< 960<< " " << 640 <<endl;
     // Creation de la fenetre
-    window = SDL_CreateWindow("FarmDefender", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, jeu_sdl.jeu_hauteur, jeu_sdl.jeu_largeur, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow("FarmDefender", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 960, 640, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (window == nullptr) {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl; 
         SDL_Quit(); 
@@ -222,7 +222,7 @@ void SDLSimple::sdlAff () {
     SDL_RenderClear(renderer);
 
     //Afficher l'image du background
-    im_plaine.draw(renderer,0,0,jeu_sdl.jeu_largeur,jeu_sdl.jeu_hauteur);
+    im_plaine.draw(renderer,0,0,960,640);
 
 	// Afficher le sprite du Zombi
     im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(0).splitX(),jeu_sdl.tabEnnemi.at(0).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
@@ -230,8 +230,11 @@ void SDLSimple::sdlAff () {
     im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(2).splitX(),jeu_sdl.tabEnnemi.at(2).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
 
     // Afficher le spirte du batiment de défense
-    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(0).splitX(),jeu_sdl.tabBatDef.at(0).splitY(),TAILLE_SPRITE*3,TAILLE_SPRITE*3);
-    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(1).splitX(),jeu_sdl.tabBatDef.at(0).splitY(),TAILLE_SPRITE*3,TAILLE_SPRITE*3);
+    //jeu_sdl.tabBatDef.at(0).setPosition(jeu_sdl.tabBatDef.at(0).getX()*2,jeu_sdl.tabBatDef.at(0).getY()*2);
+    //jeu_sdl.tabBatDef.at(1).setPosition(jeu_sdl.tabBatDef.at(1).getX()*2,jeu_sdl.tabBatDef.at(1).getY()*2);
+
+    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(0).splitX()*16,jeu_sdl.tabBatDef.at(0).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);
+    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(1).splitX()*16,jeu_sdl.tabBatDef.at(1).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);
 
     /*
 	int x,y;

@@ -54,6 +54,14 @@ Vect2 BatimentDefense::getPosition () const{
     return m_position;
 }
 
+float BatimentDefense::getX () const{
+    return m_position.x;
+}
+
+float BatimentDefense::getY () const{
+    return m_position.y;
+}
+
 int BatimentDefense::getSize () const{
     return m_size;
 }
