@@ -37,6 +37,7 @@ Vect2 Jeu::BCgetPos(){
 
 
 
+
 Jeu::Jeu(){
 
     jeu_largeur=40; jeu_hauteur=20;

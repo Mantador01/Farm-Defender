@@ -129,6 +129,9 @@
         @return Vect2 : returne pos la position de la BaseCentrale.
         */
         Vect2 BCgetPos();
+
+
+
     private:
 
         /**

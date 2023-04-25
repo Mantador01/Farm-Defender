@@ -173,7 +173,7 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
     */
 
     // FONTS
-    /*
+    
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",50);
     if (font == nullptr)
         font = TTF_OpenFont("../data/DejaVuSansCondensed.ttf",50);
@@ -182,13 +182,13 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
             SDL_Quit(); 
             exit(1);
 	}
-    */
     
-    /*
+    
+    
 	font_color.r = 50;font_color.g = 50;font_color.b = 255;
-	font_im.setSurface(TTF_RenderText_Solid(font,"Pacman",font_color));
+	font_im.setSurface(TTF_RenderText_Solid(font,"TEST",font_color));
 	font_im.loadFromCurrentSurface(renderer);
-    */
+    
 
     // SONS
     
@@ -204,13 +204,24 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
         }
     }
 
+    //  // Chargement de la police de caractères
+    // TTF_Font* font = TTF_OpenFont("chemin/vers/ma/police.ttf", 24);
+
+    // // Création du texte du bouton
+    // SDL_Color color = { 255, 255, 255 };
+    // SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Mon bouton", color);
+
+    // // Création de la texture du bouton
+    // SDLSimple sdl;
+    // sdl.buttonTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    // SDL_FreeSurface(textSurface);
 }
 
 
 SDLSimple::~SDLSimple () {
     if (withSound) Mix_Quit();
-    //TTF_CloseFont(font);
-    //TTF_Quit();
+    TTF_CloseFont(font);
+    TTF_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -219,6 +230,25 @@ SDLSimple::~SDLSimple () {
 /*SDLSimple::~SDLSimple (){
 
 }*/
+
+void SDLSimple::animation(int i) {
+    char *M;
+    if(i == 0){M = "data/go_1.png";}
+    if(i == 1){M = "data/go_2.png";}
+    if(i == 2){M = "data/go_3.png";}
+    if(i == 3){M = "data/go_4.png";}
+    if(i == 4){M = "data/go_5.png";}
+    if(i == 5){M = "data/go_6.png";}
+    if(i == 6){M = "data/go_7.png";}
+    if(i == 7){M = "data/go_8.png";}
+    if(i == 8){M = "data/go_9.png";}
+    if(i == 9){M = "data/go_10.png";}
+
+    im_zombi.loadFromFile(M,renderer);
+
+    // SDL_Delay(50);
+
+}
 
 void SDLSimple::sdlAff () {
 
@@ -238,9 +268,9 @@ void SDLSimple::sdlAff () {
     //jeu_sdl.tabBatDef.at(0).setPosition(jeu_sdl.tabBatDef.at(0).getX()*2,jeu_sdl.tabBatDef.at(0).getY()*2);
     //jeu_sdl.tabBatDef.at(1).setPosition(jeu_sdl.tabBatDef.at(1).getX()*2,jeu_sdl.tabBatDef.at(1).getY()*2);
 
-    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(0).splitX()*16,jeu_sdl.tabBatDef.at(0).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);
-    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(1).splitX()*16,jeu_sdl.tabBatDef.at(1).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);
-
+    for (unsigned int i = 0; i<jeu_sdl.tabBatDef.size();i++){
+    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(i).splitX()*16,jeu_sdl.tabBatDef.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);}
+    
     /*
 	int x,y;
 	const Terrain& ter = jeu.getConstTerrain();
@@ -264,16 +294,36 @@ void SDLSimple::sdlAff () {
 	//im_fantome.draw(renderer,fan.getX()*TAILLE_SPRITE,fan.getY()*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
 
     // Ecrire un titre par dessus
-    //SDL_Rect positionTitre;
-    //positionTitre.x = 270;positionTitre.y = 49;positionTitre.w = 100;positionTitre.h = 30;
-    //SDL_RenderCopy(renderer,font_im.getTexture(),nullptr,&positionTitre);
+    SDL_Rect positionTitre;
+    positionTitre.x = 270;positionTitre.y = 49;positionTitre.w = 100;positionTitre.h = 30;
+    SDL_RenderCopy(renderer,font_im.getTexture(),nullptr,&positionTitre);
+
+    // // Calcul des dimensions de la fenêtre
+    // int windowWidth, windowHeight;
+    // SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+
+    // // Calcul des dimensions du bouton
+    // int buttonWidth, buttonHeight;
+    // SDL_QueryTexture(buttonTexture, NULL, NULL, &buttonWidth, &buttonHeight);
+
+    // // Calcul des coordonnées x et y pour centrer le bouton
+    // int x = (windowWidth - buttonWidth) / 2;
+    // int y = (windowHeight - buttonHeight) / 2;
+
+    // // Dessin du bouton sur le rendu de la fenêtre
+    // SDL_Rect buttonRect = { x, y, buttonWidth, buttonHeight };
+    // SDL_RenderCopy(renderer, buttonTexture, NULL, &buttonRect);
+    // SDL_RenderPresent(renderer);
 
 }
+
+
 
 
 void SDLSimple::sdlBoucle () {
     SDL_Event events;
 	bool quit = false;
+    bool menu = false;
 
     Uint32 t = SDL_GetTicks(), nt;
     //Ennemi enm1;
@@ -282,19 +332,33 @@ void SDLSimple::sdlBoucle () {
     //jeu_sdl.tabEnnemi.clear();
     //jeu_sdl.tabEnnemi.push_back(enm1);
 
+        BatimentDefense bat(TypeBatiment::Tourelle);
+
 	// tant que ce n'est pas la fin ...
+    Uint32 Time;
+    Uint32 T;
+
+    int i = 0;
+
+    // while(!menu)
+    // {
+    //     sdlAff();
+    // }
+
 	while (!quit) {
         //jeu_sdl.deplacerEnnemis();
         jeu_sdl.tabEnnemi.at(0).deplacer();
         jeu_sdl.tabEnnemi.at(1).deplacer();
         jeu_sdl.tabEnnemi.at(2).deplacer();
-        /*
-        nt = SDL_GetTicks();
-        if (nt-t>500) {
-            jeu.actionsAutomatiques();
-            t = nt;
-        }
-        */
+        
+
+        Time = SDL_GetTicks();
+        T = (Time/1000);
+        cout<<T<<endl;
+        
+        if (i > 9 ){i = 0;}
+        animation(i);
+        i++;
 
 		// tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
 		while (SDL_PollEvent(&events)) {
@@ -334,6 +398,8 @@ void SDLSimple::sdlBoucle () {
             break;
         case SDL_MOUSEBUTTONDOWN: // Click de souris 
             SDL_Log("+clic");
+            jeu_sdl.tabBatDef.push_back(bat);
+            jeu_sdl.tabBatDef.at(jeu_sdl.tabBatDef.size()-1).setPosition(events.motion.x/16,events.motion.y/21.33);
             break;
         case SDL_MOUSEBUTTONUP: // Click de souris relâché
             SDL_Log("-clic");
@@ -345,7 +411,7 @@ void SDLSimple::sdlBoucle () {
 		}        
     
 
-       //// Mix_PlayChannel(-1,sound,0);
+       //Mix_PlayChannel(-1,sound,0);
 
 		// on affiche le jeu sur le buffer cach�
 		sdlAff();

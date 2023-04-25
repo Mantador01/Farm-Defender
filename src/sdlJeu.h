@@ -58,6 +58,11 @@ private :
 
     bool souris;
     bool touche;
+
+    void animation(int i);
+
+    SDL_Texture* buttonTexture;
+
 public :
     Jeu jeu_sdl;
 
