@@ -422,8 +422,8 @@ void Jeu::faireDegatBat(){
                 ennemi_vivant_proche_bat(batiment,initEnne,indiceMinDistance );
                 if(initEnne==true){
                     tabEnnemi.at(indiceMinDistance).enleverSante(batiment.getDegats()*batiment.getVitesseAttaque());
-                    cout<<"degat by bat "<<batiment.getDegats()*batiment.getVitesseAttaque();
-                    cout<<"ennemi santes"<<tabEnnemi.at(indiceMinDistance).get_sante();
+                    //cout<<"degat by bat "<<batiment.getDegats()*batiment.getVitesseAttaque();
+                    //cout<<"ennemi santes"<<tabEnnemi.at(indiceMinDistance).get_sante();
                 }
             }
 
@@ -468,8 +468,8 @@ void Jeu::enleveEntDetruites(){
             if (tabEnnemi.at((unsigned long int)eint).get_statut()==false) //&& tabEnnemi.at((unsigned long int)eint).get_temps_mort()>20 )  //si l'ennemi est eliminé
             {
                 tabEnnemi.erase(tabEnnemi.begin()+(unsigned long int)eint);
-                cout<<(unsigned long int)eint <<"ennemi indice eliminé";
-                sleep(2);
+                //cout<<(unsigned long int)eint <<"ennemi indice eliminé";
+                //sleep(2);
             }
         }
     
