@@ -41,6 +41,10 @@ Vect2 Jeu::BCgetPos(){
 Jeu::Jeu(){
 
     jeu_largeur=40; jeu_hauteur=20;
+    const int haut = 30;
+    const int larg = 60;
+    BCsetPos(((larg/2)+0.5)-1,((haut*haut)/50)-(haut/2)+11);
+ 
     BCm_carac = 'O';
 
     BatimentDefense bat1(TypeBatiment::Tourelle);
@@ -80,7 +84,7 @@ Jeu::Jeu(){
      Vect2 posZombi2(11,19);
     zombiTest.set_pos(posZombi2);
     tabEnnemi.push_back(zombiTest);
-
+    placerEnnemis(pillard,3);
 
 }
 
@@ -91,9 +95,14 @@ Jeu::~Jeu(){
 
 
 void Jeu::placerEnnemis(Type_ennemi type_en,int effectif){
-	Vect2 posZCentre(jeu_largeur/2,jeu_hauteur-5);
-	Vect2 posZDroite(jeu_largeur,jeu_hauteur/2);
-	Vect2 posZGauche(5,jeu_hauteur/2);
+    int Largeur=40, Hauteur=20;
+    Vect2 posZCentre(Largeur/2,Hauteur-5);
+	Vect2 posZDroite(Largeur-2,Hauteur/2);
+	Vect2 posZGauche(5,Hauteur/2);
+    Vect2 posC1(5,Hauteur/5);
+    Vect2 posC2(Largeur-5,Hauteur/5);
+    Vect2 posC4(5,Hauteur/5*4);
+    Vect2 posC3(Largeur-5,Hauteur/5*4);
 	Vect2 pos;
 	int r;
 
@@ -117,17 +126,19 @@ void Jeu::placerEnnemis(Type_ennemi type_en,int effectif){
 				
 			}
 			break;
-			}
+		}
 		case z_infectieu:{
 			for(int i=0;i<effectif;i++)
 			{
 				r=rand()%3;
 				switch(r){
-				case 0: {pos=posZCentre;
+				case 0: {pos=posC1;
 						break;}
-				case 1: {pos=posZDroite;
+				case 1: {pos=posC2;
 						break;}
-				case 2: pos=posZGauche;
+				case 2: {pos=posC3;
+						break;}
+                case 3: pos=posC4;
 						break;}
 				Ennemi enm1(type_en);
 				Vect2 posi(pos.x+((float)(rand()%21-10)),pos.y+((float)(rand()%21-10)));
@@ -136,17 +147,19 @@ void Jeu::placerEnnemis(Type_ennemi type_en,int effectif){
 				
 			}
 			break;
-			}
+		}
 		case pillard:{
 			for(int i=0;i<effectif;i++)
 			{
-				r=rand()%3;
+				r=rand()%4;
 				switch(r){
-				case 0: {pos=posZCentre;
+				case 0: {pos=posC1;
 						break;}
-				case 1: {pos=posZDroite;
+				case 1: {pos=posC2;
 						break;}
-				case 2: pos=posZGauche;
+				case 2: {pos=posC3;
+						break;}
+                case 3: pos=posC4;
 						break;}
 				Ennemi enm1(type_en);
 				Vect2 posi(pos.x+((float)(rand()%21-10)),pos.y+((float)(rand()%21-10)));
@@ -154,17 +167,19 @@ void Jeu::placerEnnemis(Type_ennemi type_en,int effectif){
 				tabEnnemi.push_back(enm1);
 			}
 			break;
-			}
+		}
 		case z_berserker:{
 			for(int i=0;i<effectif;i++)
 			{
-				r=rand()%3;
+				r=rand()%4;
 				switch(r){
-				case 0: {pos=posZCentre;
+				case 0: {pos=posC1;
 						break;}
-				case 1: {pos=posZDroite;
+				case 1: {pos=posC2;
 						break;}
-				case 2: pos=posZGauche;
+				case 2: {pos=posC3;
+						break;}
+                case 3: pos=posC4;
 						break;}
 				Ennemi enm1(type_en);
 				Vect2 posi(pos.x+((float)(rand()%21-10)),pos.y+((float)(rand()%21-10)));
@@ -173,8 +188,8 @@ void Jeu::placerEnnemis(Type_ennemi type_en,int effectif){
 				
 			}
 			break;
-			}
 		}
+	}
 }
 
 
@@ -201,7 +216,9 @@ void Jeu::bat_proche_ennemi(Ennemi & enboucle, bool & initBat,float & distanceMi
                 }
             }
         }
-        cible=tabBatDef.at(indiceMinDistance).getPosition();
+        if(initBat) {
+            cible=tabBatDef.at(indiceMinDistance).getPosition();
+        }
     }
 
 }
@@ -215,8 +232,6 @@ void Jeu::ferme_proche_ennemi(Ennemi & enboucle, bool & initFerme,float & distan
     Ferme fermeActuelle(stockage);
     Vect2 pos(0,0);
     fermeActuelle.creation(pos);
-
-
 
     if(TabFerme.size()>0){
         for(ferme=0;ferme<TabFerme.size();ferme++){ //parcours de tous les batiments
@@ -236,7 +251,9 @@ void Jeu::ferme_proche_ennemi(Ennemi & enboucle, bool & initFerme,float & distan
                 }
             }
         }
-        cible=TabFerme.at(indiceMinDistance).get_position();
+        if(initFerme){
+            cible=TabFerme.at(indiceMinDistance).get_position();
+        }
     }
 
 }
@@ -274,9 +291,8 @@ void Jeu::deplacerEnnemis(){
 
             if(typeEnnemi==zombi){
                 baseCentrale_proche_ennemi(enboucle,distBaseCentrale,cibleBaseCentrale);
-                if(distBaseCentrale<1.f){ //6.f
-                    //BaseCentrale.degat(enboucle.get_degat());
-
+                if(distBaseCentrale<2.f){ //6.f
+                     BCdegat(enboucle.get_degat());
                 }else{
                     nouveauDepl=cibleBaseCentrale-enboucle.get_position();
                     nouveauDepl.normailiser();
@@ -305,11 +321,12 @@ void Jeu::deplacerEnnemis(){
                 }
                 
 
-                if(distMinGenerale<6.f){
+                if(distMinGenerale<2.f){
                     deplacerEnnemiBool=false;
                     switch(aiguillageAttaque)
                     {
                         case 0:
+                            BCdegat(enboucle.get_degat());
                             //BaseCentrale.degat(enboucle.get_degat());
                             break;
                         case 1:
@@ -355,52 +372,164 @@ void Jeu::deplacerEnnemis(){
 
 
 
-void Jeu::faireDegatBat(){
-/*
-    long unsigned int e,bat1;
-    long unsigned int indiceMinDistance;
-    long unsigned int indiceBatdegat;
+void Jeu::ennemi_vivant_proche_bat(BatimentDefense batiment, bool & initEnne,long unsigned int & indiceMinDistance ){
+    initEnne=false;
     float distanceActuelle,distanceMinimale;
+    long unsigned int e;
 
-    bool ennemiProche,init=false;
-    Ennemi enboucle;
-    Vect2 posEnne,posBati;
-    BatimentDefense bati;
-
-    if(tabBatDef.size()>0){
-        for(bat=0;bat<tabBatDef.size();bat++) //test proximité des ennemis par rappot a le batiment pour  les batiments vivants
-        {  ennemiProche=false;
-            if(tabBatDef.at(bat).getDetruit()!=true){
-                bati=tabBatDef.at(bat);
-                posBati=bat.getPosition();
-
-                for(e=0;e<tabEnnemi.size();e++)
-                {   enboucle=tabEnnemi.at(e);
-                    distanceActuelle=enboucle.get_position().distance(posBati);
-                    if(distanceActuelle<=bati.m_rayonAttaque)
-                    {
-                        ennemiProche=true;
-                        if(init==false){distanceMinimale=distanceActuelle; indiceMinDistance=e;}
-                        else{
-                            if(distanceActuelle<distanceMinimale){
-                                distanceMinimale=distanceActuelle;
-                                indiceMinDistance=e;
-                             }
-                            }
+    if(tabEnnemi.size()>0){
+        Ennemi enne;
+        for(e=0;e<tabEnnemi.size();e++){ //parcours de tous ennemis
+            
+            if(tabEnnemi.at(e).get_statut()==true){
+                enne=tabEnnemi.at(e);
+                distanceActuelle=enne.get_position().distance(batiment.getPosition());
+                if(initEnne==false){
+                    initEnne=true; indiceMinDistance=e;
+                    distanceMinimale=distanceActuelle;
+                }else{
+                    if(distanceActuelle<distanceMinimale){
+                        distanceMinimale=distanceActuelle;
+                        indiceMinDistance=e;
                     }
-                    //si assez proche alors on stoque son indice et n met ennemi proche vrai
-                    //indiceMinDistance contien l'indice de l'ennemi le plus proche                 
-                }
-
-                if(ennemiProche==true){
-                    tabEnnemi.at(indiceMinDistance).enleverSante(bati.getDegats());
                 }
             }
-            
-           
-        }  
+        }
+
+        if(initEnne==true){
+            if(distanceMinimale>batiment.getRayonAttaque()){
+            initEnne=false;}
+        }
 
     }
-*/
-            
+
+}
+
+
+void Jeu::faireDegatBat(){
+
+    long unsigned int bat;
+    bool initEnne;
+    long unsigned int indiceMinDistance;
+
+    if(tabBatDef.size()>0){
+        BatimentDefense batiment;
+        for(bat=0;bat<tabBatDef.size();bat++){ //parcours de tous les batiments
+            batiment=tabBatDef.at(bat);
+            if(batiment.getDetruit()==false){
+                //trouve lennemi vivant le plus proche
+                initEnne=false;
+                ennemi_vivant_proche_bat(batiment,initEnne,indiceMinDistance );
+                if(initEnne==true){
+                    tabEnnemi.at(indiceMinDistance).enleverSante(batiment.getDegats()*batiment.getVitesseAttaque());
+                    cout<<"degat by bat "<<batiment.getDegats()*batiment.getVitesseAttaque();
+                    cout<<"ennemi santes"<<tabEnnemi.at(indiceMinDistance).get_sante();
+                }
+            }
+
+        }
+    }
+}
+
+void Jeu::enleveEntDetruites(){
+    //long unsigned int bat,ferme;  //,e
+    int ferme,eint,bat;
+    bat=tabBatDef.size();
+    if(tabBatDef.size()>0){
+        //cout<<" size "<<tabBatDef.size()<<"  taille tab  ";
+        for(bat=tabBatDef.size()-1;bat>0;bat--)
+            { 
+                   // cout<<"Batiment indice"<< bat-1 <<" "; 
+                    if (tabBatDef.at((unsigned long int)bat).getDetruit()==true ||  tabBatDef.at((unsigned long int)bat).getPointsDeVie()<=0 )
+                    {
+                    tabBatDef.erase( tabBatDef.begin() + (unsigned long int)bat);
+                        cout<<"BATIMENT "<<bat-1<< " EFFACEE"<<endl; 
+                        //usleep(1000000);          
+                    }
+            }
+    }
+   
+   if(TabFerme.size()>0)
+    {
+        for(ferme=TabFerme.size()-1;ferme>=0;ferme--)
+        {
+            if (TabFerme.at((unsigned long int)ferme).est_vivant()==false)  //si la ferme n'est plus vivante
+            {
+                TabFerme.erase(TabFerme.begin() + (unsigned long int)ferme);
+            }
+        }
+    }
+
+    if(tabEnnemi.size()>0)
+    {
+       
+        for(eint=tabEnnemi.size()-1;eint>=0;eint--)
+        {
+            if (tabEnnemi.at((unsigned long int)eint).get_statut()==false) //&& tabEnnemi.at((unsigned long int)eint).get_temps_mort()>20 )  //si l'ennemi est eliminé
+            {
+                tabEnnemi.erase(tabEnnemi.begin()+(unsigned long int)eint);
+                cout<<(unsigned long int)eint <<"ennemi indice eliminé";
+                sleep(2);
+            }
+        }
+    
+    }
+    
+    
+}
+
+void Jeu::ajouteTempsMortEnnemis(float tempsMort){
+     int e;
+
+    if(tabEnnemi.size()>0)
+    {
+
+        for(e=tabEnnemi.size()-1;e>=0;e--)
+        {
+            if (tabEnnemi.at((unsigned long int)e).get_statut()==false )  //si l'ennemi est eliminé
+            {
+                tabEnnemi.at((unsigned long int)e).add_temps_mort(tempsMort);
+            }
+        }
+    
+    }
+}
+
+void Jeu::declancherVague(int num_vague){
+
+    switch(num_vague) {
+        case 0:
+            placerEnnemis( zombi,3);
+            break;
+        case 1:
+            placerEnnemis( zombi,2);
+            placerEnnemis(pillard,2);
+            break;
+        case 2:
+            placerEnnemis(pillard,3);
+            break;
+        case 3:
+            placerEnnemis(pillard,2);
+            placerEnnemis( zombi,3);
+            break;
+        case 4:
+            placerEnnemis(z_infectieu,2);
+            placerEnnemis( zombi,3);
+            break;
+        case 5:
+            placerEnnemis(z_berserker ,2);
+            placerEnnemis( zombi,4);
+            break;
+        case 6:
+            placerEnnemis(z_infectieu ,2);
+            placerEnnemis( zombi,4);
+            placerEnnemis(pillard,1);
+            break;
+        default:
+            placerEnnemis( zombi,rand()%6);
+            placerEnnemis(pillard,rand()%3);
+            break;
+    }
+    
+
 }

@@ -31,7 +31,7 @@ Ennemi::Ennemi()
     type_en=zombi;
     sante=10;
     degat=5; ///1
-    vitesse=0.4;      //1
+    vitesse=0.2; //0.4;      //1
     if (type_en==zombi){
         int r=rand()%3;
         float X,Y;
@@ -51,31 +51,7 @@ Ennemi::Ennemi()
     }
 }
 
-/*Ennemi::Ennemi(Type_ennemi typeENnemi){
-    statut=true;
-    type_en=typeENnemi;
-    if (type_en==zombi)
-    {
-        sante=10;
-        degat=1;
-        vitesse=1;
-        int r=rand()%3;
-        float X,Y;
-         switch(r){
-            case 0: {X=XPntGenZSpw1; Y=YPntGenZSpw1;
-                    break;}
-            case 1: {X=XPntGenZSpw2; Y=YPntGenZSpw2;
-                    break;}
-            case 2: {X=XPntGenZSpw3; Y=YPntGenZSpw3;
-                    break;}
-        }
-        //cout<<X+((float)(rand()%21-10))<<" x  "<<endl;
-    Vect2 pos(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10)));
-    position=pos;
-    Vect2 dir(10.f,-10.f);
-    direction=dir;
-    }
-}*/
+
 
 int Ennemi::get_degat()
 {
@@ -90,7 +66,7 @@ return type_en;
 
 void Ennemi::deplacer()
 {
-    position=position+direction*vitesse;
+    position=position+direction*(vitesse*2/3);
     //cout<<"deplace correct"<<endl;
     //faire tests avec le tableau de batiments
 }
@@ -187,7 +163,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
     {
         sante=10;
         degat=1;
-        vitesse=1;
+        vitesse=0.2;
         int r=rand()%3;
         float X,Y;
          switch(r){
@@ -204,7 +180,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
 	if(type_en==z_infectieu){
 		sante=10;
         degat=2;
-        vitesse=1.1;
+        vitesse=0.5;
         int r=rand()%3;
         float X,Y;
 		switch(r){
@@ -221,7 +197,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
 	if(type_en==z_berserker){
 		sante=10;
         degat=2;
-        vitesse=1.1;
+        vitesse=0.4;
         int r=rand()%3;
         float X,Y;
 		switch(r){

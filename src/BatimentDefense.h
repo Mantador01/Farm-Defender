@@ -33,7 +33,7 @@
         int getNiveau() const;
         int getPointsDeVie () const;
         int getDegats () const;
-        float getVitesseAttauqe () const;
+        float getVitesseAttaque () const;
         float getRayonAttaque () const;
         Vect2 getPosition () const;
         int getSize () const;

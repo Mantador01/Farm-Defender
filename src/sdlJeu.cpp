@@ -3,7 +3,7 @@
 #include "sdlJeu.h"
 #include <stdlib.h>
 #include <X11/Xlib.h>
-
+#include <unistd.h> 
 #define HAUTEUR 55
 #define LARGEUR 200
 
@@ -244,7 +244,7 @@ void SDLSimple::animation(int i) {
     if(i == 8){M = "data/go_9.png";}
     if(i == 9){M = "data/go_10.png";}
 
-    im_zombi.loadFromFile(M,renderer);
+    //im_zombi.loadFromFile(M,renderer);
 
     // SDL_Delay(50);
 
@@ -260,9 +260,16 @@ void SDLSimple::sdlAff () {
     im_plaine.draw(renderer,0,0,960,640);
 
 	// Afficher le sprite du Zombi
-    im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(0).splitX(),jeu_sdl.tabEnnemi.at(0).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
-    im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(1).splitX(),jeu_sdl.tabEnnemi.at(1).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
-    im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(2).splitX(),jeu_sdl.tabEnnemi.at(2).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
+   // im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(0).splitX(),jeu_sdl.tabEnnemi.at(0).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
+   // im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(1).splitX(),jeu_sdl.tabEnnemi.at(1).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
+   // im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(2).splitX(),jeu_sdl.tabEnnemi.at(2).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
+
+
+   for (unsigned int i = 0; i<jeu_sdl.tabEnnemi.size();i++){
+         im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);
+               
+    }
+
 
     // Afficher le spirte du batiment de défense
     //jeu_sdl.tabBatDef.at(0).setPosition(jeu_sdl.tabBatDef.at(0).getX()*2,jeu_sdl.tabBatDef.at(0).getY()*2);
@@ -325,7 +332,7 @@ void SDLSimple::sdlBoucle () {
 	bool quit = false;
     bool menu = false;
 
-    Uint32 t = SDL_GetTicks(), nt;
+    //Uint32 t = SDL_GetTicks(), nt;
     //Ennemi enm1;
     //Vect2 dir(0.5,0.5);
     //enm1.set_direction(dir);
@@ -344,79 +351,98 @@ void SDLSimple::sdlBoucle () {
     // {
     //     sdlAff();
     // }
+    Uint32 t = SDL_GetTicks(), nt;
+    Uint32 init=SDL_GetTicks();
+    
+    bool vague1=false;
 
 	while (!quit) {
-        //jeu_sdl.deplacerEnnemis();
-        jeu_sdl.tabEnnemi.at(0).deplacer();
-        jeu_sdl.tabEnnemi.at(1).deplacer();
-        jeu_sdl.tabEnnemi.at(2).deplacer();
-        
 
-        Time = SDL_GetTicks();
-        T = (Time/1000);
-        cout<<T<<endl;
-        
-        if (i > 9 ){i = 0;}
-        animation(i);
-        i++;
-
-		// tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
-		while (SDL_PollEvent(&events)) {
-			if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
-			else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
-				switch (events.key.keysym.scancode) {
-                    case SDL_SCANCODE_ESCAPE:
-                    case SDL_SCANCODE_Q:
-                    quit = true;
-                    break;
-			    default: break;
-				}            
-			}
-            switch(events.type){
-        case SDL_WINDOWEVENT:
-            if (events.window.event == SDL_WINDOWEVENT_CLOSE)
-                quit != SDL_FALSE;
-                break;
-        case SDL_KEYDOWN:
-            SDL_Log("+key");
-
-            if (events.key.keysym.scancode == SDL_SCANCODE_W)
-                SDL_Log("Scancode W");
-
-            if (events.key.keysym.sym == SDLK_w)
-                SDL_Log("Keycode W");
-
-            if (events.key.keysym.sym == SDLK_z)
-                SDL_Log("Keycode Z");
-
-            break;
-        case SDL_KEYUP: 
-            SDL_Log("-key");
-            break;
-        case SDL_MOUSEMOTION: // Déplacement de souris
-            SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
-            break;
-        case SDL_MOUSEBUTTONDOWN: // Click de souris 
-            SDL_Log("+clic");
-            jeu_sdl.tabBatDef.push_back(bat);
-            jeu_sdl.tabBatDef.at(jeu_sdl.tabBatDef.size()-1).setPosition(events.motion.x/16,events.motion.y/21.33);
-            break;
-        case SDL_MOUSEBUTTONUP: // Click de souris relâché
-            SDL_Log("-clic");
-            break;
-        case SDL_MOUSEWHEEL: // Scroll de la molette
-            SDL_Log("wheel");
-            break;
+        nt = SDL_GetTicks();
+        if (nt-init>10000 && vague1==false ) {
+            jeu_sdl.declancherVague(0);
+            vague1=true;
+            cout<<"vague 1"<<endl;
         }
-		}        
-    
 
-       //Mix_PlayChannel(-1,sound,0);
+        if (nt-t>60) {
+            jeu_sdl.ajouteTempsMortEnnemis((nt-t)/100); //cout<<nt-t<<" nt-t "<<endl;
+            jeu_sdl.enleveEntDetruites();
+            t = nt;
 
-		// on affiche le jeu sur le buffer cach�
-		sdlAff();
+            jeu_sdl.deplacerEnnemis();
+            jeu_sdl.faireDegatBat();
+            //jeu_sdl.tabEnnemi.at(0).deplacer();
+            //jeu_sdl.tabEnnemi.at(1).deplacer();
+            //jeu_sdl.tabEnnemi.at(2).deplacer();
+            
 
-		// on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
-        SDL_RenderPresent(renderer);
-	}
+            Time = SDL_GetTicks();
+            T = (Time/1000);
+            cout<<T<<endl;
+            
+            if (i > 9 ){i = 0;}
+            //animation(i);
+            i++;
+
+            // tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
+            while (SDL_PollEvent(&events)) {
+                if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
+                else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
+                    switch (events.key.keysym.scancode) {
+                        case SDL_SCANCODE_ESCAPE:
+                        case SDL_SCANCODE_Q:
+                        quit = true;
+                        break;
+                    default: break;
+                    }            
+                }
+                switch(events.type){
+            case SDL_WINDOWEVENT:
+                if (events.window.event == SDL_WINDOWEVENT_CLOSE)
+                    quit != SDL_FALSE;
+                    break;
+            case SDL_KEYDOWN:
+                SDL_Log("+key");
+
+                if (events.key.keysym.scancode == SDL_SCANCODE_W)
+                    SDL_Log("Scancode W");
+
+                if (events.key.keysym.sym == SDLK_w)
+                    SDL_Log("Keycode W");
+
+                if (events.key.keysym.sym == SDLK_z)
+                    SDL_Log("Keycode Z");
+
+                break;
+            case SDL_KEYUP: 
+                SDL_Log("-key");
+                break;
+            case SDL_MOUSEMOTION: // Déplacement de souris
+                SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+                break;
+            case SDL_MOUSEBUTTONDOWN: // Click de souris 
+                SDL_Log("+clic");
+                jeu_sdl.tabBatDef.push_back(bat);
+                jeu_sdl.tabBatDef.at(jeu_sdl.tabBatDef.size()-1).setPosition(events.motion.x/16,events.motion.y/21.33);
+                break;
+            case SDL_MOUSEBUTTONUP: // Click de souris relâché
+                SDL_Log("-clic");
+                break;
+            case SDL_MOUSEWHEEL: // Scroll de la molette
+                SDL_Log("wheel");
+                break;
+            }
+            }        
+        
+
+        //Mix_PlayChannel(-1,sound,0);
+
+            // on affiche le jeu sur le buffer cach�
+            sdlAff();
+
+            // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
+            SDL_RenderPresent(renderer);
+        }
+    }
 }

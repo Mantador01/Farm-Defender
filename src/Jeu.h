@@ -73,7 +73,13 @@
         /**
          @brief enleve les entités qui ont ete éliminés  
         */
-        void enleveEntDestruites();
+        void enleveEntDetruites();
+
+        /**
+        @brief ajoute un temps mort a tous les ennemis morts
+        @param float tempsMort a ajouter
+        */
+        void ajouteTempsMortEnnemis(float tempsMort);
 
         /**
          @brief Constructeur de Jeu 
@@ -85,10 +91,6 @@
         */
         ~Jeu();
 
-        /**
-         @brief Effectue des degat faits par les batiments sur les ennemis
-        */
-        void faireDegatBat();
 
         /**
          @brief place un N ennemis de type type_en dans le tableau qui contient tous les ennemis
@@ -96,6 +98,17 @@
         */
         void placerEnnemis(Type_ennemi type_en,int effectif);
 
+        /**
+        @brief si il y a des ennemis vivants proches, trouve l'indice du plus proche, son indice dans le tableau et ca position
+        @param BatimentDefense batiment, bool initEnne true si il y a un ennemi vivant dans le rayon d'ataque du batiment, long unsigned int & indiceMinDistance
+        */
+        void ennemi_vivant_proche_bat(BatimentDefense batiment, bool & initEnne,long unsigned int & indiceMinDistance );
+        
+
+        /**
+        @brief effectue le degat infligé par chacun des batiments vivants sur l'ennemi (non eliminé) le plus proche
+        */
+        void faireDegatBat();
 
         /**
         @brief Fonction production qui incrémente les ressources de 10 a chaques appels de cette fonction seulement si la BaseCentrale est vivante.
@@ -129,6 +142,12 @@
         @return Vect2 : returne pos la position de la BaseCentrale.
         */
         Vect2 BCgetPos();
+
+        /**
+        @brief Fonction qui place des ennemis pour faire la vague d'attaque
+        @param Entier : le numero de la vague
+        */
+        void declancherVague(int num_vague);
 
 
 

@@ -18,10 +18,10 @@ BatimentDefense::BatimentDefense(TypeBatiment type){
     m_estDetruit=false;
     switch (type){
         case TypeBatiment::Tourelle:
-            this->augmenterNiveau(100,1,0.1,1);
+            this->augmenterNiveau(100,1,1,1); //(100,1,0.1,1);
             break;
         case TypeBatiment::Canon:
-            this->augmenterNiveau(100,1,0.1,1);
+            this->augmenterNiveau(100,1,1,1);  //(100,1,0.1,1);
             break;
     }
 }
@@ -42,7 +42,7 @@ int BatimentDefense::getDegats () const{
     return m_degats;
 }
 
-float BatimentDefense::getVitesseAttauqe () const{
+float BatimentDefense::getVitesseAttaque () const{
     return m_vitesse;
 }
 

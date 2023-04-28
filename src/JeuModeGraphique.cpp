@@ -2,11 +2,13 @@
 #include "sdlJeu.h"
 #include <iostream>
 #include <X11/Xlib.h>
+#include <stdlib.h>     
+#include <time.h> 
 
 using namespace std;
 int main (int argc, char** argv) {
 
-	
+	srand (time(NULL));
 
 	//Display *display = XOpenDisplay(nullptr);
     //Screen *screen = DefaultScreenOfDisplay(display);
