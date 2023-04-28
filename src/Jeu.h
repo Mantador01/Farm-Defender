@@ -126,17 +126,28 @@
         @brief Fonction qui renvoie true si la BaseCentrale est vivante et donc le jeu continue.
         */
         bool BCest_vivant();
-
-        int BCm_carac;
-
+        /**
+        @brief caractere base centrale
+        */
+        char BCm_carac;
+        /**
+        @brief int taille de la base centrale
+        */
         int BCm_size;
+        /**
+        @brief float qui designe la capacité d'attaque de la base centrale 
+        */
+        float BCfloatdeg;
 
         /**
-        @param Vect2 : pos la position de la BaseCentrale.
+        @brief Vect2 : pos la position de la BaseCentrale.
         */
         Vect2 BCpos;
-
-        void BCsetPos (int x, int y);
+        /**
+        @brief Mutateur la position de la BaseCentrale.
+        @param float x et y
+        */
+        void BCsetPos (float x, float y);
         
         /**
         @return Vect2 : returne pos la position de la BaseCentrale.
@@ -148,6 +159,11 @@
         @param Entier : le numero de la vague
         */
         void declancherVague(int num_vague);
+
+        /**
+        @brief Fonction fait l'attaque produit pas la base Centrale
+        */
+        void BCAttaque();
 
 
 

@@ -25,7 +25,7 @@ bool Jeu::BCest_vivant()
     }else{return true;}
 }
 
-void Jeu::BCsetPos (int x, int y){
+void Jeu::BCsetPos (float x, float y){
     BCpos.x = x;
     BCpos.y = y;
 }
@@ -46,7 +46,7 @@ Jeu::Jeu(){
     BCsetPos(((larg/2)+0.5)-1,((haut*haut)/50)-(haut/2)+11);
  
     BCm_carac = 'O';
-
+    BCfloatdeg=0.1;
     BatimentDefense bat1(TypeBatiment::Tourelle);
     BatimentDefense bat2(TypeBatiment::Canon);  
 
@@ -276,6 +276,7 @@ void Jeu::deplacerEnnemis(){
     Type_ennemi typeEnnemi;
 
     for(e=0;e<tabEnnemi.size();e++){
+        aiguillageAttaque=0;
 
         if(tabEnnemi.at(e).get_statut()==true){ //si ennemi est vivant
 
@@ -437,7 +438,7 @@ void Jeu::enleveEntDetruites(){
     bat=tabBatDef.size();
     if(tabBatDef.size()>0){
         //cout<<" size "<<tabBatDef.size()<<"  taille tab  ";
-        for(bat=tabBatDef.size()-1;bat>0;bat--)
+        for(bat=tabBatDef.size()-1;bat>=0;bat--)
             { 
                    // cout<<"Batiment indice"<< bat-1 <<" "; 
                     if (tabBatDef.at((unsigned long int)bat).getDetruit()==true ||  tabBatDef.at((unsigned long int)bat).getPointsDeVie()<=0 )
@@ -531,5 +532,39 @@ void Jeu::declancherVague(int num_vague){
             break;
     }
     
+
+}
+
+void Jeu::BCAttaque(){
+    float distance,distanceMinimale;
+    unsigned long int indMin;
+    unsigned long int e;
+    bool init=false;
+    Ennemi enboucle;
+    Vect2 cible=BCgetPos();
+    for(e=0;e<tabEnnemi.size();e++){ //parcours des ennemis
+        enboucle=tabEnnemi.at(e);
+        
+        if(tabEnnemi.at(e).get_statut()==true){ //si ennemi est vivant
+            distance=enboucle.get_position().distance(cible);
+            if(init==false){
+                init=true;
+                distanceMinimale=distance;
+                indMin=e;
+            }else{
+                if(distance<distanceMinimale){
+                    indMin=e;
+                    distanceMinimale=distance;
+                }
+            }
+
+        }
+    }
+    if(init==true){
+        if(distanceMinimale<5){
+            tabEnnemi.at(indMin).enleverSante(BCfloatdeg);
+        }
+    }
+
 
 }

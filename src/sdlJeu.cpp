@@ -368,6 +368,7 @@ void SDLSimple::sdlBoucle () {
         if (nt-t>60) {
             jeu_sdl.ajouteTempsMortEnnemis((nt-t)/100); //cout<<nt-t<<" nt-t "<<endl;
             jeu_sdl.enleveEntDetruites();
+            //jeu_sdl.BCAttaque();
             t = nt;
 
             jeu_sdl.deplacerEnnemis();
