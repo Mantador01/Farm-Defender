@@ -31,7 +31,7 @@ Ennemi::Ennemi()
     type_en=zombi;
     sante=10;
     degat=5; ///1
-    vitesse=0.2; //0.4;      //1
+    vitesse=0.08; //0.4;      //1
     if (type_en==zombi){
         int r=rand()%3;
         float X,Y;
@@ -163,7 +163,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
     {
         sante=10;
         degat=1;
-        vitesse=0.2;
+        vitesse=0.08;
         int r=rand()%3;
         float X,Y;
          switch(r){
@@ -180,7 +180,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
 	if(type_en==z_infectieu){
 		sante=10;
         degat=2;
-        vitesse=0.5;
+        vitesse=0.05;
         int r=rand()%3;
         float X,Y;
 		switch(r){
@@ -214,7 +214,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
 	if(type_en==pillard){
 		sante=10;
         degat=3;
-        vitesse=0.8;
+        vitesse=0.04;
         int r=rand()%3;
         float X,Y;
 		switch(r){
