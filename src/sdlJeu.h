@@ -46,22 +46,35 @@ private :
     SDL_Color font_color;
 
     Mix_Chunk * sound;
+    Mix_Chunk * sound2;
+
     bool withSound;
 
-    //Image im_pacman;
-    //Image im_mur;
-    //Image im_pastille;
-    //Image im_fantome;
     Image im_zombi;
     Image im_plaine;
     Image im_batdef;
+    Image im_go1;
+    Image im_go2;
+    Image im_go3;
+    Image im_go4;
+    Image im_go5;
+    Image im_go6;
+    Image im_go7;
+    Image im_go8;
+    Image im_go9;
+    Image im_go10;
+    Image im_menu1;
+    Image im_Option1;
+    Image im_Option2;
+    Image im_Option3;
+    Image im_Credit;
 
     bool souris;
     bool touche;
 
-    void animation(int i);
-
     SDL_Texture* buttonTexture;
+    int inc;
+
 
 public :
     Jeu jeu_sdl;
@@ -70,6 +83,9 @@ public :
     ~SDLSimple ();
     void sdlBoucle ();
     void sdlAff ();
+    void sdlMenu ();
+    void sdlOption(int img);
+    void sdlCredit();
 
 };
 

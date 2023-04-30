@@ -129,26 +129,6 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
         withSound = false;
     }
     else withSound = true;
-    
-
-    /*
-	int dimx, dimy;
-	dimx = jeu.getConstTerrain().getDimX();
-	dimy = jeu.getConstTerrain().getDimY();
-	dimx = dimx * TAILLE_SPRITE;
-	dimy = dimy * TAILLE_SPRITE;
-    */
-
-    //Display *display = XOpenDisplay(nullptr);
-    //Screen *screen = DefaultScreenOfDisplay(display);
-    
-    //const int screenWidth = screen->width;
-    //const int screenHeight = screen->height;
-
-	//jeu_sdl.960 = screenWidth;
-    //jeu_sdl.640 = screenHeight;
-
-    //XCloseDisplay(display);
 
 	cout<<" SDL COUT : "<< 960<< " " << 640 <<endl;
     // Creation de la fenetre
@@ -162,15 +142,23 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 
     // IMAGES
-    im_zombi.loadFromFile("data/Zombi.png",renderer);
     im_plaine.loadFromFile("data/carte2.png",renderer);
     im_batdef.loadFromFile("data/batdef.png",renderer);
-    /*
-    im_pacman.loadFromFile("data/pacman.png",renderer);
-    im_mur.loadFromFile("data/mur.png",renderer);
-    im_pastille.loadFromFile("data/pastille.png",renderer);
-    im_fantome.loadFromFile("data/fantome.png",renderer);
-    */
+    im_go1.loadFromFile("data/go_1.png",renderer);
+    im_go2.loadFromFile("data/go_2.png",renderer);
+    im_go3.loadFromFile("data/go_3.png",renderer);
+    im_go4.loadFromFile("data/go_4.png",renderer);
+    im_go5.loadFromFile("data/go_5.png",renderer);
+    im_go6.loadFromFile("data/go_6.png",renderer);
+    im_go7.loadFromFile("data/go_7.png",renderer);
+    im_go8.loadFromFile("data/go_8.png",renderer);
+    im_go9.loadFromFile("data/go_9.png",renderer);
+    im_go10.loadFromFile("data/go_10.png",renderer);
+    im_menu1.loadFromFile("data/MENU.png",renderer);
+    im_Option1.loadFromFile("data/OPTION1.png",renderer);
+    im_Option2.loadFromFile("data/OPTION2.png",renderer);
+    im_Option3.loadFromFile("data/OPTION3.png",renderer);
+    im_Credit.loadFromFile("data/CREDIT.png",renderer);
 
     // FONTS
     
@@ -204,17 +192,17 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
         }
     }
 
-    //  // Chargement de la police de caractères
-    // TTF_Font* font = TTF_OpenFont("chemin/vers/ma/police.ttf", 24);
-
-    // // Création du texte du bouton
-    // SDL_Color color = { 255, 255, 255 };
-    // SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Mon bouton", color);
-
-    // // Création de la texture du bouton
-    // SDLSimple sdl;
-    // sdl.buttonTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-    // SDL_FreeSurface(textSurface);
+        if (withSound)
+    {
+        sound2 = Mix_LoadWAV("../data/son2.wav");
+        if (sound2 == nullptr)
+          sound2 = Mix_LoadWAV("data/son2.wav");
+        if (sound2 == nullptr) {
+                cout << "Failed to load son2.wav :( SDL_mixer Error: " << Mix_GetError() << endl; 
+                SDL_Quit();
+                exit(1);
+        }
+    }
 }
 
 
@@ -227,29 +215,6 @@ SDLSimple::~SDLSimple () {
     SDL_Quit();
 }
 
-/*SDLSimple::~SDLSimple (){
-
-}*/
-
-void SDLSimple::animation(int i) {
-    char *M;
-    if(i == 0){M = "data/go_1.png";}
-    if(i == 1){M = "data/go_2.png";}
-    if(i == 2){M = "data/go_3.png";}
-    if(i == 3){M = "data/go_4.png";}
-    if(i == 4){M = "data/go_5.png";}
-    if(i == 5){M = "data/go_6.png";}
-    if(i == 6){M = "data/go_7.png";}
-    if(i == 7){M = "data/go_8.png";}
-    if(i == 8){M = "data/go_9.png";}
-    if(i == 9){M = "data/go_10.png";}
-
-    //im_zombi.loadFromFile(M,renderer);
-
-    // SDL_Delay(50);
-
-}
-
 void SDLSimple::sdlAff () {
 
 	//Remplir l'écran de blanc
@@ -259,70 +224,66 @@ void SDLSimple::sdlAff () {
     //Afficher l'image du background
     im_plaine.draw(renderer,0,0,960,640);
 
-	// Afficher le sprite du Zombi
-   // im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(0).splitX(),jeu_sdl.tabEnnemi.at(0).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
-   // im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(1).splitX(),jeu_sdl.tabEnnemi.at(1).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
-   // im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(2).splitX(),jeu_sdl.tabEnnemi.at(2).splitY(),TAILLE_SPRITE,TAILLE_SPRITE);
-
-
+   if(inc > 9){inc = 0;}
    for (unsigned int i = 0; i<jeu_sdl.tabEnnemi.size();i++){
-         im_zombi.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);
-               
+        if(inc == 0){im_go1.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG1"<<endl;}
+        if(inc == 1){im_go2.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG2"<<endl;}
+        if(inc == 2){im_go3.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG3"<<endl;}
+        if(inc == 3){im_go4.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG4"<<endl;}
+        if(inc == 4){im_go5.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG5"<<endl;}
+        if(inc == 5){im_go6.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG6"<<endl;}
+        if(inc == 6){im_go7.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG7"<<endl;}
+        if(inc == 7){im_go8.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG8"<<endl;}
+        if(inc == 8){im_go9.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG9"<<endl;}
+        if(inc == 9){im_go10.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); cout<<"IMG10"<<endl;}          
     }
-
-
-    // Afficher le spirte du batiment de défense
-    //jeu_sdl.tabBatDef.at(0).setPosition(jeu_sdl.tabBatDef.at(0).getX()*2,jeu_sdl.tabBatDef.at(0).getY()*2);
-    //jeu_sdl.tabBatDef.at(1).setPosition(jeu_sdl.tabBatDef.at(1).getX()*2,jeu_sdl.tabBatDef.at(1).getY()*2);
+    inc++;
 
     for (unsigned int i = 0; i<jeu_sdl.tabBatDef.size();i++){
-    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(i).splitX()*16,jeu_sdl.tabBatDef.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);}
-    
-    /*
-	int x,y;
-	const Terrain& ter = jeu.getConstTerrain();
-	const Pacman& pac = jeu.getConstPacman();
-	const Fantome& fan = jeu.getConstFantome();
-    */
-
-    // Afficher les sprites des murs et des pastilles
-    /*
-	for (x=0;x<ter.getDimX();++x)
-		for (y=0;y<ter.getDimY();++y)
-			if (ter.getXY(x,y)=='#')
-				im_mur.draw(renderer,x*TAILLE_SPRITE,y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
-			else if (ter.getXY(x,y)=='.')
-				im_pastille.draw(renderer,x*TAILLE_SPRITE,y*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
-    */
-	// Afficher le sprite de Pacman
-	//im_pacman.draw(renderer,pac.getX()*TAILLE_SPRITE,pac.getY()*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
-
-	// Afficher le sprite du Fantome
-	//im_fantome.draw(renderer,fan.getX()*TAILLE_SPRITE,fan.getY()*TAILLE_SPRITE,TAILLE_SPRITE,TAILLE_SPRITE);
+    im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(i).splitX()*16,jeu_sdl.tabBatDef.at(i).splitY()*21.33,TAILLE_SPRITE*1.5,TAILLE_SPRITE*1.5);}
 
     // Ecrire un titre par dessus
     SDL_Rect positionTitre;
     positionTitre.x = 270;positionTitre.y = 49;positionTitre.w = 100;positionTitre.h = 30;
     SDL_RenderCopy(renderer,font_im.getTexture(),nullptr,&positionTitre);
+}
 
-    // // Calcul des dimensions de la fenêtre
-    // int windowWidth, windowHeight;
-    // SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+void SDLSimple::sdlMenu () {
+	//Remplir l'écran de blanc
+    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
+    SDL_RenderClear(renderer);
 
-    // // Calcul des dimensions du bouton
-    // int buttonWidth, buttonHeight;
-    // SDL_QueryTexture(buttonTexture, NULL, NULL, &buttonWidth, &buttonHeight);
-
-    // // Calcul des coordonnées x et y pour centrer le bouton
-    // int x = (windowWidth - buttonWidth) / 2;
-    // int y = (windowHeight - buttonHeight) / 2;
-
-    // // Dessin du bouton sur le rendu de la fenêtre
-    // SDL_Rect buttonRect = { x, y, buttonWidth, buttonHeight };
-    // SDL_RenderCopy(renderer, buttonTexture, NULL, &buttonRect);
-    // SDL_RenderPresent(renderer);
+    im_menu1.draw(renderer,0,0,960,640);
 
 }
+
+void SDLSimple::sdlOption (int img) {
+	//Remplir l'écran de blanc
+    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
+    SDL_RenderClear(renderer);
+    
+    if(img == 1){
+        im_Option1.draw(renderer,0,0,960,640);
+    }
+
+    if(img == 2){
+        im_Option2.draw(renderer,0,0,960,640);
+    }
+
+    if(img == 3){
+        im_Option3.draw(renderer,0,0,960,640);
+    }
+}
+
+void SDLSimple::sdlCredit () {
+    //Remplir l'écran de blanc
+    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
+    SDL_RenderClear(renderer);
+
+    im_Credit.draw(renderer,0,0,960,640);
+
+}
+
 
 
 
@@ -331,6 +292,8 @@ void SDLSimple::sdlBoucle () {
     SDL_Event events;
 	bool quit = false;
     bool menu = false;
+    bool option = false;
+    bool credit = false;
 
     //Uint32 t = SDL_GetTicks(), nt;
     //Ennemi enm1;
@@ -339,24 +302,202 @@ void SDLSimple::sdlBoucle () {
     //jeu_sdl.tabEnnemi.clear();
     //jeu_sdl.tabEnnemi.push_back(enm1);
 
-        BatimentDefense bat(TypeBatiment::Tourelle);
+    BatimentDefense bat(TypeBatiment::Tourelle);
 
 	// tant que ce n'est pas la fin ...
-    Uint32 Time;
-    Uint32 T;
+    Uint32 Time1,T1,Time2;
 
-    int i = 0;
+    int img = 1;
 
-    // while(!menu)
-    // {
-    //     sdlAff();
-    // }
     Uint32 t = SDL_GetTicks(), nt;
     Uint32 init=SDL_GetTicks();
     
     bool vague1=false;
     int nbVague=0;
 
+    while(!menu)
+    {
+        while (SDL_PollEvent(&events)) {
+    if (events.type == SDL_QUIT) quit = true; // Si l'utilisateur a cliqué sur la croix de fermeture
+    else if (events.type == SDL_KEYDOWN) { // Si une touche est enfoncée
+        switch (events.key.keysym.scancode) {
+            case SDL_SCANCODE_ESCAPE:
+            case SDL_SCANCODE_Q:
+                menu = true;
+                break;
+            default:
+                break;
+        }
+    }
+
+
+            switch(events.type){
+        case SDL_WINDOWEVENT:
+            if (events.window.event == SDL_WINDOWEVENT_CLOSE)
+                quit != SDL_FALSE;
+                break;
+        case SDL_KEYDOWN:
+            SDL_Log("+key");
+
+            if (events.key.keysym.scancode == SDL_SCANCODE_W)
+                SDL_Log("Scancode W");
+
+            if (events.key.keysym.sym == SDLK_w)
+                SDL_Log("Keycode W");
+
+            if (events.key.keysym.sym == SDLK_z)
+                SDL_Log("Keycode Z");
+
+            break;
+        case SDL_KEYUP: 
+            SDL_Log("-key");
+            break;
+        case SDL_MOUSEMOTION: // Déplacement de souris
+            SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+            
+            break;
+        case SDL_MOUSEBUTTONDOWN: // Click de souris 
+            SDL_Log("+clic");
+            if (events.motion.x >= 360 && events.motion.x <= 559 && events.motion.y >= 117 && events.motion.y <= 188){cout<<"BOUTON JOUER"<<endl; Mix_PlayChannel(-1,sound2,0); menu = true;}
+            if (events.motion.x >= 360 && events.motion.x <= 559 && events.motion.y >= 257 && events.motion.y <= 326){cout<<"BOUTON OPTION"<<endl; Mix_PlayChannel(-1,sound2,0); option = true;}
+            if (events.motion.x >= 360 && events.motion.x <= 559 && events.motion.y >= 395 && events.motion.y <= 466){cout<<"BOUTON CREDITS"<<endl; Mix_PlayChannel(-1,sound2,0); credit = true;}
+            break;
+        case SDL_MOUSEBUTTONUP: // Click de souris relâché
+            SDL_Log("-clic");
+            break;
+        case SDL_MOUSEWHEEL: // Scroll de la molette
+            SDL_Log("wheel");
+            break;
+        }
+		}
+
+        Time2 = SDL_GetTicks();
+
+        if(!option){sdlMenu();
+        SDL_RenderPresent(renderer);}
+            
+        while(option)
+        {
+            
+            sdlOption(img);
+
+            while (SDL_PollEvent(&events)) {
+    if (events.type == SDL_QUIT) option = false; // Si l'utilisateur a cliqué sur la croix de fermeture
+    else if (events.type == SDL_KEYDOWN) { // Si une touche est enfoncée
+        switch (events.key.keysym.scancode) {
+            case SDL_SCANCODE_ESCAPE:
+            case SDL_SCANCODE_Q:
+                option = false;
+                break;
+            default:
+                break;
+        }
+    }
+
+
+            switch(events.type){
+        case SDL_WINDOWEVENT:
+            if (events.window.event == SDL_WINDOWEVENT_CLOSE)
+                quit != SDL_FALSE;
+                break;
+        case SDL_KEYDOWN:
+            SDL_Log("+key");
+
+            if (events.key.keysym.scancode == SDL_SCANCODE_W)
+                SDL_Log("Scancode W");
+
+            if (events.key.keysym.sym == SDLK_w)
+                SDL_Log("Keycode W");
+
+            if (events.key.keysym.sym == SDLK_z)
+                SDL_Log("Keycode Z");
+
+            break;
+        case SDL_KEYUP: 
+            SDL_Log("-key");
+            break;
+        case SDL_MOUSEMOTION: // Déplacement de souris
+            SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+            
+            break;
+        case SDL_MOUSEBUTTONDOWN: // Click de souris 
+            SDL_Log("+clic");
+            if (events.motion.x >= 379 && events.motion.x <= 402 && events.motion.y >= 292 && events.motion.y <= 318){Mix_PlayChannel(-1,sound2,0); img = 1;}
+            if (events.motion.x >= 379 && events.motion.x <= 402 && events.motion.y >= 337 && events.motion.y <= 361){Mix_PlayChannel(-1,sound2,0); img = 2;}
+            if (events.motion.x >= 379 && events.motion.x <= 402 && events.motion.y >= 378 && events.motion.y <= 407){Mix_PlayChannel(-1,sound2,0); img = 3;}
+            break;
+        case SDL_MOUSEBUTTONUP: // Click de souris relâché
+            SDL_Log("-clic");
+            break;
+        case SDL_MOUSEWHEEL: // Scroll de la molette
+            SDL_Log("wheel");
+            break;
+        }
+		}
+        SDL_RenderPresent(renderer);
+
+        }
+
+        while(credit)
+        {
+            
+            sdlCredit();
+
+            while (SDL_PollEvent(&events)) {
+    if (events.type == SDL_QUIT) credit = false; // Si l'utilisateur a cliqué sur la croix de fermeture
+    else if (events.type == SDL_KEYDOWN) { // Si une touche est enfoncée
+        switch (events.key.keysym.scancode) {
+            case SDL_SCANCODE_ESCAPE:
+            case SDL_SCANCODE_Q:
+                credit = false;
+                break;
+            default:
+                break;
+        }
+    }
+
+
+            switch(events.type){
+        case SDL_WINDOWEVENT:
+            if (events.window.event == SDL_WINDOWEVENT_CLOSE)
+                quit != SDL_FALSE;
+                break;
+        case SDL_KEYDOWN:
+            SDL_Log("+key");
+
+            if (events.key.keysym.scancode == SDL_SCANCODE_W)
+                SDL_Log("Scancode W");
+
+            if (events.key.keysym.sym == SDLK_w)
+                SDL_Log("Keycode W");
+
+            if (events.key.keysym.sym == SDLK_z)
+                SDL_Log("Keycode Z");
+
+            break;
+        case SDL_KEYUP: 
+            SDL_Log("-key");
+            break;
+        case SDL_MOUSEMOTION: // Déplacement de souris
+            SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+            
+            break;
+        case SDL_MOUSEBUTTONDOWN: // Click de souris 
+            SDL_Log("+clic");
+            break;
+        case SDL_MOUSEBUTTONUP: // Click de souris relâché
+            SDL_Log("-clic");
+            break;
+        case SDL_MOUSEWHEEL: // Scroll de la molette
+            SDL_Log("wheel");
+            break;
+        }
+		}
+
+        SDL_RenderPresent(renderer);
+
+        }
+    }
 	while (!quit) {
 
         nt = SDL_GetTicks();
@@ -374,18 +515,11 @@ void SDLSimple::sdlBoucle () {
 
             jeu_sdl.deplacerEnnemis();
             jeu_sdl.faireDegatBat();
-            //jeu_sdl.tabEnnemi.at(0).deplacer();
-            //jeu_sdl.tabEnnemi.at(1).deplacer();
-            //jeu_sdl.tabEnnemi.at(2).deplacer();
             
-
-            Time = SDL_GetTicks();
-            T = (Time/1000);
-            cout<<T<<endl;
-            
-            if (i > 9 ){i = 0;}
-            //animation(i);
-            i++;
+            // Affichage du timer
+            Time1 = SDL_GetTicks() - Time2;
+            T1 = (Time1/1000);
+            cout<<T1<<endl;
 
             // tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
             while (SDL_PollEvent(&events)) {
@@ -437,8 +571,8 @@ void SDLSimple::sdlBoucle () {
             }
             }        
         
-
-        //Mix_PlayChannel(-1,sound,0);
+            //Son du jeu
+            Mix_PlayChannel(-1,sound,0);
 
             // on affiche le jeu sur le buffer cach�
             sdlAff();
