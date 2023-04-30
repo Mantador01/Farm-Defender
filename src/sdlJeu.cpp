@@ -355,14 +355,15 @@ void SDLSimple::sdlBoucle () {
     Uint32 init=SDL_GetTicks();
     
     bool vague1=false;
+    int nbVague=0;
 
 	while (!quit) {
 
         nt = SDL_GetTicks();
-        if (nt-init>10000 && vague1==false ) {
-            jeu_sdl.declancherVague(0);
-            vague1=true;
-            cout<<"vague 1"<<endl;
+        if (nt-init>10000  ) {
+            jeu_sdl.declancherVague(nbVague);
+            nbVague=nbVague+1;
+		    init=nt;
         }
 
         if (nt-t>60) {
