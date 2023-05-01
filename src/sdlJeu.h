@@ -8,6 +8,7 @@
 
 #include "Jeu.h"
 
+//! \brief Pour gérer une image avec SDL2
 class Image {
 
 private:
@@ -28,7 +29,9 @@ public:
 
 
 
-
+/**
+    La classe gerant le jeu avec un affichage SDL
+*/
 class SDLSimple {
 
 private :
@@ -65,12 +68,30 @@ private :
     Image im_Option2;
     Image im_Option3;
     Image im_Credit;
+    Image im_die_1;
+    Image im_die_2;
+    Image im_die_3;
+    Image im_die_4;
+    Image im_die_5;
+    Image im_die_6;
+    Image im_die_7;
+    Image im_die_8;
+    Image im_ferme;
+    Image im_ferme_2;
+    Image im_ferme_3;
+    Image im_ferme_4;
+    Image im_CarteMenu;
+    Image im_Croix;
+    Image im_GameOver;
+
 
     bool souris;
     bool touche;
 
     SDL_Texture* buttonTexture;
-    int inc;
+    int inc,inc2;
+
+    int TEMPS;
 
 
 public :
@@ -83,6 +104,7 @@ public :
     void sdlMenu ();
     void sdlOption(int img);
     void sdlCredit();
+    void sdlMenu2(bool Bat1, float pos1, float pos2);
 
 };
 

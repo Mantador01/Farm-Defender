@@ -17,9 +17,11 @@
 #include <unistd.h>
 #endif
 
-void termMove(int x, int y) {
+void termMove(int x, int y) // deplace le curseur du terminal
+{
 #ifdef _WIN32
-        HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+    // Deplace le curseur en haut a gauche du terminal
+    HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD origine = { (SHORT)x, (SHORT)y };
     SetConsoleCursorPosition(console, origine);
 #else
@@ -30,7 +32,8 @@ void termMove(int x, int y) {
 
 }
 
-void termClear()  {
+void termClear()  // efface le terminal
+{
 #ifdef _WIN32
     system("cls");
 #else
@@ -38,7 +41,8 @@ void termClear()  {
 #endif
 }
 
-void termInit()      {
+void termInit()      // configure la saisie : ne pas afficher les caracteres tapes
+{
 #ifdef _WIN32
     HANDLE console = GetStdHandle(STD_INPUT_HANDLE);
     DWORD mode; GetConsoleMode(console, &mode);
@@ -47,16 +51,21 @@ void termInit()      {
     struct termios ttystate;
     bool state = true;
 
-        tcgetattr(STDIN_FILENO, &ttystate);
+    //get the terminal state
+    tcgetattr(STDIN_FILENO, &ttystate);
 
     if (state) {
-                ttystate.c_lflag &= ~ICANON;
-                ttystate.c_cc[VMIN] = 1;
+        //turn off canonical mode
+        ttystate.c_lflag &= ~ICANON;
+        //minimum of number input read.
+        ttystate.c_cc[VMIN] = 1;
     }
     else {
-                ttystate.c_lflag |= ICANON;
+        //turn on canonical mode
+        ttystate.c_lflag |= ICANON;
     }
-        tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);
+    //set the terminal attributes.
+    tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);
 
     struct termios t;
     tcgetattr(STDIN_FILENO, &t);
@@ -109,7 +118,8 @@ int kbhit() {
     tv.tv_sec = 0;
     tv.tv_usec = 0;
     FD_ZERO(&fds);
-    FD_SET(STDIN_FILENO, &fds);     select(STDIN_FILENO+1, &fds, NULL, NULL, &tv);
+    FD_SET(STDIN_FILENO, &fds); //STDIN_FILENO is 0
+    select(STDIN_FILENO+1, &fds, NULL, NULL, &tv);
     return FD_ISSET(STDIN_FILENO, &fds);
 }
 #endif
@@ -123,7 +133,8 @@ void WinTXT::pause() {
 #endif
 }
 
-char WinTXT::getCh() {     char touche=0;
+char WinTXT::getCh() { // lire un caractere si une touche a ete pressee
+    char touche=0;
 #ifdef _WIN32
     if (kbhit())
     {

@@ -1,10 +1,13 @@
 /**
 @brief Description brève du fichier Ferme.h
 Description détaillée du fichier Ferme.h
-@author Ahmed/Alexandre/Sara
-@file Image.h
+@author Alexandre
+@file Ferme.h
 @version 1.0
-@date 01/05/2023
+@date 07/03/2023
+*/
+/**
+@brief Classe permettant la gestion des fermes.
 */
 
 #ifndef FERME_H
@@ -15,60 +18,65 @@ Description détaillée du fichier Ferme.h
 
 using namespace std;
 
-
-
-
-/**
-@brief Classe représentant une ferme
-*/
 class Ferme {
 public:
 
-/**
-@brief Constructeur de la classe Ferme
-@param stockage Stockage de ressources associé à la ferme
-*/
-Ferme(StockageRessources& stockage);
+    /**
+    @brief Constructeur par défaut: Initialise la position de base a 0, définie les points de vie a 20 et le connecte au stockage de la classe StockageRessources.
+    */
+    Ferme(StockageRessources& stockage);
 
-/**
-@brief Produit des ressources en fonction du statut de vie de la ferme
-@param est_vivant Statut de vie de la ferme
-*/
-void production(bool est_vivant);
+    //Ferme(StockageRessources& stockage, int pointsDeVie, Vect2 posi);
 
-/**
-@brief Enlève des points de vie à la ferme
-@param degat Nombre de points de vie à enlever
-*/
-void degat(int degat);
+    /**
+    @brief Fonction production qui incrémente les ressources de 2 a chaques appels de cette fonction seulement si la Ferme est vivante.
+    @param Booléen : est_vivant renvoie true si la ferme est toujour vivante(vie>0) false sinon.
+    */
+    void production(bool est_vivant);
 
-/**
-@brief Obtient le statut de vie de la ferme
-@return true si la ferme est en vie, false sinon
-*/
-bool est_vivant();
+    /**
+    @brief Fonction degat qui permet de soustraire les dégats passer en paramètre et la vie de la Ferme.
+    @param Entier : degat les dégats a soustraire a la vie.
+    */
+    void degat(int degat);
 
-/**
-@brief Crée une nouvelle ferme à la position spécifiée
-@param posi Position de la nouvelle ferme
-*/
-void creation(Vect2 posi);
+    /**
+    @brief Fonction qui renvoie true si la ferme est vivante.
+    */
+   bool est_vivant();
+   
+   /**
+    @brief Fonction qui va donner vie a une ferme.
+    @param Vect2 : vecteur de position de la ferme.
+   */
+   void creation(Vect2 posi);
 
-StockageRessources* m_stockage; /**< Stockage de ressources associé à la ferme */
+   /**
+    @param StockageRessources : m_stockage le stockage des ressources que produiront la Ferme.
+    */
+    //StockageRessources m_stockage;
+    StockageRessources* m_stockage;
 
-/**
-@brief Obtient la position de la ferme
-@return Position de la ferme
-*/
-Vect2 get_position();
+    /**
+    @brief Accesseur pour position de la ferme
+    @return valeur de type Vect2
+    */
+   Vect2 get_position();
 
 
 private:
 
-int m_pointsDeVie; /**< Nombre de points de vie de la ferme */
-Vect2 pos; /**< Position de la ferme */
+    
 
+    /**
+    @param Entier : m_pointsDeVie la vie de la Ferme.
+    */
+    int m_pointsDeVie;
 
+    /**
+    @param Vect2 : pos la position de la Ferme.
+    */
+    Vect2 pos;
 };
 
 #endif // FERME_H

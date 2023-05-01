@@ -4,6 +4,8 @@
 #include <vector>
 using namespace std;
 
+
+
 void Jeu::BCproduction(bool est_vivant)
 {
     if(est_vivant){
@@ -39,6 +41,10 @@ Vect2 Jeu::BCgetPos(){
 
 
 Jeu::Jeu(){
+
+    BCm_pointsDeVie = 3000;
+
+
 
     jeu_largeur=40; jeu_hauteur=20;
     const int haut = 30;
@@ -85,6 +91,26 @@ Jeu::Jeu(){
     zombiTest.set_pos(posZombi2);
     tabEnnemi.push_back(zombiTest);
     placerEnnemis(pillard,3);
+
+    Vect2 pos_1(14,6);
+    Ferme ferme1(stockage);
+    ferme1.creation(pos_1);
+    TabFerme.push_back(ferme1);
+
+    Vect2 pos_2(45,6);
+    Ferme ferme2(stockage);
+    ferme2.creation(pos_2);
+    TabFerme.push_back(ferme2);
+
+    Vect2 pos_3(14,23);
+    Ferme ferme3(stockage);
+    ferme3.creation(pos_3);
+    TabFerme.push_back(ferme3);
+
+    Vect2 pos_4(45,23);
+    Ferme ferme4(stockage);
+    ferme4.creation(pos_4);
+    TabFerme.push_back(ferme4);
 
 }
 
@@ -466,7 +492,7 @@ void Jeu::enleveEntDetruites(){
        
         for(eint=tabEnnemi.size()-1;eint>=0;eint--)
         {
-            if (tabEnnemi.at((unsigned long int)eint).get_statut()==false) //&& tabEnnemi.at((unsigned long int)eint).get_temps_mort()>20 )  //si l'ennemi est eliminé
+            if (tabEnnemi.at((unsigned long int)eint).get_statut()==false && tabEnnemi.at((unsigned long int)eint).get_temps_mort()>100 ) //&& tabEnnemi.at((unsigned long int)eint).get_temps_mort()>20 )  //si l'ennemi est eliminé
             {
                 tabEnnemi.erase(tabEnnemi.begin()+(unsigned long int)eint);
                 //cout<<(unsigned long int)eint <<"ennemi indice eliminé";
@@ -492,6 +518,7 @@ void Jeu::ajouteTempsMortEnnemis(float tempsMort){
                 tabEnnemi.at((unsigned long int)e).add_temps_mort(tempsMort);
             }
         }
+        cout<<endl;
     
     }
 }

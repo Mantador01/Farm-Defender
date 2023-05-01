@@ -13,7 +13,15 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <cassert>
-
+/*
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif // WIN32
+#include <conio.h>
+#include "winTxt.h"
+*/
 
 #if _WIN32
 #include <windef.h>
@@ -341,7 +349,9 @@ void BoucleJeu(Jeu & j){
         cout << endl;
 
         
-        
+        /*ferme1.degat(1);
+        ferme2.degat(2);
+        ferme3.degat(3);*/
 
         //BC.degat(50);
         
@@ -355,7 +365,9 @@ void BoucleJeu(Jeu & j){
         stockage.afficherRessources();
         
         
-        
+        /*cout << "****************************Gestion Ennemi's" <<endl;
+
+        j.tabEnnemi.at(0).afficher();*/
 
         cout << "****************************Gestion BatimentDefense's" <<endl;
 
@@ -419,7 +431,12 @@ int main(){
     jeuUnique.BCsetPos(((map.getLargeur()/2)+0.5)-1,((map.getHauteur()*map.getHauteur())/50)-(map.getHauteur()/2)+11);
     // map.affObj(jeuUnique.BCpos,jeuUnique.BCm_size,jeuUnique.BCm_carac);
 
-    
+    /*
+    Vect2 pos;
+    pos.x = 0;
+    pos.y = 0;
+    Ennemi zombiTest;
+    */
 
     cout << "Ressources initiales :" << endl;
     stockage.afficherRessources();

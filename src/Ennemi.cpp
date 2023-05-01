@@ -1,4 +1,11 @@
-
+/**
+@brief Description brève du fichier Ennemi.cpp
+Description détaillée du fichier Ennemi.cpp
+@author P2105542
+@file Ennemi.cpp
+@version 1.0
+@date 2023/03/07
+*/
 
 
 #include "Vect2.h"
@@ -19,11 +26,14 @@ const float YPntGenZSpw3 = 15 ;
 
 
 Ennemi::Ennemi()
-{   statut=true;
+{   
+    statut=true;
     temps_mort=0;
     type_en=zombi;
     sante=10;
-    degat=5;     vitesse=0.08;     if (type_en==zombi){
+    degat=5; ///1
+    vitesse=0.2; //0.4;      //1
+    if (type_en==zombi){
         int r=rand()%3;
         float X,Y;
     switch(r){
@@ -34,7 +44,8 @@ Ennemi::Ennemi()
             case 2: {X=XPntGenZSpw3; Y=YPntGenZSpw3;
                     break;}
         }
-            Vect2 pos(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10)));
+        //cout<<X+((float)(rand()%21-10))<<" x  "<<endl;
+    Vect2 pos(X+((float)(rand()%21-10)),Y+((float)(rand()%21-10)));
     position=pos;
     Vect2 dir(10.f,-10.f);
     direction=dir;
@@ -57,7 +68,9 @@ return type_en;
 void Ennemi::deplacer()
 {
     position=position+direction*(vitesse*2/3);
-        }
+    //cout<<"deplace correct"<<endl;
+    //faire tests avec le tableau de batiments
+}
 
 void Ennemi::enleverSante(int points_enleves){
     if(statut==true)
@@ -69,11 +82,31 @@ void Ennemi::enleverSante(int points_enleves){
         }
     }
 }
+/*
+void Ennemi::afficher()
+{
+    cout<<"types d'ennemis :"<<endl;
+    Type_ennemi a=zombi;
+    Type_ennemi c=z_infectieu;
+    Type_ennemi b=z_berserker;
+    Type_ennemi d=pillard;
+    cout<<"zombi = "<<a; 
+    cout<<"zombi infectieu = ";
+    cout<<c;
 
+    cout<<" zombi berserker = "<<b;
+    cout<<"pillard = "<<d<<endl;
+
+    cout<<" Ennemi de type "<< type_en <<" avec un statut "<< statut<<" (0 elimine 1 vivant) "<<sante<<" points de sante ";
+    cout<<"degat de :"<<degat<<endl;
+    cout<<vitesse<<" vitesse    position: x"<< position.x<<" y "<<position.y<<endl;
+    cout<<"direction x"<<direction.x<<"  y"<<direction.y<<endl;
+}*/
 
 Ennemi::~Ennemi()
 {
-    }
+    //dtor
+}
 
 Vect2 Ennemi::get_position()
 {
@@ -122,13 +155,16 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
 	Vect2 dir(10.f,-10.f);
     direction=dir;
     
-    
+    /*Type_ennemi zombi;
+	Type_ennemi z_infectieu;
+	Type_ennemi z_berserker;
+	Type_ennemi pillard;*/
     
     if (type_en==zombi)
     {
         sante=10;
         degat=1;
-        vitesse=0.08;
+        vitesse=0.2;
         int r=rand()%3;
         float X,Y;
          switch(r){
@@ -145,7 +181,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
 	if(type_en==z_infectieu){
 		sante=10;
         degat=2;
-        vitesse=0.05;
+        vitesse=0.5;
         int r=rand()%3;
         float X,Y;
 		switch(r){
@@ -179,7 +215,7 @@ Ennemi::Ennemi(Type_ennemi typeENnemi){
 	if(type_en==pillard){
 		sante=10;
         degat=3;
-        vitesse=0.04;
+        vitesse=0.8;
         int r=rand()%3;
         float X,Y;
 		switch(r){
@@ -201,5 +237,5 @@ float Ennemi::get_temps_mort(){
 }
 
 void Ennemi::add_temps_mort(float tempsMort){
-    temps_mort=temps_mort+tempsMort;
+    temps_mort=temps_mort+tempsMort+5;
 }

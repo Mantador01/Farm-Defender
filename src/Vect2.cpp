@@ -61,4 +61,5 @@ void Vect2::normailiser(){
     x=x/dist;
     y=y/dist;
 
-    }
+    //cout<<sqrt(x*x + y*y)<<"    est la dist du vect normalisé"<<endl;
+}
