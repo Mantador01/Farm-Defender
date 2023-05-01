@@ -13,12 +13,7 @@ StockageRessources::StockageRessources(){
     nourriture = 0;
 }
 
-/*StockageRessources::StockageRessources(int Rgold, int Rbois, int Rpierre, int Rnourriture) {
-    gold = Rgold;
-    bois = Rbois;
-    pierre = Rpierre;
-    nourriture = Rnourriture;
-}*/
+
 
 void StockageRessources::ajouterRessource(string type, int quantite) {
     if (type == "gold") {

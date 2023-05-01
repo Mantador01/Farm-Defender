@@ -51,5 +51,8 @@ $(OBJ_DIR)/winTxt.o: $(SRC_DIR)/winTxt.cpp
 $(OBJ_DIR)/JeuModeTexte.o: $(SRC_DIR)/JeuModeTexte.cpp $(SRC_DIR)/Vect2.h $(SRC_DIR)/winTxt.h $(SRC_DIR)/Jeu.h
 	$(CC) $(FLAGS) -c $(SRC_DIR)/JeuModeTexte.cpp -o $(OBJ_DIR)/JeuModeTexte.o
 
+docu:
+	cd doc ; doxygen doxyfile
+
 clean:
-	rm -f $(OBJS_JEU) $(OBJS_GR) $(BIN_DIR)/jeu $(BIN_DIR)/gr 
+	rm -f $(OBJS_JEU) $(OBJS_GR) $(BIN_DIR)/jeu $(BIN_DIR)/gr -r doc/html

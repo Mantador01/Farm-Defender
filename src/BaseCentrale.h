@@ -1,13 +1,10 @@
 /**
-@brief Description brève du fichier BaseCentrale.h
-Description détaillée du fichier BaseCentrale.h
-@author Alexandre
-@file BaseCentrale.h
+@brief Description brève du fichier BaseCentral.h
+Description détaillée du fichier BaseCentral.h
+@author Ahmed/Alexandre/Sara
+@file Image.h
 @version 1.0
-@date 14/03/2023
-*/
-/**
-@brief Classe permettant la gestion de la BaseCentrale.
+@date 01/05/2023
 */
 
 #ifndef BaseCentrale_H
@@ -18,56 +15,81 @@ Description détaillée du fichier BaseCentrale.h
 
 using namespace std;
 
+
+/**
+@brief Classe représentant une base centrale dans un jeu
+*/
 class BaseCentrale {
 public:
 
-    /**
-    @brief Constructeur par défaut: Initialise la position de base a 0, définie les points de vie a 200 et le connecte au stockage de la classe StockageRessources.
-    */
-    BaseCentrale(StockageRessources& stockage);
+/**
+@brief Constructeur avec paramètre
+Initialise une base centrale avec un objet StockageRessources passé en référence, qui sera utilisé pour stocker les ressources de la base
+@param stockage Un objet StockageRessources référencé
+*/
+BaseCentrale(StockageRessources& stockage);
 
-    /**
-    @brief Fonction production qui incrémente les ressources de 10 a chaques appels de cette fonction seulement si la BaseCentrale est vivante.
-    @param Booléen : est_vivant renvoie true si la ferme est toujour vivante(vie>0) false sinon.
-    */
-    void production(bool est_vivant);
+/**
+@brief Fonction de production de ressources
+Permet à la base de produire des ressources en fonction de son état de vie et du stockage de ressources associé
+@param est_vivant Un booléen indiquant si la base est en vie
+*/
+void production(bool est_vivant);
 
-    /**
-    @brief Fonction degat qui permet de soustraire les dégats passer en paramètre et la vie de la BaseCentrale.
-    @param Entier : degat les dégats a soustraire a la vie.
-    */
-    void degat(int degat);
+/**
+@brief Fonction de gestion des dégâts subis par la base
+Réduit les points de vie de la base en fonction des dégâts subis en paramètre
+@param degat Un entier représentant les dégâts subis par la base
+*/
+void degat(int degat);
 
-    /**
-    @brief Fonction qui renvoie true si la BaseCentrale est vivante.
-    */
-    bool est_vivant();
+/**
+@brief Fonction indiquant si la base est en vie
+@return Un booléen indiquant si la base est en vie
+*/
+bool est_vivant();
 
-    int m_carac;
+/**
+@brief Attribut représentant la caractéristique de la base
+*/
+int m_carac;
 
-    int m_size;
+/**
+@brief Attribut représentant la taille de la base
+*/
+int m_size;
 
-    /**
-    @param Vect2 : pos la position de la BaseCentrale.
-    */
-    Vect2 pos;
+/**
+@brief Attribut représentant la position de la base dans l'espace de jeu
+*/
+Vect2 pos;
 
-    void setPos (int x, int y);
-    
-    /**
-    @return Vect2 : returne pos la position de la BaseCentrale.
-    */
-    Vect2 getPos();
+/**
+@brief Fonction de modification de la position de la base dans l'espace de jeu
+@param x La coordonnée x de la nouvelle position
+@param y La coordonnée y de la nouvelle position
+*/
+void setPos (int x, int y);
+
+/**
+@brief Fonction de récupération de la position de la base dans l'espace de jeu
+@return Un objet Vect2 représentant la position de la base dans l'espace de jeu
+*/
+Vect2 getPos();
+
+
 private:
-    /**
-    @param StockageRessources : m_stockage le stockage des ressources que produiront la BaseCentrale.
-    */
-    StockageRessources* m_stockage;
+/**
+@brief Pointeur vers l'objet StockageRessources associé à la base
+*/
+StockageRessources* m_stockage;
 
-    /**
-    @param Entier : m_pointsDeVie la vie de la BaseCentrale.
-    */
-    int m_pointsDeVie;
+/**
+@brief Attribut représentant les points de vie de la base
+*/
+int m_pointsDeVie;
+
+
 };
 
-#endif // BaseCentrale_H
+#endif

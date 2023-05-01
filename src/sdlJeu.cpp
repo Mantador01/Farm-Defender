@@ -15,11 +15,9 @@ using namespace std;
 const int TAILLE_SPRITE = 32;
 
 float temps () {
-    return float(SDL_GetTicks()) / CLOCKS_PER_SEC;  // conversion des ms en secondes en divisant par 1000
-}
+    return float(SDL_GetTicks()) / CLOCKS_PER_SEC;  }
 
 
-// ============= CLASS IMAGE =============== //
 
 Image::Image () : m_surface(nullptr), m_texture(nullptr), m_hasChanged(false) {
 }
@@ -97,11 +95,9 @@ SDL_Texture * Image::getTexture() const {return m_texture;}
 void Image::setSurface(SDL_Surface * surf) {m_surface = surf;}
 
 
-// ============= CLASS SDLJEU =============== //
 
 SDLSimple::SDLSimple ()  : jeu_sdl() {
-    // Initialisation de la SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
         SDL_Quit();
         exit(1);
@@ -131,8 +127,7 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
     else withSound = true;
 
 	cout<<" SDL COUT : "<< 960<< " " << 640 <<endl;
-    // Creation de la fenetre
-    window = SDL_CreateWindow("FarmDefender", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 960, 640, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+        window = SDL_CreateWindow("FarmDefender", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 960, 640, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (window == nullptr) {
         cout << "Erreur lors de la creation de la fenetre : " << SDL_GetError() << endl; 
         SDL_Quit(); 
@@ -141,8 +136,7 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
 
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
 
-    // IMAGES
-    im_plaine.loadFromFile("data/carte2.png",renderer);
+        im_plaine.loadFromFile("data/carte2.png",renderer);
     im_batdef.loadFromFile("data/batdef.png",renderer);
     im_go1.loadFromFile("data/go_1.png",renderer);
     im_go2.loadFromFile("data/go_2.png",renderer);
@@ -160,8 +154,7 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
     im_Option3.loadFromFile("data/OPTION3.png",renderer);
     im_Credit.loadFromFile("data/CREDIT.png",renderer);
 
-    // FONTS
-    
+        
     font = TTF_OpenFont("data/DejaVuSansCondensed.ttf",50);
     if (font == nullptr)
         font = TTF_OpenFont("../data/DejaVuSansCondensed.ttf",50);
@@ -178,8 +171,7 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
 	font_im.loadFromCurrentSurface(renderer);
     
 
-    // SONS
-    
+        
     if (withSound)
     {
         sound = Mix_LoadWAV("../data/son.wav");
@@ -217,12 +209,10 @@ SDLSimple::~SDLSimple () {
 
 void SDLSimple::sdlAff () {
 
-	//Remplir l'écran de blanc
-    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
+	    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
     SDL_RenderClear(renderer);
 
-    //Afficher l'image du background
-    im_plaine.draw(renderer,0,0,960,640);
+        im_plaine.draw(renderer,0,0,960,640);
 
    if(inc > 9){inc = 0;}
    for (unsigned int i = 0; i<jeu_sdl.tabEnnemi.size();i++){
@@ -242,15 +232,13 @@ void SDLSimple::sdlAff () {
     for (unsigned int i = 0; i<jeu_sdl.tabBatDef.size();i++){
     im_batdef.draw(renderer,jeu_sdl.tabBatDef.at(i).splitX()*16,jeu_sdl.tabBatDef.at(i).splitY()*21.33,TAILLE_SPRITE*1.5,TAILLE_SPRITE*1.5);}
 
-    // Ecrire un titre par dessus
-    SDL_Rect positionTitre;
+        SDL_Rect positionTitre;
     positionTitre.x = 270;positionTitre.y = 49;positionTitre.w = 100;positionTitre.h = 30;
     SDL_RenderCopy(renderer,font_im.getTexture(),nullptr,&positionTitre);
 }
 
 void SDLSimple::sdlMenu () {
-	//Remplir l'écran de blanc
-    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
+	    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
     SDL_RenderClear(renderer);
 
     im_menu1.draw(renderer,0,0,960,640);
@@ -258,8 +246,7 @@ void SDLSimple::sdlMenu () {
 }
 
 void SDLSimple::sdlOption (int img) {
-	//Remplir l'écran de blanc
-    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
+	    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
     SDL_RenderClear(renderer);
     
     if(img == 1){
@@ -276,8 +263,7 @@ void SDLSimple::sdlOption (int img) {
 }
 
 void SDLSimple::sdlCredit () {
-    //Remplir l'écran de blanc
-    SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
+        SDL_SetRenderDrawColor(renderer, 230, 240, 255, 255);
     SDL_RenderClear(renderer);
 
     im_Credit.draw(renderer,0,0,960,640);
@@ -295,17 +281,10 @@ void SDLSimple::sdlBoucle () {
     bool option = false;
     bool credit = false;
 
-    //Uint32 t = SDL_GetTicks(), nt;
-    //Ennemi enm1;
-    //Vect2 dir(0.5,0.5);
-    //enm1.set_direction(dir);
-    //jeu_sdl.tabEnnemi.clear();
-    //jeu_sdl.tabEnnemi.push_back(enm1);
-
+                        
     BatimentDefense bat(TypeBatiment::Tourelle);
 
-	// tant que ce n'est pas la fin ...
-    Uint32 Time1,T1,Time2;
+	    Uint32 Time1,T1,Time2;
 
     int img = 1;
 
@@ -318,9 +297,7 @@ void SDLSimple::sdlBoucle () {
     while(!menu)
     {
         while (SDL_PollEvent(&events)) {
-    if (events.type == SDL_QUIT) quit = true; // Si l'utilisateur a cliqué sur la croix de fermeture
-    else if (events.type == SDL_KEYDOWN) { // Si une touche est enfoncée
-        switch (events.key.keysym.scancode) {
+    if (events.type == SDL_QUIT) quit = true;     else if (events.type == SDL_KEYDOWN) {         switch (events.key.keysym.scancode) {
             case SDL_SCANCODE_ESCAPE:
             case SDL_SCANCODE_Q:
                 menu = true;
@@ -352,21 +329,17 @@ void SDLSimple::sdlBoucle () {
         case SDL_KEYUP: 
             SDL_Log("-key");
             break;
-        case SDL_MOUSEMOTION: // Déplacement de souris
-            SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+        case SDL_MOUSEMOTION:             SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
             
             break;
-        case SDL_MOUSEBUTTONDOWN: // Click de souris 
-            SDL_Log("+clic");
+        case SDL_MOUSEBUTTONDOWN:             SDL_Log("+clic");
             if (events.motion.x >= 360 && events.motion.x <= 559 && events.motion.y >= 117 && events.motion.y <= 188){cout<<"BOUTON JOUER"<<endl; Mix_PlayChannel(-1,sound2,0); menu = true;}
             if (events.motion.x >= 360 && events.motion.x <= 559 && events.motion.y >= 257 && events.motion.y <= 326){cout<<"BOUTON OPTION"<<endl; Mix_PlayChannel(-1,sound2,0); option = true;}
             if (events.motion.x >= 360 && events.motion.x <= 559 && events.motion.y >= 395 && events.motion.y <= 466){cout<<"BOUTON CREDITS"<<endl; Mix_PlayChannel(-1,sound2,0); credit = true;}
             break;
-        case SDL_MOUSEBUTTONUP: // Click de souris relâché
-            SDL_Log("-clic");
+        case SDL_MOUSEBUTTONUP:             SDL_Log("-clic");
             break;
-        case SDL_MOUSEWHEEL: // Scroll de la molette
-            SDL_Log("wheel");
+        case SDL_MOUSEWHEEL:             SDL_Log("wheel");
             break;
         }
 		}
@@ -382,9 +355,7 @@ void SDLSimple::sdlBoucle () {
             sdlOption(img);
 
             while (SDL_PollEvent(&events)) {
-    if (events.type == SDL_QUIT) option = false; // Si l'utilisateur a cliqué sur la croix de fermeture
-    else if (events.type == SDL_KEYDOWN) { // Si une touche est enfoncée
-        switch (events.key.keysym.scancode) {
+    if (events.type == SDL_QUIT) option = false;     else if (events.type == SDL_KEYDOWN) {         switch (events.key.keysym.scancode) {
             case SDL_SCANCODE_ESCAPE:
             case SDL_SCANCODE_Q:
                 option = false;
@@ -416,21 +387,17 @@ void SDLSimple::sdlBoucle () {
         case SDL_KEYUP: 
             SDL_Log("-key");
             break;
-        case SDL_MOUSEMOTION: // Déplacement de souris
-            SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+        case SDL_MOUSEMOTION:             SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
             
             break;
-        case SDL_MOUSEBUTTONDOWN: // Click de souris 
-            SDL_Log("+clic");
+        case SDL_MOUSEBUTTONDOWN:             SDL_Log("+clic");
             if (events.motion.x >= 379 && events.motion.x <= 402 && events.motion.y >= 292 && events.motion.y <= 318){Mix_PlayChannel(-1,sound2,0); img = 1;}
             if (events.motion.x >= 379 && events.motion.x <= 402 && events.motion.y >= 337 && events.motion.y <= 361){Mix_PlayChannel(-1,sound2,0); img = 2;}
             if (events.motion.x >= 379 && events.motion.x <= 402 && events.motion.y >= 378 && events.motion.y <= 407){Mix_PlayChannel(-1,sound2,0); img = 3;}
             break;
-        case SDL_MOUSEBUTTONUP: // Click de souris relâché
-            SDL_Log("-clic");
+        case SDL_MOUSEBUTTONUP:             SDL_Log("-clic");
             break;
-        case SDL_MOUSEWHEEL: // Scroll de la molette
-            SDL_Log("wheel");
+        case SDL_MOUSEWHEEL:             SDL_Log("wheel");
             break;
         }
 		}
@@ -444,9 +411,7 @@ void SDLSimple::sdlBoucle () {
             sdlCredit();
 
             while (SDL_PollEvent(&events)) {
-    if (events.type == SDL_QUIT) credit = false; // Si l'utilisateur a cliqué sur la croix de fermeture
-    else if (events.type == SDL_KEYDOWN) { // Si une touche est enfoncée
-        switch (events.key.keysym.scancode) {
+    if (events.type == SDL_QUIT) credit = false;     else if (events.type == SDL_KEYDOWN) {         switch (events.key.keysym.scancode) {
             case SDL_SCANCODE_ESCAPE:
             case SDL_SCANCODE_Q:
                 credit = false;
@@ -478,18 +443,14 @@ void SDLSimple::sdlBoucle () {
         case SDL_KEYUP: 
             SDL_Log("-key");
             break;
-        case SDL_MOUSEMOTION: // Déplacement de souris
-            SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+        case SDL_MOUSEMOTION:             SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
             
             break;
-        case SDL_MOUSEBUTTONDOWN: // Click de souris 
-            SDL_Log("+clic");
+        case SDL_MOUSEBUTTONDOWN:             SDL_Log("+clic");
             break;
-        case SDL_MOUSEBUTTONUP: // Click de souris relâché
-            SDL_Log("-clic");
+        case SDL_MOUSEBUTTONUP:             SDL_Log("-clic");
             break;
-        case SDL_MOUSEWHEEL: // Scroll de la molette
-            SDL_Log("wheel");
+        case SDL_MOUSEWHEEL:             SDL_Log("wheel");
             break;
         }
 		}
@@ -508,24 +469,18 @@ void SDLSimple::sdlBoucle () {
         }
 
         if (nt-t>60) {
-            jeu_sdl.ajouteTempsMortEnnemis((nt-t)/100); //cout<<nt-t<<" nt-t "<<endl;
-            jeu_sdl.enleveEntDetruites();
-            //jeu_sdl.BCAttaque();
-            t = nt;
+            jeu_sdl.ajouteTempsMortEnnemis((nt-t)/100);             jeu_sdl.enleveEntDetruites();
+                        t = nt;
 
             jeu_sdl.deplacerEnnemis();
             jeu_sdl.faireDegatBat();
             
-            // Affichage du timer
-            Time1 = SDL_GetTicks() - Time2;
+                        Time1 = SDL_GetTicks() - Time2;
             T1 = (Time1/1000);
             cout<<T1<<endl;
 
-            // tant qu'il y a des évenements à traiter (cette boucle n'est pas bloquante)
-            while (SDL_PollEvent(&events)) {
-                if (events.type == SDL_QUIT) quit = true;           // Si l'utilisateur a clique sur la croix de fermeture
-                else if (events.type == SDL_KEYDOWN) {              // Si une touche est enfoncee
-                    switch (events.key.keysym.scancode) {
+                        while (SDL_PollEvent(&events)) {
+                if (events.type == SDL_QUIT) quit = true;                           else if (events.type == SDL_KEYDOWN) {                                  switch (events.key.keysym.scancode) {
                         case SDL_SCANCODE_ESCAPE:
                         case SDL_SCANCODE_Q:
                         quit = true;
@@ -554,31 +509,24 @@ void SDLSimple::sdlBoucle () {
             case SDL_KEYUP: 
                 SDL_Log("-key");
                 break;
-            case SDL_MOUSEMOTION: // Déplacement de souris
-                SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
+            case SDL_MOUSEMOTION:                 SDL_Log("Mouvement de souris (%d %d) (%d %d)", events.motion.x, events.motion.y, events.motion.xrel, events.motion.yrel);
                 break;
-            case SDL_MOUSEBUTTONDOWN: // Click de souris 
-                SDL_Log("+clic");
+            case SDL_MOUSEBUTTONDOWN:                 SDL_Log("+clic");
                 jeu_sdl.tabBatDef.push_back(bat);
                 jeu_sdl.tabBatDef.at(jeu_sdl.tabBatDef.size()-1).setPosition(events.motion.x/16,events.motion.y/21.33);
                 break;
-            case SDL_MOUSEBUTTONUP: // Click de souris relâché
-                SDL_Log("-clic");
+            case SDL_MOUSEBUTTONUP:                 SDL_Log("-clic");
                 break;
-            case SDL_MOUSEWHEEL: // Scroll de la molette
-                SDL_Log("wheel");
+            case SDL_MOUSEWHEEL:                 SDL_Log("wheel");
                 break;
             }
             }        
         
-            //Son du jeu
-            Mix_PlayChannel(-1,sound,0);
+                        Mix_PlayChannel(-1,sound,0);
 
-            // on affiche le jeu sur le buffer cach�
-            sdlAff();
+                        sdlAff();
 
-            // on permute les deux buffers (cette fonction ne doit se faire qu'une seule fois dans la boucle)
-            SDL_RenderPresent(renderer);
+                        SDL_RenderPresent(renderer);
         }
     }
 }

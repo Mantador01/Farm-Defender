@@ -12,11 +12,8 @@ Ferme::Ferme(StockageRessources& stockage)
 }
 
 
-// Ferme::Ferme(StockageRessources& stockage, int pointsDeVie, Vect2 posi)
-//     : m_stockage(stockage), m_pointsDeVie(pointsDeVie), pos(posi){}
 
-/*Ferme::Ferme(StockageRessources& stockage)
-    : m_stockage(stockage){}*/
+
 
 void Ferme::production(bool est_vivant)
 {
