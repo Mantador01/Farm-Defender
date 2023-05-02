@@ -220,6 +220,18 @@ SDLSimple::SDLSimple ()  : jeu_sdl() {
                 exit(1);
         }
     }
+
+         if (withSound)
+    {
+        sound3 = Mix_LoadWAV("../data/son3.wav");
+        if (sound3 == nullptr)
+          sound3 = Mix_LoadWAV("data/son3.wav");
+        if (sound3 == nullptr) {
+                cout << "Failed to load son3.wav :( SDL_mixer Error: " << Mix_GetError() << endl; 
+                SDL_Quit();
+                exit(1);
+        }
+    }
 }
 
 
@@ -270,7 +282,7 @@ void SDLSimple::sdlAff () {
         if(inc == 8){im_go9.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);}
         if(inc == 9){im_go10.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);}          
     }else if (jeu_sdl.tabEnnemi.at(i).get_statut() == 0){
-        if(tm <= 10 && tm >0){im_die_1.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);}
+        if(tm <= 10 && tm >0){im_die_1.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE); Mix_PlayChannel(-1,sound3,0); }
         if(tm <= 20 && tm >10){im_die_2.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);}
         if(tm <= 30 && tm >20){im_die_3.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);}
         if(tm <= 40 && tm >30){im_die_4.draw(renderer,jeu_sdl.tabEnnemi.at(i).splitX()*16,jeu_sdl.tabEnnemi.at(i).splitY()*21.33,TAILLE_SPRITE,TAILLE_SPRITE);}
@@ -651,11 +663,13 @@ void SDLSimple::sdlBoucle () {
 
         }
     }
+                //Son du jeu
+            Mix_PlayChannel(-1,sound,0);
 	while (!quit) {
 
         nt = SDL_GetTicks();
         if (nt-init>10000  ) {
-            jeu_sdl.declancherVague(nbVague);
+            if(nbVague>2){jeu_sdl.declancherVague(nbVague-2);}
             nbVague=nbVague+1;
 		    init=nt;
         }
@@ -751,8 +765,7 @@ void SDLSimple::sdlBoucle () {
 
             }      
         
-            //Son du jeu
-            //Mix_PlayChannel(-1,sound,0);
+
 
             // on affiche le jeu sur le buffer cach�
             sdlAff();

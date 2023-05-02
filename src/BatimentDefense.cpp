@@ -18,10 +18,10 @@ BatimentDefense::BatimentDefense(TypeBatiment type){
     m_estDetruit=false;
     switch (type){
         case TypeBatiment::Tourelle:
-            this->augmenterNiveau(100,1,1,1); //(100,1,0.1,1);
+            this->augmenterNiveau(100,1,1,3); //(100,1,0.1,1);
             break;
         case TypeBatiment::Canon:
-            this->augmenterNiveau(100,1,1,1);  //(100,1,0.1,1);
+            this->augmenterNiveau(100,1,1,3);  //(100,1,0.1,1);
             break;
     }
 }

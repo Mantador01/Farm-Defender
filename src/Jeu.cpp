@@ -534,29 +534,30 @@ void Jeu::declancherVague(int num_vague){
             placerEnnemis(pillard,2);
             break;
         case 2:
-            placerEnnemis(pillard,3);
+            placerEnnemis(pillard,7);
             break;
         case 3:
-            placerEnnemis(pillard,2);
-            placerEnnemis( zombi,3);
+            placerEnnemis(pillard,5);
+            placerEnnemis( zombi,6);
             break;
         case 4:
-            placerEnnemis(z_infectieu,2);
-            placerEnnemis( zombi,3);
+            placerEnnemis(z_infectieu,5);
+            placerEnnemis( zombi,8);
             break;
         case 5:
-            placerEnnemis(z_berserker ,2);
+            placerEnnemis(z_berserker ,6);
             placerEnnemis( zombi,4);
             break;
         case 6:
-            placerEnnemis(z_infectieu ,2);
+            placerEnnemis(z_infectieu ,3);
             placerEnnemis( zombi,4);
             placerEnnemis(pillard,1);
             break;
         default:
-            placerEnnemis( zombi,rand()%6);
-            placerEnnemis(pillard,rand()%3);
+            placerEnnemis( zombi,rand()%6+6);
+            placerEnnemis(pillard,rand()%3+4);
             break;
+        placerEnnemis( zombi,num_vague);
     }
     
 
